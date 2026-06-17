@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nicolás Gerardi Rousset</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; background: #fff; }
+
+    /* Scale a fixed 1440×1024 canvas to fit the viewport */
+    .wrap {
+      width: 100vw;
+      overflow: hidden;
+      position: relative;
+    }
+    .canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 1440px;
+      height: 1024px;
+      transform-origin: top left;
+      background: #fff;
+    }
+
+    /* ── HEADER ─────────────────────────────── */
+    .header {
+      position: absolute;
+      left: 0; top: 0;
+      width: 1440px;
+      height: 93px;
+      background: #fff;
+      border-bottom: 3px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .header-nav {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-variation-settings: "opsz" 14, "wdth" 100;
+      font-weight: 700;
+      font-size: 52px;
+      color: #5b5b5b;
+      letter-spacing: -1.04px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    /* ── HERO TEXT ───────────────────────────── */
+    /*
+      Grid: 21 cols × 11 rows, gap 10px, padding 15px h / 11px v
+      Col width  = (1440 - 30 - 200) / 21 = 57.619px
+      Row height = (1024 - 22 - 100) / 11 = 82px
+      Hero text = absolute, left 15px, top 103px (header 93px + grid 10px padding offset)
+    */
+    .hero-text {
+      position: absolute;
+      left: 15px;
+      top: 93px;
+      width: 1417px;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-variation-settings: "opsz" 14, "wdth" 100;
+      font-weight: 400;
+      font-size: 103px;
+      line-height: 116px;
+      letter-spacing: -4.12px;
+      text-transform: uppercase;
+      color: #5b5b5b;
+    }
+    .hero-text p {
+      text-indent: 73px;
+      white-space: pre-wrap;
+      margin: 0;
+    }
+    .italic {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      text-transform: none;
+      letter-spacing: 0;
+      font-variation-settings: normal;
+    }
+    .extrabold {
+      font-weight: 800;
+      font-variation-settings: "opsz" 14, "wdth" 100;
+    }
+
+    /* ── IMAGES ──────────────────────────────── */
+    /*
+      inamencia: col 1/span 4, row 6/span 2
+        left = 15px
+        top  = 11 + 5×(82+10) = 471px
+        w    = 4×57.619 + 3×10 = 260px
+        h    = 2×82 + 10       = 174px
+    */
+    .inamencia {
+      position: absolute;
+      left: 15px;
+      top: 471px;
+      width: 260px;
+      height: 174px;
+      overflow: hidden;
+    }
+    .inamencia img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /*
+      caribe: col 5/span 2, row 8/span 2, w=261px (fixed)
+        left = 15 + 4×(57.619+10) = 285px
+        top  = 11 + 7×(82+10)     = 655px
+        h    = 174px
+    */
+    .caribe {
+      position: absolute;
+      left: 285px;
+      top: 655px;
+      width: 261px;
+      height: 174px;
+      overflow: hidden;
+    }
+    .caribe img {
+      position: absolute;
+      width: 119.98%;
+      height: 215.48%;
+      left: -10.22%;
+      top: -50.88%;
+      max-width: none;
+    }
+
+    /*
+      razon: col 8/span 2, row 2, self-end, aspect 126/68
+        left  = 15 + 7×(57.619+10) = 488px
+        w     = 2×57.619 + 10      = 125px
+        h     = 125 × 68/126       = 67px
+        top   = row-2 bottom − h = (11 + 2×82 + 10) − 67 = 118px
+    */
+    .razon {
+      position: absolute;
+      left: 488px;
+      top: 118px;
+      width: 125px;
+      height: 67px;
+      overflow: hidden;
+    }
+    .razon img {
+      position: absolute;
+      width: 70.98%;
+      height: 124.95%;
+      left: 14.34%;
+      top: -12.13%;
+      max-width: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="canvas">
+
+      <!-- Header -->
+      <div class="header">
+        <span class="header-nav">tecnopoemas / bio / cv / escrituras / libros de artista </span>
+      </div>
+
+      <!-- Hero text -->
+      <div class="hero-text">
+        <p>— ¡Hola!       Soy <span class="italic">Nicolás</span> <span class="italic">Gerardi Rousset.</span> Investigo la relación entre<span class="italic">:</span></p>
+        <p>          escritura creativa,</p>
+        <p>          tecnología y diseño En el              <span class="extrabold">Caribe</span>.</p>
+      </div>
+
+      <!-- Images (GIF) -->
+      <div class="inamencia">
+        <img src="inamencia.gif" alt="inamencia" />
+      </div>
+
+      <div class="caribe">
+        <img src="caribe.gif" alt="Caribe" />
+      </div>
+
+      <div class="razon">
+        <img src="razoneshumanitarias_final.gif" alt="razoneshumanitarias" />
+      </div>
+
+    </div>
+  </div>
+  <script>
+    function scaleCanvas() {
+      var scale = window.innerWidth / 1440;
+      var canvas = document.querySelector('.canvas');
+      canvas.style.transform = 'scale(' + scale + ')';
+      document.querySelector('.wrap').style.height = (1024 * scale) + 'px';
+    }
+    scaleCanvas();
+    window.addEventListener('resize', scaleCanvas);
+  </script>
+</body>
+</html>
