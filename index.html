@@ -23,23 +23,56 @@
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflow-x:hidden;}
 
-/* ── HERO (Figma) ── */
+/* ── SITE NAV (sticky, outside hero canvas) ── */
+.site-nav{
+  position:sticky;top:0;z-index:100;
+  background:#fff;border-bottom:3px solid #000;
+  display:flex;align-items:center;justify-content:center;
+  height:56px;
+}
+.site-nav-inner{
+  font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
+  font-weight:700;font-size:clamp(11px,1.9vw,28px);
+  color:#5b5b5b;letter-spacing:-0.5px;
+  text-transform:uppercase;white-space:nowrap;line-height:1;
+}
+.site-nav-inner a{color:inherit;text-decoration:none;transition:color 0.2s;}
+.site-nav-inner a:hover{color:#000;}
+
+/* ── HERO (Figma grid) ── */
 #hero{width:100vw;position:relative;overflow:hidden;background:#fff;}
 .hero-canvas{position:absolute;top:0;left:0;width:1440px;height:1024px;transform-origin:top left;background:#fff;}
-.figma-header{position:absolute;left:0;top:0;width:1440px;height:93px;background:#fff;border-bottom:3px solid #000;display:flex;align-items:center;justify-content:center;}
-.figma-header-nav{font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;font-weight:700;font-size:52px;color:#5b5b5b;letter-spacing:-1.04px;text-transform:uppercase;white-space:nowrap;line-height:1;}
-.figma-header-nav a{color:inherit;text-decoration:none;transition:color 0.2s;}
-.figma-header-nav a:hover{color:#000;}
-.figma-hero-text{position:absolute;left:15px;top:93px;width:1417px;font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;font-weight:400;font-size:103px;line-height:116px;letter-spacing:-4.12px;text-transform:uppercase;color:#5b5b5b;}
-.figma-hero-text p{text-indent:73px;white-space:pre-wrap;margin:0;}
-.figma-italic{font-family:var(--garamond);font-style:italic;text-transform:none;letter-spacing:0;font-variation-settings:normal;}
-.figma-bold{font-weight:800;font-variation-settings:"opsz" 14,"wdth" 100;}
-.figma-inamencia{position:absolute;left:15px;top:471px;width:260px;height:174px;overflow:hidden;}
-.figma-inamencia img{width:100%;height:100%;object-fit:cover;display:block;}
-.figma-caribe{position:absolute;left:285px;top:655px;width:261px;height:174px;overflow:hidden;}
-.figma-caribe img{position:absolute;width:119.98%;height:215.48%;left:-10.22%;top:-50.88%;max-width:none;}
-.figma-razon{position:absolute;left:488px;top:118px;width:125px;height:67px;overflow:hidden;}
-.figma-razon img{position:absolute;width:70.98%;height:124.95%;left:14.34%;top:-12.13%;max-width:none;}
+
+/* main text */
+.hero-big-text{
+  position:absolute;left:48px;top:48px;width:1344px;
+  font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
+  font-weight:400;font-size:114px;line-height:137px;
+  letter-spacing:-5.7px;text-transform:uppercase;color:#5b5b5b;
+  text-align:justify;text-indent:73px;margin:0;
+}
+.hero-big-text .gm-italic{font-family:var(--garamond);font-style:italic;text-transform:none;letter-spacing:0;font-variation-settings:normal;}
+.hero-big-text .br-bold{font-weight:800;font-variation-settings:"opsz" 14,"wdth" 100;}
+
+/* pill images */
+.hero-pill{position:absolute;border-radius:60px;overflow:hidden;}
+.hero-pill img{position:absolute;max-width:none;}
+
+/* inmanente: 371×79, pill sits at col-6/row-3 bottom */
+.pill-inmanente{left:615px;top:356px;width:371px;height:79px;}
+.pill-inmanente img{width:455px;height:384px;left:-42px;top:-160px;}
+
+/* razon: 549×78, col-7/row-4 bottom, black border */
+.pill-razon{left:729px;top:493px;width:549px;height:78px;border:1px solid #000;}
+.pill-razon img{width:100%;height:auto;top:-20px;left:0;}
+
+/* pulso: 209×75, col-5/row-6 bottom, black border */
+.pill-pulso{left:502px;top:766px;width:209px;height:75px;border:1px solid #000;}
+.pill-pulso img{width:304px;height:380px;left:-29px;top:-151px;}
+
+/* caribe: 322×75, col-9/row-6 bottom, black border */
+.pill-caribe{left:956px;top:766px;width:322px;height:75px;border:1px solid #000;}
+.pill-caribe img{width:393px;height:491px;left:-18px;top:-192px;}
 
 /* ── SHARED ── */
 .section-label{
@@ -469,9 +502,9 @@ footer{
 @media(max-width:700px){
 /* hero: scale to fill viewport width, allow vertical scroll to see full frame */
 #hero{width:100vw;overflow-x:hidden;}
-.figma-header-nav{font-size:28px;letter-spacing:-.5px;gap:8px;}
-.figma-header-nav a{display:none;}
-.figma-header-nav a:first-child{display:inline;}
+.site-nav{height:44px;}
+.site-nav-inner a:not(:first-child){display:none;}
+.site-nav-inner{font-size:13px;}
 
 /* tecnopoemas */
 #tecnopoemas{padding-top:64px;}
@@ -550,26 +583,25 @@ footer{
 </head>
 <body>
 
-<!-- ── HERO ── -->
-<div id="hero">
-<div class="hero-canvas">
-<div class="figma-header">
-<span class="figma-header-nav">
+<!-- ── SITE NAV ── -->
+<nav class="site-nav">
+<span class="site-nav-inner">
 <a href="#tecnopoemas">tecnopoemas</a> /
 <a href="#bio">bio</a> /
 <a href="#cv">cv</a> /
 <a href="#escrituras">escrituras</a> /
 <a href="#libros">libros de artista</a>
 </span>
-</div>
-<div class="figma-hero-text">
-<p>— ¡Hola!       Soy <span class="figma-italic">Nicolás</span> <span class="figma-italic">Gerardi Rousset.</span> Investigo la relación entre<span class="figma-italic">:</span></p>
-<p>          escritura creativa,</p>
-<p>          tecnología y diseño En el              <span class="figma-bold">Caribe</span>.</p>
-</div>
-<div class="figma-inamencia"><img src="inamencia.gif" alt="inamencia" /></div>
-<div class="figma-caribe"><img src="caribe.gif" alt="Caribe" /></div>
-<div class="figma-razon"><img src="razoneshumanitarias_final.gif" alt="razoneshumanitarias" /></div>
+</nav>
+
+<!-- ── HERO ── -->
+<div id="hero">
+<div class="hero-canvas">
+<p class="hero-big-text"> — ¡Hola! Soy <span class="gm-italic">Nicolás Gerardi Rousset.</span> Investigo la relación entre: escritura creativa,tecnología y diseño En el&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="br-bold">Caribe</span>.</p>
+<div class="hero-pill pill-inmanente"><img src="inmanente.gif" alt="inmanente" /></div>
+<div class="hero-pill pill-razon"><img src="razoneshumanitarias_final.gif" alt="razoneshumanitarias" /></div>
+<div class="hero-pill pill-pulso"><img src="pulso.gif" alt="pulso" /></div>
+<div class="hero-pill pill-caribe"><img src="caribe.gif" alt="Caribe" /></div>
 </div>
 </div>
 
