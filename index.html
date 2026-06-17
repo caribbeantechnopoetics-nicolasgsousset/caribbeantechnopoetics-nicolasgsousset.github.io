@@ -506,9 +506,43 @@ footer{
 .sketches-header,footer{padding-left:40px;padding-right:40px;}
 }
 
+/* ── HERO MOBILE ── */
+.hero-mobile{display:none;}
+
+@media(max-width:700px){
+.hero-canvas{display:none;}
+.hero-mobile{
+  display:block;
+  padding:28px 20px 40px;
+  background:#fff;
+  border-bottom:3px solid #000;
+}
+.hm-line{
+  font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
+  font-weight:400;font-size:clamp(36px,11vw,56px);line-height:1.1;
+  letter-spacing:-2px;text-transform:uppercase;color:#5b5b5b;
+  display:flex;align-items:center;flex-wrap:wrap;gap:8px;
+  margin-bottom:4px;
+}
+.hm-line .gm-italic{
+  font-family:var(--garamond);font-style:italic;
+  text-transform:none;letter-spacing:0;font-variation-settings:normal;
+  font-size:clamp(32px,10vw,50px);
+}
+.hm-pill{
+  border-radius:30px;overflow:hidden;flex-shrink:0;
+  display:inline-flex;align-self:center;
+}
+.hm-pill img{display:block;width:100%;height:100%;object-fit:cover;}
+.hm-pill-inmanente{width:120px;height:26px;}
+.hm-pill-razon{width:160px;height:25px;border:1px solid #000;}
+.hm-pill-pulso{width:70px;height:24px;border:1px solid #000;}
+.hm-pill-caribe{width:100px;height:24px;border:1px solid #000;}
+.hm-bold{font-weight:800;}
+}
+
 /* mobile */
 @media(max-width:700px){
-/* hero: scale to fill viewport width, allow vertical scroll to see full frame */
 #hero{width:100vw;overflow-x:hidden;}
 .site-nav{height:44px;}
 .site-nav-inner a:not(:first-child){display:none;}
@@ -604,6 +638,18 @@ footer{
 
 <!-- ── HERO ── -->
 <div id="hero">
+
+<!-- mobile layout -->
+<div class="hero-mobile">
+  <div class="hm-line"> — ¡Hola! Soy <span class="gm-italic">Nicolás</span></div>
+  <div class="hm-line"><span class="gm-italic">Gerardi Rousset.</span> Investigo la</div>
+  <div class="hm-line">relación <div class="hm-pill hm-pill-inmanente"><img src="inmanente.gif" alt=""></div> entre:</div>
+  <div class="hm-line">escritura <div class="hm-pill hm-pill-razon"><img src="razoneshumanitarias_final.gif" alt=""></div></div>
+  <div class="hm-line">creativa, tecnología y</div>
+  <div class="hm-line">diseño <div class="hm-pill hm-pill-pulso"><img src="pulso.gif" alt=""></div> en <div class="hm-pill hm-pill-caribe"><img src="caribe.gif" alt=""></div> el</div>
+  <div class="hm-line hm-bold">Caribe.</div>
+</div>
+
 <div class="hero-canvas">
 <!-- L1: — ¡Hola! Soy | Nicolás -->
 <div class="hl hl-1"><span> — ¡Hola! Soy</span><span class="gm-italic">Nicolás</span></div>
