@@ -1,204 +1,992 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nicolás Gerardi Rousset</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { width: 100%; background: #fff; }
-
-    /* Scale a fixed 1440×1024 canvas to fit the viewport */
-    .wrap {
-      width: 100vw;
-      overflow: hidden;
-      position: relative;
-    }
-    .canvas {
-      position: absolute;
-      top: 0; left: 0;
-      width: 1440px;
-      height: 1024px;
-      transform-origin: top left;
-      background: #fff;
-    }
-
-    /* ── HEADER ─────────────────────────────── */
-    .header {
-      position: absolute;
-      left: 0; top: 0;
-      width: 1440px;
-      height: 93px;
-      background: #fff;
-      border-bottom: 3px solid #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .header-nav {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-variation-settings: "opsz" 14, "wdth" 100;
-      font-weight: 700;
-      font-size: 52px;
-      color: #5b5b5b;
-      letter-spacing: -1.04px;
-      text-transform: uppercase;
-      white-space: nowrap;
-      line-height: 1;
-    }
-
-    /* ── HERO TEXT ───────────────────────────── */
-    /*
-      Grid: 21 cols × 11 rows, gap 10px, padding 15px h / 11px v
-      Col width  = (1440 - 30 - 200) / 21 = 57.619px
-      Row height = (1024 - 22 - 100) / 11 = 82px
-      Hero text = absolute, left 15px, top 103px (header 93px + grid 10px padding offset)
-    */
-    .hero-text {
-      position: absolute;
-      left: 15px;
-      top: 93px;
-      width: 1417px;
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-variation-settings: "opsz" 14, "wdth" 100;
-      font-weight: 400;
-      font-size: 103px;
-      line-height: 116px;
-      letter-spacing: -4.12px;
-      text-transform: uppercase;
-      color: #5b5b5b;
-    }
-    .hero-text p {
-      text-indent: 73px;
-      white-space: pre-wrap;
-      margin: 0;
-    }
-    .italic {
-      font-family: 'EB Garamond', serif;
-      font-style: italic;
-      text-transform: none;
-      letter-spacing: 0;
-      font-variation-settings: normal;
-    }
-    .extrabold {
-      font-weight: 800;
-      font-variation-settings: "opsz" 14, "wdth" 100;
-    }
-
-    /* ── IMAGES ──────────────────────────────── */
-    /*
-      inamencia: col 1/span 4, row 6/span 2
-        left = 15px
-        top  = 11 + 5×(82+10) = 471px
-        w    = 4×57.619 + 3×10 = 260px
-        h    = 2×82 + 10       = 174px
-    */
-    .inamencia {
-      position: absolute;
-      left: 15px;
-      top: 471px;
-      width: 260px;
-      height: 174px;
-      overflow: hidden;
-    }
-    .inamencia img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    /*
-      caribe: col 5/span 2, row 8/span 2, w=261px (fixed)
-        left = 15 + 4×(57.619+10) = 285px
-        top  = 11 + 7×(82+10)     = 655px
-        h    = 174px
-    */
-    .caribe {
-      position: absolute;
-      left: 285px;
-      top: 655px;
-      width: 261px;
-      height: 174px;
-      overflow: hidden;
-    }
-    .caribe img {
-      position: absolute;
-      width: 119.98%;
-      height: 215.48%;
-      left: -10.22%;
-      top: -50.88%;
-      max-width: none;
-    }
-
-    /*
-      razon: col 8/span 2, row 2, self-end, aspect 126/68
-        left  = 15 + 7×(57.619+10) = 488px
-        w     = 2×57.619 + 10      = 125px
-        h     = 125 × 68/126       = 67px
-        top   = row-2 bottom − h = (11 + 2×82 + 10) − 67 = 118px
-    */
-    .razon {
-      position: absolute;
-      left: 488px;
-      top: 118px;
-      width: 125px;
-      height: 67px;
-      overflow: hidden;
-    }
-    .razon img {
-      position: absolute;
-      width: 70.98%;
-      height: 124.95%;
-      left: 14.34%;
-      top: -12.13%;
-      max-width: none;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nicolás Gerardi Rousset</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=EB+Garamond:ital,wght@0,400;1,400&family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+--bg:#080808;
+--surface:#111;
+--border:#1e1e1e;
+--accent:#e8ff00;
+--accent2:#ff2d55;
+--text:#f0f0f0;
+--muted:#555;
+--font-display:'Space Grotesk',sans-serif;
+--font-mono:'Space Mono',monospace;
+}
+html{scroll-behavior:smooth;}
+body{
+background:var(--bg);
+color:var(--text);
+font-family:var(--font-display);
+overflow-x:hidden;
+}
+/* ── NAV ── */
+nav{
+position:fixed;
+top:0;left:0;right:0;
+z-index:100;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 40px;
+height:60px;
+mix-blend-mode:difference;
+}
+.nav-logo{
+font-size:15px;
+font-weight:700;
+letter-spacing:3px;
+text-transform:uppercase;
+color:#fff;
+}
+.nav-links{
+display:flex;
+gap:32px;
+list-style:none;
+}
+.nav-links a{
+color:#fff;
+text-decoration:none;
+font-size:12px;
+letter-spacing:2px;
+text-transform:uppercase;
+opacity:0.6;
+transition:opacity 0.2s;
+}
+.nav-links a:hover{opacity:1;}
+/* ── HERO (Figma landing page) ── */
+#hero{
+width:100vw;
+position:relative;
+overflow:hidden;
+background:#fff;
+}
+.hero-canvas{
+position:absolute;
+top:0;left:0;
+width:1440px;
+height:1024px;
+transform-origin:top left;
+background:#fff;
+}
+.figma-header{
+position:absolute;
+left:0;top:0;
+width:1440px;height:93px;
+background:#fff;
+border-bottom:3px solid #000;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+.figma-header-nav{
+font-family:'Bricolage Grotesque',sans-serif;
+font-variation-settings:"opsz" 14,"wdth" 100;
+font-weight:700;
+font-size:52px;
+color:#5b5b5b;
+letter-spacing:-1.04px;
+text-transform:uppercase;
+white-space:nowrap;
+line-height:1;
+}
+.figma-header-nav a{color:inherit;text-decoration:none;}
+.figma-header-nav a:hover{color:#000;}
+.figma-hero-text{
+position:absolute;
+left:15px;top:93px;
+width:1417px;
+font-family:'Bricolage Grotesque',sans-serif;
+font-variation-settings:"opsz" 14,"wdth" 100;
+font-weight:400;
+font-size:103px;
+line-height:116px;
+letter-spacing:-4.12px;
+text-transform:uppercase;
+color:#5b5b5b;
+}
+.figma-hero-text p{text-indent:73px;white-space:pre-wrap;margin:0;}
+.figma-italic{
+font-family:'EB Garamond',serif;
+font-style:italic;
+text-transform:none;
+letter-spacing:0;
+font-variation-settings:normal;
+}
+.figma-bold{font-weight:800;font-variation-settings:"opsz" 14,"wdth" 100;}
+.figma-inamencia{position:absolute;left:15px;top:471px;width:260px;height:174px;overflow:hidden;}
+.figma-inamencia img{width:100%;height:100%;object-fit:cover;display:block;}
+.figma-caribe{position:absolute;left:285px;top:655px;width:261px;height:174px;overflow:hidden;}
+.figma-caribe img{position:absolute;width:119.98%;height:215.48%;left:-10.22%;top:-50.88%;max-width:none;}
+.figma-razon{position:absolute;left:488px;top:118px;width:125px;height:67px;overflow:hidden;}
+.figma-razon img{position:absolute;width:70.98%;height:124.95%;left:14.34%;top:-12.13%;max-width:none;}
+/* ── SECTION LABEL ── */
+.section-label{
+font-family:var(--font-mono);
+font-size:10px;
+letter-spacing:4px;
+text-transform:uppercase;
+color:var(--muted);
+margin-bottom:8px;
+}
+/* ── SKETCHES SECTION ── */
+#tecnopoemas{
+padding:120px 0 0;
+}
+.sketches-header{
+padding:0 60px 60px;
+display:flex;
+align-items:flex-end;
+justify-content:space-between;
+border-bottom:1px solid var(--border);
+}
+.sketches-title{
+font-size:clamp(36px,5vw,64px);
+font-weight:700;
+letter-spacing:-2px;
+line-height:1;
+}
+.sketches-count{
+font-family:var(--font-mono);
+font-size:48px;
+font-weight:300;
+color:var(--muted);
+letter-spacing:-2px;
+}
+/* Each sketch is full viewport */
+.sketch-block{
+height:100vh;
+display:grid;
+grid-template-columns:1fr 380px;
+border-bottom:1px solid var(--border);
+position:relative;
+}
+.sketch-canvas-area{
+position:relative;
+overflow:hidden;
+background:#000;
+cursor:pointer;
+}
+.sketch-canvas-area iframe{
+width:100%;height:100%;
+border:none;
+pointer-events:none;
+transition:opacity 0.4s;
+opacity:0.7;
+}
+.sketch-canvas-area:hover iframe{opacity:1;}
+.sketch-activate{
+position:absolute;
+inset:0;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:3;
+transition:opacity 0.3s;
+}
+.sketch-activate-btn{
+background:var(--accent);
+color:#000;
+font-family:var(--font-mono);
+font-size:12px;
+letter-spacing:2px;
+text-transform:uppercase;
+padding:14px 28px;
+border:none;
+cursor:pointer;
+font-weight:700;
+transition:transform 0.2s, background 0.2s;
+}
+.sketch-activate-btn:hover{transform:scale(1.04);background:#fff;}
+.sketch-block.active .sketch-activate{opacity:0;pointer-events:none;}
+.sketch-block.active .sketch-canvas-area iframe{pointer-events:all;opacity:1;}
+.sketch-info{
+padding:60px 48px;
+border-left:1px solid var(--border);
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+background:var(--surface);
+}
+.sketch-number{
+font-family:var(--font-mono);
+font-size:72px;
+font-weight:300;
+color:var(--border);
+letter-spacing:-3px;
+line-height:1;
+}
+.sketch-meta{
+flex:1;
+padding:40px 0;
+}
+.sketch-name{
+font-size:28px;
+font-weight:700;
+letter-spacing:-1px;
+line-height:1.1;
+margin-bottom:16px;
+}
+.sketch-desc{
+font-size:14px;
+line-height:1.7;
+color:rgba(255,255,255,0.5);
+font-weight:300;
+margin-bottom:24px;
+}
+.sketch-tags{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+}
+.tag{
+font-family:var(--font-mono);
+font-size:10px;
+letter-spacing:1px;
+text-transform:uppercase;
+padding:5px 10px;
+border:1px solid var(--border);
+color:var(--muted);
+}
+.sketch-controls{
+font-family:var(--font-mono);
+font-size:11px;
+color:var(--muted);
+line-height:1.8;
+border-top:1px solid var(--border);
+padding-top:24px;
+}
+.sketch-controls span{color:var(--accent);}
+/* ── ABOUT ── */
+#bio{
+padding:160px 60px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:80px;
+border-bottom:1px solid var(--border);
+}
+.about-title{
+font-size:clamp(36px,5vw,72px);
+font-weight:700;
+letter-spacing:-2px;
+line-height:0.95;
+margin-bottom:40px;
+}
+.about-title em{
+font-style:normal;
+color:var(--accent);
+display:block;
+}
+.about-body{
+font-size:16px;
+line-height:1.8;
+color:rgba(255,255,255,0.55);
+font-weight:300;
+max-width:480px;
+}
+.about-body p+p{margin-top:20px;}
+.about-right{
+display:flex;
+flex-direction:column;
+justify-content:flex-end;
+}
+.skills-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:1px;
+background:var(--border);
+border:1px solid var(--border);
+margin-bottom:48px;
+}
+.skill-cell{
+background:var(--surface);
+padding:24px 20px;
+}
+.skill-label{
+font-family:var(--font-mono);
+font-size:10px;
+letter-spacing:2px;
+text-transform:uppercase;
+color:var(--muted);
+margin-bottom:8px;
+}
+.skill-value{
+font-size:14px;
+font-weight:500;
+line-height:1.5;
+}
+.about-cta{
+display:inline-block;
+padding:16px 32px;
+background:var(--accent);
+color:#000;
+font-family:var(--font-mono);
+font-size:12px;
+letter-spacing:2px;
+text-transform:uppercase;
+font-weight:700;
+text-decoration:none;
+transition:background 0.2s, transform 0.2s;
+align-self:flex-start;
+}
+.about-cta:hover{background:#fff;transform:translateX(4px);}
+/* ── CV ── */
+#cv{
+padding:120px 60px;
+border-bottom:1px solid var(--border);
+}
+.cv-header{
+display:flex;
+align-items:flex-end;
+justify-content:space-between;
+margin-bottom:64px;
+}
+.cv-title{
+font-size:clamp(36px,4vw,56px);
+font-weight:700;
+letter-spacing:-2px;
+}
+.cv-download{
+font-family:var(--font-mono);
+font-size:11px;
+letter-spacing:2px;
+text-transform:uppercase;
+color:var(--accent);
+text-decoration:none;
+border-bottom:1px solid var(--accent);
+padding-bottom:2px;
+transition:opacity 0.2s;
+}
+.cv-download:hover{opacity:0.6;}
+.cv-grid{
+display:grid;
+grid-template-columns:200px 1fr;
+gap:0;
+}
+.cv-entry{
+display:contents;
+}
+.cv-year{
+font-family:var(--font-mono);
+font-size:12px;
+color:var(--muted);
+padding:28px 0;
+border-top:1px solid var(--border);
+letter-spacing:1px;
+}
+.cv-detail{
+padding:28px 0 28px 40px;
+border-top:1px solid var(--border);
+}
+.cv-role{
+font-size:17px;
+font-weight:700;
+margin-bottom:4px;
+letter-spacing:-0.3px;
+}
+.cv-org{
+font-size:13px;
+color:var(--accent);
+font-family:var(--font-mono);
+margin-bottom:10px;
+}
+.cv-note{
+font-size:13px;
+color:rgba(255,255,255,0.4);
+line-height:1.6;
+font-weight:300;
+}
+/* ── ESCRITURAS ── */
+#escrituras{
+padding:120px 60px;
+border-bottom:1px solid var(--border);
+}
+.escrituras-header{
+display:flex;
+align-items:flex-end;
+justify-content:space-between;
+margin-bottom:64px;
+}
+.escrituras-title{
+font-size:clamp(36px,5vw,64px);
+font-weight:700;
+letter-spacing:-2px;
+line-height:1;
+}
+.escrituras-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:1px;
+background:var(--border);
+border:1px solid var(--border);
+}
+.escritura-card{
+background:var(--surface);
+padding:40px 32px;
+display:flex;
+flex-direction:column;
+gap:16px;
+}
+.escritura-year{
+font-family:var(--font-mono);
+font-size:10px;
+letter-spacing:3px;
+color:var(--muted);
+}
+.escritura-title{
+font-size:20px;
+font-weight:700;
+letter-spacing:-0.5px;
+line-height:1.2;
+}
+.escritura-pub{
+font-size:13px;
+color:var(--accent);
+font-family:var(--font-mono);
+}
+.escritura-desc{
+font-size:13px;
+color:rgba(255,255,255,0.4);
+line-height:1.6;
+font-weight:300;
+flex:1;
+}
+.escritura-link{
+font-family:var(--font-mono);
+font-size:11px;
+letter-spacing:2px;
+text-transform:uppercase;
+color:var(--text);
+text-decoration:none;
+border-bottom:1px solid var(--border);
+padding-bottom:2px;
+align-self:flex-start;
+transition:border-color 0.2s;
+}
+.escritura-link:hover{border-color:var(--text);}
+/* ── LIBROS ── */
+#libros{
+padding:120px 60px;
+border-bottom:1px solid var(--border);
+}
+.libros-title{
+font-size:clamp(36px,5vw,64px);
+font-weight:700;
+letter-spacing:-2px;
+line-height:1;
+margin-bottom:64px;
+}
+.libros-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:1px;
+background:var(--border);
+border:1px solid var(--border);
+}
+.libro-card{
+background:var(--surface);
+padding:56px 48px;
+display:flex;
+flex-direction:column;
+gap:16px;
+}
+.libro-num{
+font-family:var(--font-mono);
+font-size:48px;
+font-weight:300;
+color:var(--border);
+letter-spacing:-2px;
+line-height:1;
+}
+.libro-name{
+font-size:28px;
+font-weight:700;
+letter-spacing:-1px;
+line-height:1.1;
+}
+.libro-year{
+font-family:var(--font-mono);
+font-size:11px;
+letter-spacing:3px;
+color:var(--accent);
+}
+.libro-desc{
+font-size:14px;
+color:rgba(255,255,255,0.45);
+line-height:1.7;
+font-weight:300;
+}
+/* ── CONTACT ── */
+#contact{
+padding:160px 60px;
+display:flex;
+flex-direction:column;
+align-items:center;
+text-align:center;
+position:relative;
+overflow:hidden;
+}
+.contact-bg{
+position:absolute;
+inset:0;
+font-size:280px;
+font-weight:700;
+color:var(--border);
+letter-spacing:-10px;
+display:flex;
+align-items:center;
+justify-content:center;
+pointer-events:none;
+overflow:hidden;
+opacity:0.5;
+line-height:1;
+}
+.contact-title{
+font-size:clamp(42px,7vw,96px);
+font-weight:700;
+letter-spacing:-3px;
+line-height:0.95;
+position:relative;
+z-index:1;
+margin-bottom:24px;
+}
+.contact-title em{
+font-style:normal;
+color:var(--accent);
+}
+.contact-sub{
+font-size:15px;
+color:rgba(255,255,255,0.4);
+font-weight:300;
+margin-bottom:56px;
+position:relative;z-index:1;
+}
+.contact-links{
+display:flex;
+gap:16px;
+position:relative;z-index:1;
+flex-wrap:wrap;
+justify-content:center;
+}
+.contact-link{
+padding:16px 36px;
+font-family:var(--font-mono);
+font-size:12px;
+letter-spacing:2px;
+text-transform:uppercase;
+text-decoration:none;
+font-weight:700;
+transition:all 0.2s;
+}
+.contact-link.primary{
+background:var(--accent);
+color:#000;
+}
+.contact-link.primary:hover{background:#fff;}
+.contact-link.secondary{
+border:1px solid var(--border);
+color:var(--text);
+}
+.contact-link.secondary:hover{border-color:var(--text);}
+/* ── FOOTER ── */
+footer{
+padding:32px 60px;
+border-top:1px solid var(--border);
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-family:var(--font-mono);
+font-size:11px;
+color:var(--muted);
+letter-spacing:1px;
+}
+@media(max-width:900px){
+.sketch-block{grid-template-columns:1fr;height:auto;}
+.sketch-canvas-area{height:60vw;}
+.sketch-info{padding:40px 32px;}
+#bio{grid-template-columns:1fr;padding:80px 32px;}
+#cv,#escrituras,#libros,#contact{padding:80px 32px;}
+nav,#hero,.sketches-header,footer{padding-left:32px;padding-right:32px;}
+.hero-scroll{display:none;}
+.escrituras-grid{grid-template-columns:1fr;}
+.libros-grid{grid-template-columns:1fr;}
+}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="canvas">
 
-      <!-- Header -->
-      <div class="header">
-        <span class="header-nav">tecnopoemas / bio / cv / escrituras / libros de artista </span>
-      </div>
+<div id="hero">
+<div class="hero-canvas">
+<div class="figma-header">
+<span class="figma-header-nav">
+<a href="#tecnopoemas">tecnopoemas</a> /
+<a href="#bio">bio</a> /
+<a href="#cv">cv</a> /
+<a href="#escrituras">escrituras</a> /
+<a href="#libros">libros de artista</a>
+</span>
+</div>
+<div class="figma-hero-text">
+<p>— ¡Hola!       Soy <span class="figma-italic">Nicolás</span> <span class="figma-italic">Gerardi Rousset.</span> Investigo la relación entre<span class="figma-italic">:</span></p>
+<p>          escritura creativa,</p>
+<p>          tecnología y diseño En el              <span class="figma-bold">Caribe</span>.</p>
+</div>
+<div class="figma-inamencia"><img src="inamencia.gif" alt="inamencia" /></div>
+<div class="figma-caribe"><img src="caribe.gif" alt="Caribe" /></div>
+<div class="figma-razon"><img src="razoneshumanitarias_final.gif" alt="razoneshumanitarias" /></div>
+</div>
+</div>
 
-      <!-- Hero text -->
-      <div class="hero-text">
-        <p>— ¡Hola!       Soy <span class="italic">Nicolás</span> <span class="italic">Gerardi Rousset.</span> Investigo la relación entre<span class="italic">:</span></p>
-        <p>          escritura creativa,</p>
-        <p>          tecnología y diseño En el              <span class="extrabold">Caribe</span>.</p>
-      </div>
+<section id="tecnopoemas">
+<div class="sketches-header">
+<div>
+<p class="section-label">Poesía computacional</p>
+<h2 class="sketches-title">Tecno<br>poemas</h2>
+</div>
+<div class="sketches-count">03</div>
+</div>
 
-      <!-- Images (GIF) -->
-      <div class="inamencia">
-        <img src="inamencia.gif" alt="inamencia" />
-      </div>
+<div class="sketch-block" id="block-0">
+<div class="sketch-canvas-area">
+<iframe sandbox="allow-scripts" data-sketch="caribe_noise"></iframe>
+<div class="sketch-activate">
+<button class="sketch-activate-btn" onclick="activateSketch(0)">Interactuar</button>
+</div>
+</div>
+<div class="sketch-info">
+<div class="sketch-number">01</div>
+<div class="sketch-meta">
+<h3 class="sketch-name">Campo Caribeño</h3>
+<p class="sketch-desc">Partículas navegando un campo de ruido Perlin. Un paisaje en constante evolución — la geografía como algoritmo, el territorio como flujo.</p>
+<div class="sketch-tags">
+<span class="tag">Perlin Noise</span>
+<span class="tag">Generativo</span>
+<span class="tag">p5.js</span>
+</div>
+</div>
+<div class="sketch-controls">
+<span>CLICK</span> — reiniciar campo
+</div>
+</div>
+</div>
 
-      <div class="caribe">
-        <img src="caribe.gif" alt="Caribe" />
-      </div>
+<div class="sketch-block" id="block-1">
+<div class="sketch-canvas-area">
+<iframe sandbox="allow-scripts" data-sketch="texto_vivo"></iframe>
+<div class="sketch-activate">
+<button class="sketch-activate-btn" onclick="activateSketch(1)">Interactuar</button>
+</div>
+</div>
+<div class="sketch-info">
+<div class="sketch-number">02</div>
+<div class="sketch-meta">
+<h3 class="sketch-name">Texto Vivo</h3>
+<p class="sketch-desc">Palabras que orbitan el cursor, atraídas por la mirada. El texto como materia en movimiento, la escritura como sistema físico.</p>
+<div class="sketch-tags">
+<span class="tag">Tipografía</span>
+<span class="tag">Física</span>
+<span class="tag">p5.js</span>
+</div>
+</div>
+<div class="sketch-controls">
+<span>MOVER CURSOR</span> — atraer palabras<br>
+<span>CLICK</span> — pulso de repulsión
+</div>
+</div>
+</div>
 
-      <div class="razon">
-        <img src="razoneshumanitarias_final.gif" alt="razoneshumanitarias" />
-      </div>
+<div class="sketch-block" id="block-2">
+<div class="sketch-canvas-area">
+<iframe sandbox="allow-scripts" data-sketch="glitch_poema"></iframe>
+<div class="sketch-activate">
+<button class="sketch-activate-btn" onclick="activateSketch(2)">Interactuar</button>
+</div>
+</div>
+<div class="sketch-info">
+<div class="sketch-number">03</div>
+<div class="sketch-meta">
+<h3 class="sketch-name">Glitch Poema</h3>
+<p class="sketch-desc">El error como estética. Texto que se descompone y recompone en bucle — la falla como forma de escritura en el trópico digital.</p>
+<div class="sketch-tags">
+<span class="tag">Glitch</span>
+<span class="tag">Texto</span>
+<span class="tag">p5.js</span>
+</div>
+</div>
+<div class="sketch-controls">
+<span>CLICK</span> — nuevo poema
+</div>
+</div>
+</div>
+</section>
 
-    </div>
-  </div>
-  <script>
-    function scaleCanvas() {
-      var scale = window.innerWidth / 1440;
-      var canvas = document.querySelector('.canvas');
-      canvas.style.transform = 'scale(' + scale + ')';
-      document.querySelector('.wrap').style.height = (1024 * scale) + 'px';
-    }
-    scaleCanvas();
-    window.addEventListener('resize', scaleCanvas);
-  </script>
+<section id="bio">
+<div class="about-left">
+<p class="section-label">Bio</p>
+<h2 class="about-title">Escritura<br><em>y código.</em></h2>
+<div class="about-body">
+<p>Soy Nicolás Gerardi Rousset. Investigo la relación entre escritura creativa, tecnología y diseño en el Caribe.</p>
+<p>Mi práctica explora qué sucede cuando el software se vuelve expresivo — cuando los algoritmos desarrollan voz y los sistemas desarrollan poesía.</p>
+<p>Actualmente abierto a colaboraciones, residencias y conversaciones sobre problemas interesantes.</p>
+</div>
+</div>
+<div class="about-right">
+<div class="skills-grid">
+<div class="skill-cell">
+<p class="skill-label">Práctica</p>
+<p class="skill-value">Escritura creativa<br>Tecnopoesía<br>Arte digital</p>
+</div>
+<div class="skill-cell">
+<p class="skill-label">Herramientas</p>
+<p class="skill-value">p5.js<br>Processing<br>HTML / CSS</p>
+</div>
+<div class="skill-cell">
+<p class="skill-label">Disciplinas</p>
+<p class="skill-value">Literatura<br>Diseño editorial<br>Arte interactivo</p>
+</div>
+<div class="skill-cell">
+<p class="skill-label">Ubicación</p>
+<p class="skill-value">Caribe<br>Disponible<br>globalmente</p>
+</div>
+</div>
+<a href="mailto:gerardinicols@gmail.com" class="about-cta">Escribir →</a>
+</div>
+</section>
+
+<section id="cv">
+<div class="cv-header">
+<div>
+<p class="section-label">Trayectoria</p>
+<h2 class="cv-title">Curriculum<br>Vitae</h2>
+</div>
+<a href="#" class="cv-download">Descargar PDF ↓</a>
+</div>
+<div class="cv-grid">
+<div class="cv-entry">
+<div class="cv-year">2023 —<br>Presente</div>
+<div class="cv-detail">
+<p class="cv-role">Investigador / Escritor</p>
+<p class="cv-org">Independiente — Caribe</p>
+<p class="cv-note">Investigación sobre escritura creativa, tecnología y diseño en el contexto caribeño. Publicaciones, instalaciones y escrituras experimentales.</p>
+</div>
+</div>
+<div class="cv-entry">
+<div class="cv-year">2021 —<br>2023</div>
+<div class="cv-detail">
+<p class="cv-role">Diseñador Editorial</p>
+<p class="cv-org">Proyectos editoriales</p>
+<p class="cv-note">Diseño de libros de artista y publicaciones experimentales. Exploración de la materialidad del texto.</p>
+</div>
+</div>
+<div class="cv-entry">
+<div class="cv-year">2019 —<br>2021</div>
+<div class="cv-detail">
+<p class="cv-role">Formación académica</p>
+<p class="cv-org">Universidad</p>
+<p class="cv-note">Estudios en literatura, diseño y tecnología. Tesis sobre poética digital y escritura computacional.</p>
+</div>
+</div>
+<div class="cv-entry">
+<div class="cv-year">2020</div>
+<div class="cv-detail">
+<p class="cv-role">Residencia artística</p>
+<p class="cv-org">Festival de Arte Digital</p>
+<p class="cv-note">Instalación interactiva exhibida en festival regional. Exploración de tecnopoética caribeña.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="escrituras">
+<div class="escrituras-header">
+<div>
+<p class="section-label">Publicaciones</p>
+<h2 class="escrituras-title">Escrituras</h2>
+</div>
+</div>
+<div class="escrituras-grid">
+<div class="escritura-card">
+<span class="escritura-year">2024</span>
+<h3 class="escritura-title">Tecnopoemas del trópico</h3>
+<p class="escritura-pub">Revista de Literatura Digital</p>
+<p class="escritura-desc">Serie de poemas que exploran la relación entre código y lengua en el espacio caribeño.</p>
+<a href="#" class="escritura-link">Leer →</a>
+</div>
+<div class="escritura-card">
+<span class="escritura-year">2023</span>
+<h3 class="escritura-title">Diseño y escritura creativa</h3>
+<p class="escritura-pub">Ensayo crítico</p>
+<p class="escritura-desc">Reflexión sobre los puntos de contacto entre práctica de diseño y escritura literaria.</p>
+<a href="#" class="escritura-link">Leer →</a>
+</div>
+<div class="escritura-card">
+<span class="escritura-year">2022</span>
+<h3 class="escritura-title">Inamencia</h3>
+<p class="escritura-pub">Poema-objeto</p>
+<p class="escritura-desc">Poema sobre la permanencia de lo que no permanece. Publicado como objeto editorial.</p>
+<a href="#" class="escritura-link">Leer →</a>
+</div>
+</div>
+</section>
+
+<section id="libros">
+<p class="section-label">Objetos editoriales</p>
+<h2 class="libros-title">Libros de<br>Artista</h2>
+<div class="libros-grid">
+<div class="libro-card">
+<div class="libro-num">01</div>
+<h3 class="libro-name">Razones Humanitarias</h3>
+<p class="libro-year">2023</p>
+<p class="libro-desc">Libro-objeto que trabaja el archivo y la memoria a través del diseño editorial experimental. Edición limitada.</p>
+</div>
+<div class="libro-card">
+<div class="libro-num">02</div>
+<h3 class="libro-name">Caribe: atlas provisional</h3>
+<p class="libro-year">2022</p>
+<p class="libro-desc">Cartografía poética del Caribe hispanohablante. Texto, imagen y diseño como herramientas de pensamiento territorial.</p>
+</div>
+<div class="libro-card">
+<div class="libro-num">03</div>
+<h3 class="libro-name">Inamencia</h3>
+<p class="libro-year">2021</p>
+<p class="libro-desc">Libro artista sobre lo que permanece sin permanecer. Exploración tipográfica y poética de la presencia.</p>
+</div>
+<div class="libro-card">
+<div class="libro-num">04</div>
+<h3 class="libro-name">Tecnopoemas I</h3>
+<p class="libro-year">2020</p>
+<p class="libro-desc">Primera entrega de la serie. Poemas generados y escritos a mano, entre proceso digital y manufactura.</p>
+</div>
+</div>
+</section>
+
+<section id="contact">
+<div class="contact-bg">HOLA</div>
+<p class="section-label">Contacto</p>
+<h2 class="contact-title">Hagamos algo<br><em>extraño.</em></h2>
+<p class="contact-sub">Abierto a colaboraciones, comisiones y conversaciones.</p>
+<div class="contact-links">
+<a href="mailto:gerardinicols@gmail.com" class="contact-link primary">gerardinicols@gmail.com</a>
+<a href="https://instagram.com" class="contact-link secondary">Instagram</a>
+<a href="https://github.com/Caribbeatechnopoetry" class="contact-link secondary">GitHub</a>
+</div>
+</section>
+
+<footer>
+<span>© 2026 Nicolás Gerardi Rousset</span>
+<span>Escritura · Tecnología · Diseño — Caribe</span>
+</footer>
+
+<script>
+const sketches = {
+caribe_noise: `
+let zoff=0,pts=[];
+function setup(){createCanvas(windowWidth,windowHeight);colorMode(HSB);for(let i=0;i<600;i++)pts.push(createVector(random(width),random(height)));background(0);}
+function draw(){
+fill(0,0,0,.06);noStroke();rect(0,0,width,height);
+pts.forEach(p=>{
+let xo=floor(p.x/20)*.1,yo=floor(p.y/20)*.1;
+let angle=noise(xo,yo,zoff)*TWO_PI*4;
+let v=p5.Vector.fromAngle(angle);v.setMag(2);p.add(v);
+stroke(map(angle,0,TWO_PI*4,180,260),70,90,.5);point(p.x,p.y);
+if(p.x<0||p.x>width||p.y<0||p.y>height){p.x=random(width);p.y=random(height);}
+});
+zoff+=.003;
+}
+function mousePressed(){background(0);pts.forEach(p=>{p.x=random(width);p.y=random(height);});}
+function windowResized(){resizeCanvas(windowWidth,windowHeight);}
+`,
+texto_vivo: `
+let words=['escritura','creativa','tecnología','diseño','caribe','inamencia','trópico','código','texto','vivo'];
+let pts=[];
+function setup(){createCanvas(windowWidth,windowHeight);pts=words.map((w,i)=>({x:random(width),y:random(height),vx:random(-1,1),vy:random(-1,1),w}));}
+function draw(){
+background(8,8,8,40);
+pts.forEach(p=>{
+let dx=mouseX-p.x,dy=mouseY-p.y,d=dist(mouseX,mouseY,p.x,p.y);
+if(d<220){p.vx+=(dx/d)*.25;p.vy+=(dy/d)*.25;}
+p.vx*=.94;p.vy*=.94;p.x+=p.vx;p.y+=p.vy;
+if(p.x<0)p.x=width;if(p.x>width)p.x=0;
+if(p.y<0)p.y=height;if(p.y>height)p.y=0;
+fill(232,255,0,map(d,0,300,255,60));noStroke();
+textFont('monospace');textSize(clamp(width*.018,12,22));textAlign(CENTER,CENTER);
+text(p.w.toUpperCase(),p.x,p.y);
+});
+}
+function mousePressed(){pts.forEach(p=>{let dx=p.x-mouseX,dy=p.y-mouseY,d=dist(mouseX,mouseY,p.x,p.y);p.vx+=(dx/d)*8;p.vy+=(dy/d)*8;});}
+function clamp(v,a,b){return Math.min(Math.max(v,a),b);}
+function windowResized(){resizeCanvas(windowWidth,windowHeight);}
+`,
+glitch_poema: `
+let poems=[['inmanencia','del','error','—','el','trópico','digital','parpadea'],['código','como','lengua','materna','del','caribe','en','red'],['diseño','escritura','tecnología','glitch','luz','oscura','caribe']];
+let current=0,glitching=false,t=0;
+function setup(){createCanvas(windowWidth,windowHeight);textAlign(CENTER,CENTER);noStroke();}
+function draw(){
+background(8);
+t+=0.04;
+let words=poems[current];
+words.forEach((w,i)=>{
+let x=width/2+(glitching?random(-30,30):0);
+let y=height/2+(i-words.length/2)*clamp(width*.055,28,60)+sin(t+i)*8;
+let s=glitching&&random()<.15?'#ff2d55':i===floor(t)%words.length?'#e8ff00':'#f0f0f0';
+fill(s);
+textSize(clamp(width*.04,20,52));
+textFont('monospace');
+if(glitching&&random()<.1)text(w.split('').map(c=>random()<.3?String.fromCharCode(random(33,126)):c).join(''),x,y);
+else text(w.toUpperCase(),x,y);
+});
+if(random()<.015)glitching=!glitching;
+}
+function mousePressed(){current=(current+1)%poems.length;glitching=true;setTimeout(()=>glitching=false,500);}
+function clamp(v,a,b){return Math.min(Math.max(v,a),b);}
+function windowResized(){resizeCanvas(windowWidth,windowHeight);}
+`,
+};
+
+function makeHTML(code){
+return `<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{background:#000;overflow:hidden;}</style></head><body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"><\/script>
+<script>${code}<\/script></body></html>`;
+}
+
+// Scale Figma hero
+function scaleHero(){
+var s=window.innerWidth/1440;
+document.querySelector('.hero-canvas').style.transform='scale('+s+')';
+document.getElementById('hero').style.height=(1024*s)+'px';
+}
+scaleHero();
+window.addEventListener('resize',scaleHero);
+
+document.querySelectorAll('[data-sketch]').forEach(iframe => {
+iframe.srcdoc = makeHTML(sketches[iframe.dataset.sketch]);
+});
+
+function activateSketch(idx){
+document.getElementById('block-'+idx).classList.add('active');
+}
+
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+const iframe = entry.target.querySelector('iframe[data-sketch]');
+if(!iframe) return;
+if(!entry.isIntersecting){
+iframe.srcdoc = '';
+} else {
+if(!iframe.srcdoc){
+iframe.srcdoc = makeHTML(sketches[iframe.dataset.sketch]);
+}
+}
+});
+}, {threshold: 0.1});
+
+document.querySelectorAll('.sketch-block').forEach(b => observer.observe(b));
+</script>
 </body>
 </html>
