@@ -74,13 +74,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 .pill-inmanente img{object-position:35% 55%;}
 
 .pill-razon{width:549px;height:78px;border:1px solid #000;}
-.pill-razon img{object-position:50% 50%;}
+.pill-razon img{object-position:50% calc(50% + 30px);}
 
 .pill-pulso{width:209px;height:75px;border:1px solid #000;}
 .pill-pulso img{object-position:center center;}
 
 .pill-caribe{width:322px;height:75px;border:1px solid #000;}
-.pill-caribe img{object-position:30% 50%;}
+.pill-caribe img{object-position:30% calc(50% + 30px);}
 
 /* ── SHARED ── */
 .section-label{
@@ -538,6 +538,8 @@ footer{
 .hm-pill-razon{width:160px;height:25px;border:1px solid #000;}
 .hm-pill-pulso{width:70px;height:24px;border:1px solid #000;}
 .hm-pill-caribe{width:100px;height:24px;border:1px solid #000;}
+.hm-pill-razon img{object-position:50% calc(50% + 30px);}
+.hm-pill-caribe img{object-position:30% calc(50% + 30px);}
 .hm-bold{font-weight:800;}
 }
 
@@ -894,6 +896,22 @@ document.getElementById('hero').style.height=(1024*s)+'px';
 }
 scaleHero();
 window.addEventListener('resize',scaleHero);
+
+// Force pulso GIF to loop infinitely by restarting its src
+(function loopPulso(){
+  var imgs=document.querySelectorAll('.pill-pulso img,.hm-pill-pulso img');
+  imgs.forEach(function(img){
+    img.addEventListener('load',function(){
+      /* reset src after each play to restart the loop */
+    });
+  });
+  /* Fallback: restart every 4s — adjust to match gif duration */
+  setInterval(function(){
+    imgs.forEach(function(img){
+      var s=img.src;img.src='';img.src=s;
+    });
+  },4000);
+})();
 
 document.querySelectorAll('[data-sketch]').forEach(function(iframe){
 iframe.srcdoc=makeHTML(sketches[iframe.dataset.sketch]);
