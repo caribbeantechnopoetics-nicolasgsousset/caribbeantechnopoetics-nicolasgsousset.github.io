@@ -108,99 +108,65 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 }
 
 /* ── TECNOPOEMAS ── */
-#tecnopoemas{padding:120px 0 0;border-top:3px solid var(--border);}
-.sketches-header{
-  padding:0 60px 60px;
+#tecnopoemas{border-top:3px solid var(--border);}
+
+.tp-header{
+  padding:48px 48px 0;
   display:flex;
-  align-items:flex-end;
+  align-items:flex-start;
   justify-content:space-between;
-  border-bottom:1px solid var(--border-light);
 }
-.sketches-count{
-  font-family:var(--garamond);
-  font-style:italic;
-  font-size:64px;
-  color:var(--muted);
-  letter-spacing:-2px;
-  line-height:1;
+.tp-title{
+  font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
+  font-weight:400;font-size:114px;line-height:137px;
+  letter-spacing:-3.42px;text-transform:uppercase;color:#000;
+  margin:0;
 }
-.sketch-block{
-  height:100vh;
-  display:grid;
-  grid-template-columns:1fr 400px;
-  border-bottom:1px solid var(--border-light);
+.tp-canvas-wrap{
+  position:relative;
+  width:100%;height:548px;
+  background:#fff;cursor:crosshair;
+  overflow:hidden;
 }
-.sketch-canvas-area{position:relative;overflow:hidden;background:#f0ede8;cursor:pointer;}
-.sketch-canvas-area iframe{width:100%;height:100%;border:none;pointer-events:none;transition:opacity 0.4s;opacity:0.85;}
-.sketch-canvas-area:hover iframe{opacity:1;}
-.sketch-activate{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:3;transition:opacity 0.3s;}
-.sketch-activate-btn{
-  background:#000;
-  color:#fff;
-  font-family:var(--mono);
-  font-size:11px;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  padding:14px 32px;
-  border:none;
-  cursor:pointer;
-  font-weight:400;
-  transition:background 0.2s;
+#tp-canvas{display:block;}
+.tp-hint{
+  position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
+  font-family:var(--mono);font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--muted);
+  pointer-events:none;transition:opacity 0.5s;
 }
-.sketch-activate-btn:hover{background:var(--text);}
-.sketch-block.active .sketch-activate{opacity:0;pointer-events:none;}
-.sketch-block.active .sketch-canvas-area iframe{pointer-events:all;opacity:1;}
-.sketch-info{
-  padding:60px 48px;
-  border-left:1px solid var(--border-light);
+.tp-hint.hidden{opacity:0;}
+.tp-footer{
+  padding:24px 48px 80px;
   display:flex;
-  flex-direction:column;
+  align-items:flex-start;
   justify-content:space-between;
-  background:var(--surface);
+  gap:40px;
 }
-.sketch-number{
+.tp-desc{
   font-family:var(--garamond);
-  font-style:italic;
-  font-size:80px;
-  color:var(--border-light);
-  line-height:1;
+  font-size:33px;line-height:56px;
+  letter-spacing:-1.32px;color:#000;
+  max-width:660px;margin:0;
 }
-.sketch-meta{flex:1;padding:40px 0;}
-.sketch-name{
-  font-family:var(--bricolage);
-  font-size:26px;
-  font-weight:700;
-  letter-spacing:-0.5px;
-  line-height:1.1;
-  margin-bottom:16px;
-  color:var(--text-dark);
+.tp-meta{
+  font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
+  font-size:11.5px;line-height:13px;
+  letter-spacing:-0.46px;text-transform:uppercase;color:#000;
+  white-space:nowrap;padding-top:4px;
 }
-.sketch-desc{
-  font-family:var(--garamond);
-  font-size:17px;
-  line-height:1.7;
-  color:var(--text);
-  margin-bottom:24px;
+.tp-meta a{text-decoration:underline;}
+.tp-meta strong{font-weight:700;}
+
+/* mobile */
+@media(max-width:700px){
+  .tp-header{padding:28px 20px 0;}
+  .tp-title{font-size:clamp(48px,13vw,80px);line-height:1.05;letter-spacing:-2px;}
+  .tp-canvas-wrap{height:60vw;min-height:220px;}
+  .tp-footer{flex-direction:column;gap:24px;padding:20px 20px 60px;}
+  .tp-desc{font-size:22px;line-height:1.5;letter-spacing:-0.5px;}
+  .tp-meta{white-space:normal;}
 }
-.sketch-tags{display:flex;flex-wrap:wrap;gap:8px;}
-.tag{
-  font-family:var(--mono);
-  font-size:9px;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  padding:5px 10px;
-  border:1px solid var(--border-light);
-  color:var(--muted);
-}
-.sketch-controls{
-  font-family:var(--mono);
-  font-size:10px;
-  color:var(--muted);
-  line-height:1.9;
-  border-top:1px solid var(--border-light);
-  padding-top:24px;
-}
-.sketch-controls span{color:var(--text-dark);}
 
 /* ── BIO ── */
 #bio{
@@ -545,18 +511,14 @@ footer{
 
 /* mobile */
 @media(max-width:700px){
-#hero{width:100vw;overflow-x:hidden;}
+#hero{width:100vw;overflow-x:hidden;height:auto!important;}
 .site-nav{height:44px;}
 .site-nav-inner a:not(:first-child){display:none;}
+.site-nav-inner .sep{display:none;}
 .site-nav-inner{font-size:13px;}
 
 /* tecnopoemas */
-#tecnopoemas{padding-top:64px;}
-.sketches-header{
-  flex-direction:column;align-items:flex-start;gap:8px;
-  padding:0 20px 40px;
-}
-.sketches-count{font-size:48px;}
+#tecnopoemas{padding-top:0;}
 .sketch-block{
   grid-template-columns:1fr;
   grid-template-rows:56vw auto;
@@ -624,16 +586,17 @@ footer{
 .section-title{font-size:clamp(28px,8vw,52px);}
 }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
 </head>
 <body>
 
 <!-- ── SITE NAV ── -->
 <nav class="site-nav">
 <span class="site-nav-inner">
-<a href="#tecnopoemas">tecnopoemas</a> /
-<a href="#bio">bio</a> /
-<a href="#cv">cv</a> /
-<a href="#escrituras">escrituras</a> /
+<a href="#tecnopoemas">tecnopoemas</a><span class="sep"> / </span>
+<a href="#bio">bio</a><span class="sep"> / </span>
+<a href="#cv">cv</a><span class="sep"> / </span>
+<a href="#escrituras">escrituras</a><span class="sep"> / </span>
 <a href="#libros">libros de artista</a>
 </span>
 </nav>
@@ -685,61 +648,26 @@ footer{
 
 <!-- ── TECNOPOEMAS ── -->
 <section id="tecnopoemas">
-<div class="sketches-header">
-<div>
-<p class="section-label">Poesía computacional</p>
-<h2 class="section-title">Tecno<br><em>poemas</em></h2>
-</div>
-<div class="sketches-count">03</div>
-</div>
+  <div class="tp-header">
+    <h2 class="tp-title">Tecnopoemas</h2>
+  </div>
 
-<div class="sketch-block" id="block-0">
-<div class="sketch-canvas-area">
-<iframe sandbox="allow-scripts" data-sketch="caribe_noise"></iframe>
-<div class="sketch-activate"><button class="sketch-activate-btn" onclick="activateSketch(0)">Interactuar</button></div>
-</div>
-<div class="sketch-info">
-<div class="sketch-number">01</div>
-<div class="sketch-meta">
-<h3 class="sketch-name">Campo Caribeño</h3>
-<p class="sketch-desc">Partículas navegando un campo de ruido Perlin. Un paisaje en constante evolución — la geografía como algoritmo, el territorio como flujo.</p>
-<div class="sketch-tags"><span class="tag">Perlin Noise</span><span class="tag">Generativo</span><span class="tag">p5.js</span></div>
-</div>
-<div class="sketch-controls"><span>CLICK</span> — reiniciar campo</div>
-</div>
-</div>
+  <!-- interactive p5.js sketch fills the middle -->
+  <div class="tp-canvas-wrap" id="tp-canvas-wrap">
+    <div id="tp-canvas-container"></div>
+    <div class="tp-hint" id="tp-hint">Click y arrastra para escribir</div>
+  </div>
 
-<div class="sketch-block" id="block-1">
-<div class="sketch-canvas-area">
-<iframe sandbox="allow-scripts" data-sketch="texto_vivo"></iframe>
-<div class="sketch-activate"><button class="sketch-activate-btn" onclick="activateSketch(1)">Interactuar</button></div>
-</div>
-<div class="sketch-info">
-<div class="sketch-number">02</div>
-<div class="sketch-meta">
-<h3 class="sketch-name">Texto Vivo</h3>
-<p class="sketch-desc">Palabras que orbitan el cursor, atraídas por la mirada. El texto como materia en movimiento, la escritura como sistema físico.</p>
-<div class="sketch-tags"><span class="tag">Tipografía</span><span class="tag">Física</span><span class="tag">p5.js</span></div>
-</div>
-<div class="sketch-controls"><span>MOVER CURSOR</span> — atraer palabras<br><span>CLICK</span> — pulso de repulsión</div>
-</div>
-</div>
-
-<div class="sketch-block" id="block-2">
-<div class="sketch-canvas-area">
-<iframe sandbox="allow-scripts" data-sketch="glitch_poema"></iframe>
-<div class="sketch-activate"><button class="sketch-activate-btn" onclick="activateSketch(2)">Interactuar</button></div>
-</div>
-<div class="sketch-info">
-<div class="sketch-number">03</div>
-<div class="sketch-meta">
-<h3 class="sketch-name">Glitch Poema</h3>
-<p class="sketch-desc">El error como estética. Texto que se descompone y recompone en bucle — la falla como forma de escritura en el trópico digital.</p>
-<div class="sketch-tags"><span class="tag">Glitch</span><span class="tag">Texto</span><span class="tag">p5.js</span></div>
-</div>
-<div class="sketch-controls"><span>CLICK</span> — nuevo poema</div>
-</div>
-</div>
+  <div class="tp-footer">
+    <p class="tp-desc">Poemas escritos en el lenguaje de las máquinas y cercanos a las tecnologías digitales</p>
+    <div class="tp-meta">
+      <a href="#">El nombre y la frontera</a><br>
+      2025<br>
+      Processing<br>
+      <strong>Poema interactivo</strong><br>
+      Dimensiones variables
+    </div>
+  </div>
 </section>
 
 <!-- ── BIO ── -->
@@ -886,11 +814,13 @@ return`<!DOCTYPE html><html><head><style>*{margin:0;padding:0;}body{background:#
 }
 
 function scaleHero(){
-var isMobile=window.innerWidth<768;
-/* On mobile, divide by a narrower reference so the canvas zooms in —
-   text becomes large and the hero is taller than the viewport, requiring scroll. */
-var ref=isMobile?480:1440;
-var s=window.innerWidth/ref;
+var isMobile=window.innerWidth<700;
+if(isMobile){
+  /* mobile hero is the .hero-mobile div — height is natural, no scaling needed */
+  document.getElementById('hero').style.height='auto';
+  return;
+}
+var s=window.innerWidth/1440;
 document.querySelector('.hero-canvas').style.transform='scale('+s+')';
 document.getElementById('hero').style.height=(1024*s)+'px';
 }
@@ -905,31 +835,80 @@ window.addEventListener('resize',scaleHero);
       /* reset src after each play to restart the loop */
     });
   });
-  /* Fallback: restart every 4s — adjust to match gif duration */
-  setInterval(function(){
-    imgs.forEach(function(img){
-      var s=img.src;img.src='';img.src=s;
+  /* After first load, loop by clearing then restoring src (uses browser cache) */
+  imgs.forEach(function(img){
+    var ready=false;
+    img.addEventListener('load',function(){
+      if(ready)return;
+      ready=true;
+      setInterval(function(){
+        var src=img.src;
+        img.src='';
+        setTimeout(function(){img.src=src;},50);
+      },5000);
     });
-  },4000);
+  });
 })();
 
-document.querySelectorAll('[data-sketch]').forEach(function(iframe){
-iframe.srcdoc=makeHTML(sketches[iframe.dataset.sketch]);
-});
+// ── EL NOMBRE Y LA FRONTERA — p5.js sketch ──
+new p5(function(p){
+  var x=0,y=0,stepSize=3;
+  var letters='    Todo nombre es también una frontera';
+  var fontSizeMin=3,counter=0;
+  var hintHidden=false;
 
-function activateSketch(idx){
-document.getElementById('block-'+idx).classList.add('active');
-}
+  p.setup=function(){
+    var wrap=document.getElementById('tp-canvas-wrap');
+    var cnv=p.createCanvas(wrap.offsetWidth,wrap.offsetHeight);
+    cnv.parent('tp-canvas-container');
+    p.background(255);
+    p.textFont('EB Garamond, Georgia, serif');
+    p.textSize(fontSizeMin);
+    p.textAlign(p.LEFT);
+    p.fill(0);
+    p.cursor(p.CROSS);
+    x=p.mouseX; y=p.mouseY;
+  };
 
-var observer=new IntersectionObserver(function(entries){
-entries.forEach(function(entry){
-var iframe=entry.target.querySelector('iframe[data-sketch]');
-if(!iframe)return;
-if(!entry.isIntersecting){iframe.srcdoc='';}
-else if(!iframe.srcdoc){iframe.srcdoc=makeHTML(sketches[iframe.dataset.sketch]);}
-});
-},{threshold:0.1});
-document.querySelectorAll('.sketch-block').forEach(function(b){observer.observe(b);});
+  p.draw=function(){
+    if(p.mouseIsPressed){
+      if(!hintHidden){
+        document.getElementById('tp-hint').classList.add('hidden');
+        hintHidden=true;
+      }
+      var d=p.dist(x,y,p.mouseX,p.mouseY);
+      p.textSize(fontSizeMin+d/2);
+      var ch=letters.charAt(counter);
+      stepSize=p.textWidth(ch);
+      if(d>stepSize){
+        var angle=p.atan2(p.mouseY-y,p.mouseX-x);
+        p.push();
+        p.translate(x,y);
+        p.rotate(angle);
+        p.text(ch,0,0);
+        p.pop();
+        counter=(counter+1)%letters.length;
+        x+=p.cos(angle)*stepSize;
+        y+=p.sin(angle)*stepSize;
+      }
+    }
+  };
+
+  p.mousePressed=function(){
+    x=p.mouseX; y=p.mouseY;
+  };
+
+  p.touchStarted=function(){
+    x=p.mouseX; y=p.mouseY;
+    return false;
+  };
+
+  p.windowResized=function(){
+    var wrap=document.getElementById('tp-canvas-wrap');
+    p.resizeCanvas(wrap.offsetWidth,wrap.offsetHeight);
+    p.background(255);
+  };
+},'tp-canvas-container');
 </script>
 </body>
 </html>
