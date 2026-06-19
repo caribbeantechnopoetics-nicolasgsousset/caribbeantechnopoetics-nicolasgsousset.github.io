@@ -1149,10 +1149,9 @@ inmanenteObs.observe(document.getElementById('tp-canvas-wrap-2'));
 // ── RESUENA CONMIGO — grid + text particles ──
 function initResuena(){
   new p5(function(p){
-    var friction=0.92, resiliency=-0.018, mousePower=0.04, blockSize=22;
+    var friction=0.95, resiliency=-0.025, mousePower=0.05, blockSize=16;
     var pts=[], rows=[], cols=[], textParticles=[], clickCount=0;
-    var hintHidden=false;
-    var wrap3;
+    var hintHidden=false, wrap3;
 
     var lines=[
       'Resuena conmigo',
@@ -1171,33 +1170,37 @@ function initResuena(){
       wrap3=document.getElementById('tp-canvas-wrap-3');
       var w=wrap3.offsetWidth||800;
       var h=wrap3.offsetHeight||500;
-      var cnv=p.createCanvas(w,h);
-      cnv.parent('tp-canvas-container-3');
-      p.background(255);
+      p.createCanvas(w,h).parent('tp-canvas-container-3');
+      p.frameRate(30);
       p.textFont('Bricolage Grotesque, Arial, sans-serif');
-      makeGrid(w,h);
+      buildGrid(w,h);
       new ResizeObserver(function(entries){
         var e=entries[0].contentRect;
         p.resizeCanvas(e.width,e.height);
         pts=[]; rows=[]; cols=[]; textParticles=[]; clickCount=0;
-        makeGrid(e.width,e.height);
+        buildGrid(e.width,e.height);
       }).observe(wrap3);
     };
 
-    function makeGrid(w,h){
+    function buildGrid(w,h){
+      /* collect all points first */
       for(var i=0;i<w;i+=blockSize){
         for(var j=0;j<h;j+=blockSize){
           pts.push({sx:i,sy:j,px:i,py:j,vx:0,vy:0,ax:0,ay:0});
         }
       }
-      for(var i=0;i<w;i+=blockSize){
-        var col=pts.filter(function(pt){return pt.sx===i;});
-        cols.push(col);
-      }
-      for(var j=0;j<h;j+=blockSize){
-        var row=pts.filter(function(pt){return pt.sy===j;});
-        rows.push(row);
-      }
+      /* group into rows and columns for curve drawing */
+      var xVals=[], yVals=[];
+      pts.forEach(function(pt){
+        if(xVals.indexOf(pt.sx)<0) xVals.push(pt.sx);
+        if(yVals.indexOf(pt.sy)<0) yVals.push(pt.sy);
+      });
+      xVals.forEach(function(x){
+        cols.push(pts.filter(function(pt){return pt.sx===x;}));
+      });
+      yVals.forEach(function(y){
+        rows.push(pts.filter(function(pt){return pt.sy===y;}));
+      });
     }
 
     function burst(){
@@ -1211,61 +1214,77 @@ function initResuena(){
         pt.ay+=dy*multi;
       }
       if(!hintHidden){
-        var hint=document.getElementById('tp-hint-3');
-        if(hint)hint.classList.add('hidden');
+        var h=document.getElementById('tp-hint-3');
+        if(h) h.classList.add('hidden');
         hintHidden=true;
       }
-      var txt=lines[clickCount%lines.length];
-      textParticles.push({x:mx,y:my,vx:0,vy:0,ax:0,ay:0,text:txt,gravity:0.000001,fc:p.frameCount});
+      textParticles.push({
+        x:mx, y:my, vx:0, vy:0, ax:0, ay:0,
+        text:lines[clickCount%lines.length],
+        gravity:0.000001, fc:p.frameCount
+      });
       clickCount++;
     }
 
-    p.mousePressed=function(){ if(p.mouseX>=0&&p.mouseX<=p.width&&p.mouseY>=0&&p.mouseY<=p.height) burst(); };
+    p.mousePressed=function(){
+      if(p.mouseX>=0&&p.mouseX<=p.width&&p.mouseY>=0&&p.mouseY<=p.height) burst();
+    };
     p.touchStarted=function(){ burst(); return false; };
 
     p.draw=function(){
       p.background(255);
-      // update grid points
+
+      /* ── update grid (exact Processing order: vel+=acc, pos+=vel, vel*=friction) ── */
       for(var i=0;i<pts.length;i++){
         var pt=pts[i];
         var dx=pt.px-pt.sx, dy=pt.py-pt.sy;
         var dist=Math.sqrt(dx*dx+dy*dy);
+        /* spring force toward home: (pos-home)*dist*resiliency  (resiliency<0 so points back) */
         pt.ax+=(dx*dist)*resiliency;
         pt.ay+=(dy*dist)*resiliency;
-        pt.vx=(pt.vx+pt.ax)*friction;
-        pt.vy=(pt.vy+pt.ay)*friction;
-        pt.px+=pt.vx; pt.py+=pt.vy;
-        pt.ax=0; pt.ay=0;
+        pt.vx+=pt.ax;   pt.vy+=pt.ay;   /* vel += acc  */
+        pt.px+=pt.vx;   pt.py+=pt.vy;   /* pos += vel  */
+        pt.vx*=friction; pt.vy*=friction; /* vel *= friction */
+        pt.ax=0;         pt.ay=0;
       }
-      // draw grid lines
-      p.noFill(); p.stroke(0); p.strokeWeight(0.8);
+
+      /* ── draw grid curves ── */
+      p.noFill(); p.stroke(0); p.strokeWeight(0.6);
       for(var r=0;r<rows.length;r++){
-        var row=rows[r];
+        var row=rows[r]; if(row.length<2) continue;
         p.beginShape();
+        p.curveVertex(row[0].px,row[0].py);
         for(var k=0;k<row.length;k++) p.curveVertex(row[k].px,row[k].py);
+        p.curveVertex(row[row.length-1].px,row[row.length-1].py);
         p.endShape();
       }
       for(var c=0;c<cols.length;c++){
-        var col=cols[c];
+        var col=cols[c]; if(col.length<2) continue;
         p.beginShape();
+        p.curveVertex(col[0].px,col[0].py);
         for(var k=0;k<col.length;k++) p.curveVertex(col[k].px,col[k].py);
+        p.curveVertex(col[col.length-1].px,col[col.length-1].py);
         p.endShape();
       }
-      // draw text particles
+
+      /* ── text particles ── */
       p.fill(0); p.noStroke();
-      p.textSize(15); p.textFont('Bricolage Grotesque, Arial, sans-serif');
+      p.textFont('Bricolage Grotesque, Arial, sans-serif');
+      p.textSize(15);
       for(var t=0;t<textParticles.length;t++){
-        var tp3=textParticles[t];
-        if(tp3.y<p.height-1){ tp3.ay+=tp3.gravity; } else { tp3.y=p.height-1; tp3.vx=0; tp3.vy=0; tp3.ax=0; tp3.ay=0; }
-        tp3.vx+=tp3.ax; tp3.vy+=tp3.ay;
-        tp3.x+=tp3.vx; tp3.y+=tp3.vy;
-        tp3.ax=0; tp3.ay=0;
-        var fc=p.frameCount-tp3.fc;
-        tp3.x+=Math.sin(fc*0.000001);
-        tp3.y+=Math.cos(fc*0.00002);
-        p.text(tp3.text,tp3.x,tp3.y);
+        var tp=textParticles[t];
+        if(tp.y < p.height-1){ tp.ay+=tp.gravity; }
+        else { tp.y=p.height-1; tp.vx=0; tp.vy=0; tp.ax=0; tp.ay=0; }
+        tp.vx+=tp.ax; tp.vy+=tp.ay;
+        tp.x+=tp.vx;  tp.y+=tp.vy;
+        tp.ax=0; tp.ay=0;
+        var fc=p.frameCount-tp.fc;
+        tp.x+=Math.sin(fc*0.000001);
+        tp.y+=Math.cos(fc*0.00002);
+        p.text(tp.text,tp.x,tp.y);
       }
-      // cursor dot
+
+      /* cursor dot */
       p.fill(0); p.noStroke();
       p.ellipse(p.mouseX,p.mouseY,14,14);
     };
