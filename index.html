@@ -211,48 +211,107 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   text-transform:uppercase;color:var(--muted);min-width:32px;text-align:center;
 }
 
+/* ── tap-to-activate overlay (mobile only) ── */
+.tp-activate{
+  display:none; /* hidden on desktop */
+}
+.tp-exit-btn{
+  display:none;
+}
+
 /* ── MOBILE — compact in-page slideshow ── */
 @media(max-width:700px){
-  /* NOT full-viewport: sits in normal page flow so user can scroll past */
   .tp-show{
     height:auto;
     min-height:0;
-    overflow:hidden;   /* still clips horizontal track, but height is auto */
+    overflow:hidden;
   }
-  .tp-track{
-    will-change:transform;
-    align-items:stretch;
-  }
+  .tp-track{ will-change:transform; align-items:stretch; }
 
-  /* each slide stacks vertically: header / square-canvas / footer */
   .tp-slide{
     display:flex;
     flex-direction:column;
     height:auto;
-    overflow:visible;
   }
 
-  /* compact header: one line */
   .tp-slide-header{
     padding:10px 16px;
     align-items:center;
     border-bottom:1px solid var(--border-light);
   }
   .tp-title{
-    font-size:clamp(26px,8vw,40px);
+    font-size:clamp(24px,7.5vw,38px);
     letter-spacing:-1px;
     line-height:1;
     padding-bottom:0;
   }
   .tp-slide-num{display:none;}
 
-  /* square canvas — 100vw wide, same height */
+  /* square canvas */
   .tp-canvas-wrap{
     width:100%;
-    height:100vw;   /* square */
+    height:100vw;
     min-height:0;
-    touch-action:none;  /* sketches handle their own touch */
     flex-shrink:0;
+    position:relative;
+    /* default: allow page scroll — activated state overrides below */
+    touch-action:pan-y;
+  }
+  /* when user taps to interact, JS adds .tp-active class */
+  .tp-canvas-wrap.tp-active{
+    touch-action:none;
+  }
+
+  /* tap-to-activate frosted overlay */
+  .tp-activate{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    position:absolute;
+    inset:0;
+    background:rgba(255,255,255,0.55);
+    backdrop-filter:blur(4px);
+    -webkit-backdrop-filter:blur(4px);
+    cursor:pointer;
+    z-index:10;
+    transition:opacity 0.25s;
+  }
+  .tp-activate span{
+    font-family:var(--mono);
+    font-size:9px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:#000;
+  }
+  .tp-activate svg{
+    width:32px;height:32px;
+    opacity:0.7;
+  }
+  .tp-canvas-wrap.tp-active .tp-activate{
+    opacity:0;
+    pointer-events:none;
+  }
+
+  /* exit button — appears when sketch is active */
+  .tp-exit-btn{
+    display:none; /* shown via JS when active */
+    position:absolute;
+    top:10px;right:10px;
+    z-index:20;
+    background:#fff;
+    border:1px solid #000;
+    font-family:var(--mono);
+    font-size:9px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    padding:6px 10px;
+    cursor:pointer;
+    line-height:1;
+  }
+  .tp-canvas-wrap.tp-active .tp-exit-btn{
+    display:block;
   }
 
   .tp-hint{
@@ -262,7 +321,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
     bottom:8px;
   }
 
-  /* compact footer: desc then nav row */
+  /* footer */
   .tp-slide-footer{
     display:flex;
     flex-direction:column;
@@ -778,6 +837,8 @@ footer{
         <div class="tp-canvas-wrap" id="tp-canvas-wrap">
           <div id="tp-canvas-container"></div>
           <div class="tp-hint" id="tp-hint">Toca o arrastra para escribir</div>
+          <div class="tp-activate" aria-label="Activar poema interactivo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1.5"/><path d="M13 11l8 5-8 5V11z" fill="#000"/></svg><span>Tocar para interactuar</span></div>
+          <button class="tp-exit-btn" aria-label="Salir del modo interactivo">✕ salir</button>
         </div>
         <div class="tp-slide-footer">
           <p class="tp-desc">Poemas escritos en el lenguaje de las máquinas y cercanos a las tecnologías digitales</p>
@@ -805,6 +866,8 @@ footer{
         <div class="tp-canvas-wrap" id="tp-canvas-wrap-2">
           <div id="tp-canvas-container-2"></div>
           <div class="tp-hint">Mueve el dedo sobre el texto</div>
+          <div class="tp-activate" aria-label="Activar poema interactivo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1.5"/><path d="M13 11l8 5-8 5V11z" fill="#000"/></svg><span>Tocar para interactuar</span></div>
+          <button class="tp-exit-btn" aria-label="Salir del modo interactivo">✕ salir</button>
         </div>
         <div class="tp-slide-footer">
           <p class="tp-desc">Fragmento de una serie que busca visualizar palabras conceptuales</p>
@@ -832,6 +895,8 @@ footer{
         <div class="tp-canvas-wrap" id="tp-canvas-wrap-3">
           <div id="tp-canvas-container-3"></div>
           <div class="tp-hint" id="tp-hint-3">Toca para escribir</div>
+          <div class="tp-activate" aria-label="Activar poema interactivo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1.5"/><path d="M13 11l8 5-8 5V11z" fill="#000"/></svg><span>Tocar para interactuar</span></div>
+          <button class="tp-exit-btn" aria-label="Salir del modo interactivo">✕ salir</button>
         </div>
         <div class="tp-slide-footer">
           <p class="tp-desc">Un poema sobre la resonancia del agua</p>
@@ -859,6 +924,8 @@ footer{
         <div class="tp-canvas-wrap" id="tp-canvas-wrap-4">
           <div id="tp-canvas-container-4"></div>
           <div class="tp-hint" id="tp-hint-4">Toca para revelar</div>
+          <div class="tp-activate" aria-label="Activar poema interactivo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1.5"/><path d="M13 11l8 5-8 5V11z" fill="#000"/></svg><span>Tocar para interactuar</span></div>
+          <button class="tp-exit-btn" aria-label="Salir del modo interactivo">✕ salir</button>
         </div>
         <div class="tp-slide-footer">
           <p class="tp-desc">Retrato de la COMAR dibujado por mis diarios de indocumentado.</p>
@@ -886,6 +953,8 @@ footer{
         <div class="tp-canvas-wrap" id="tp-canvas-wrap-5">
           <div id="tp-canvas-container-5"></div>
           <div class="tp-hint" id="tp-hint-5">Mueve el cursor · toca para cambiar el texto</div>
+          <div class="tp-activate" aria-label="Activar poema interactivo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1.5"/><path d="M13 11l8 5-8 5V11z" fill="#000"/></svg><span>Tocar para interactuar</span></div>
+          <button class="tp-exit-btn" aria-label="Salir del modo interactivo">✕ salir</button>
         </div>
         <div class="tp-slide-footer">
           <p class="tp-desc">Un poema sobre mi raza, la raza de los desplazados.</p>
@@ -1091,24 +1160,54 @@ setVH();
 window.addEventListener('resize',setVH);
 window.addEventListener('orientationchange',function(){setTimeout(setVH,300);});
 
-// ── SWIPE NAVIGATION FOR SLIDESHOW ──
+// ── TAP-TO-ACTIVATE + SWIPE NAVIGATION (mobile) ──
 (function(){
+  var isMobile = window.matchMedia('(max-width:700px)').matches;
+
+  // activate / deactivate a canvas wrap for touch interaction
+  function activate(wrap){
+    document.querySelectorAll('.tp-canvas-wrap.tp-active').forEach(function(w){
+      if(w!==wrap) deactivate(w);
+    });
+    wrap.classList.add('tp-active');
+  }
+  function deactivate(wrap){
+    wrap.classList.remove('tp-active');
+  }
+
+  // wire overlays and exit buttons (only meaningful on mobile, harmless on desktop)
+  document.querySelectorAll('.tp-activate').forEach(function(overlay){
+    overlay.addEventListener('click',function(e){
+      e.stopPropagation();
+      activate(overlay.closest('.tp-canvas-wrap'));
+    });
+  });
+  document.querySelectorAll('.tp-exit-btn').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      deactivate(btn.closest('.tp-canvas-wrap'));
+    });
+  });
+
+  // swipe navigation — only fires when canvas is NOT active
   var el=document.querySelector('.tp-show');
-  var startX=0, startY=0, moved=false;
+  var startX=0,startY=0,tracking=false;
   el.addEventListener('touchstart',function(e){
+    var wrap=e.target.closest('.tp-canvas-wrap');
+    // if touching an active (interactive) canvas, let it handle everything
+    if(wrap && wrap.classList.contains('tp-active')) return;
     startX=e.touches[0].clientX;
     startY=e.touches[0].clientY;
-    moved=false;
-  },{passive:true});
-  el.addEventListener('touchmove',function(e){
-    moved=true;
+    tracking=true;
   },{passive:true});
   el.addEventListener('touchend',function(e){
-    if(!moved) return;
+    if(!tracking) return;
+    tracking=false;
     var dx=e.changedTouches[0].clientX-startX;
     var dy=e.changedTouches[0].clientY-startY;
-    /* only trigger on predominantly horizontal swipe > 50px */
     if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5){
+      // deactivate any active sketch when swiping to new slide
+      document.querySelectorAll('.tp-canvas-wrap.tp-active').forEach(deactivate);
       tpGo(dx<0?1:-1);
     }
   },{passive:true});
