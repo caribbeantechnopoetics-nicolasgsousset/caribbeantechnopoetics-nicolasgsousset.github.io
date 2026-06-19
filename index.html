@@ -1103,7 +1103,7 @@ footer{
         <p class="expo-desc">Desplazamiento Forzado es un proyecto expositivo sobre la migración venezolana que explora la fractura familiar como consecuencia de los procesos migratorios. A través de poemas interactivos, material de archivo y videoensayos, la exposición recrea el reencuentro entre los hermanos gemelos Nicolás Gerardi Rousset y Augusto Gerardi Rousset tras cinco años de separación física.</p>
         <div class="expo-meta">
           <span style="text-decoration:underline">Inauguración</span><br>
-          11 de abril · 2025<br>
+          11 de abril · 2026<br>
           ID Art Lab<br>
           <strong>676 NW Miami, FL</strong><br>
           33127
@@ -1144,7 +1144,9 @@ footer{
       <div class="expo-left">
         <p class="expo-desc">Los nombres de los menores de edad que murieron intentando cruzar a los Estados Unidos los primeros 4 meses de 2023. El poema inmersivo reacciona al público en la sala a través de un sensor, cuando el espectador entra a la sala el sonido del agua se detiene y hace los nombres legibles, al abandonar el cuarto, los nombres se desvanecen y el sonido del río retorna. Una reflexión sobre la memoria, la migración y la postpoesía.</p>
         <div class="expo-meta">
-          <span style="text-decoration:underline">Próximamente</span>
+          Río Menor<br>
+          Public Space One<br>
+          <strong>Iowa City</strong>
         </div>
         <a class="expo-pdf-btn" href="riomenor/catalogo.pdf" target="_blank" rel="noopener">PDF — Catálogo</a>
       </div>
@@ -1328,12 +1330,16 @@ footer{
   var expoTotal = expoItems.length;
   var expoCur   = 0;
 
+  var mcInited = {};
   function expoGo(n){
     expoCur = Math.max(0, Math.min(expoTotal-1, n));
     expoTrack.style.transform = 'translateX(-'+expoCur*100+'%)';
     expoCount.textContent = (expoCur+1)+' / '+expoTotal;
     expoPrev.disabled = expoCur===0;
     expoNext.disabled = expoCur===expoTotal-1;
+    // lazy-init carousel for current exhibition
+    var mcId = expoCur+1;
+    if(!mcInited[mcId]){ mcInited[mcId]=true; initMediaCarousel(mcId); }
   }
   expoPrev.addEventListener('click', function(){ expoGo(expoCur-1); });
   expoNext.addEventListener('click', function(){ expoGo(expoCur+1); });
