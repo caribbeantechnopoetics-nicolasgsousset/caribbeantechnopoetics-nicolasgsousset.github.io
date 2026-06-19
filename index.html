@@ -1319,7 +1319,7 @@ footer{
 
 <script>
 // ── EXPOSICIONES 2026 — two-level navigation ──
-(function(){
+try{(function(){
 
   // ── outer: exhibition slides ──
   var expoTrack = document.getElementById('expo-track');
@@ -1410,7 +1410,7 @@ footer{
   // init all carousels immediately
   [1,2,3,4].forEach(function(id){ initMediaCarousel(id); });
 
-})();
+})()}catch(e){console.error('expo nav error:',e);}
 
 const sketches={
 caribe_noise:`
