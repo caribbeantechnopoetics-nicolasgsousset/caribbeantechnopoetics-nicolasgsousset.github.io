@@ -1366,21 +1366,22 @@ function initRazones(){
 
     function showNextWords(){
       for(var i=0;i<WORDS_PER_CLICK;i++){
-        var xp=p.random(p.width);
-        var yp=p.random(p.height);
+        /* place words only within the passport-proportioned region */
+        var xp=p.random(photoX, photoX+photoW);
+        var yp=p.random(photoY, photoY+photoH);
         var word=words[wordIndex%words.length];
         var c;
         if(imgLoaded){
-          /* map canvas coords to image pixel, clamped to photo bounds */
-          var ix=Math.floor(p.map(xp,photoX,photoX+photoW,0,img.width,true));
-          var iy=Math.floor(p.map(yp,photoY,photoY+photoH,0,img.height,true));
+          /* map passport region coords to full image pixels */
+          var ix=Math.floor(p.map(xp,photoX,photoX+photoW,0,img.width));
+          var iy=Math.floor(p.map(yp,photoY,photoY+photoH,0,img.height));
           ix=Math.max(0,Math.min(img.width-1,ix));
           iy=Math.max(0,Math.min(img.height-1,iy));
           c=img.get(ix,iy);
         } else {
           c=p.color(p.random(30,80));
         }
-        drawnWords.push({txt:word,x:xp,y:yp,sz:p.random(9,20),r:p.red(c),g:p.green(c),b:p.blue(c),a:255});
+        drawnWords.push({txt:word,x:xp,y:yp,sz:p.random(7,18),r:p.red(c),g:p.green(c),b:p.blue(c),a:255});
         wordIndex++;
       }
       if(!timerStarted){ timerStarted=true; startTime=p.millis(); }
@@ -1393,15 +1394,6 @@ function initRazones(){
 
     p.draw=function(){
       p.background(255);
-
-      /* draw passport photo, centered */
-      if(imgLoaded){
-        p.push();
-        p.stroke(0); p.strokeWeight(1); p.noFill();
-        p.rect(photoX-1,photoY-1,photoW+2,photoH+2);
-        p.image(img,photoX,photoY,photoW,photoH);
-        p.pop();
-      }
 
       /* fade logic */
       if(timerStarted){
@@ -1416,7 +1408,7 @@ function initRazones(){
         }
       }
 
-      /* draw words on top of photo */
+      /* words form the image — no photo drawn, only text */
       p.noStroke();
       p.textFont('Bricolage Grotesque, Arial, sans-serif');
       for(var i=0;i<drawnWords.length;i++){
