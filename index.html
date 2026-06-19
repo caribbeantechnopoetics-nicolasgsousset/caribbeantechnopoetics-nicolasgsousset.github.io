@@ -211,20 +211,19 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   text-transform:uppercase;color:var(--muted);min-width:32px;text-align:center;
 }
 
-/* ── tap-to-activate overlay (mobile only) ── */
-.tp-activate{
-  display:none; /* hidden on desktop */
-}
-.tp-exit-btn{
-  display:none;
-}
+/* overlay elements — hidden everywhere, JS never needed */
+.tp-activate,.tp-exit-btn{ display:none; }
 
 /* ── MOBILE — compact in-page slideshow ── */
 @media(max-width:700px){
+
+  /* sits in normal page flow, clips horizontal overflow for slide track */
   .tp-show{
     height:auto;
     min-height:0;
     overflow:hidden;
+    /* pan-y: browser owns vertical scroll; JS owns horizontal swipe */
+    touch-action:pan-y;
   }
   .tp-track{ will-change:transform; align-items:stretch; }
 
@@ -245,73 +244,15 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
     line-height:1;
     padding-bottom:0;
   }
-  .tp-slide-num{display:none;}
+  .tp-slide-num{ display:none; }
 
-  /* square canvas */
+  /* square canvas — inherits pan-y from parent, so vertical scroll passes through */
   .tp-canvas-wrap{
     width:100%;
     height:100vw;
     min-height:0;
     flex-shrink:0;
     position:relative;
-    /* default: allow page scroll — activated state overrides below */
-    touch-action:pan-y;
-  }
-  /* when user taps to interact, JS adds .tp-active class */
-  .tp-canvas-wrap.tp-active{
-    touch-action:none;
-  }
-
-  /* tap-to-activate frosted overlay */
-  .tp-activate{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    position:absolute;
-    inset:0;
-    background:rgba(255,255,255,0.55);
-    backdrop-filter:blur(4px);
-    -webkit-backdrop-filter:blur(4px);
-    cursor:pointer;
-    z-index:10;
-    transition:opacity 0.25s;
-  }
-  .tp-activate span{
-    font-family:var(--mono);
-    font-size:9px;
-    letter-spacing:3px;
-    text-transform:uppercase;
-    color:#000;
-  }
-  .tp-activate svg{
-    width:32px;height:32px;
-    opacity:0.7;
-  }
-  .tp-canvas-wrap.tp-active .tp-activate{
-    opacity:0;
-    pointer-events:none;
-  }
-
-  /* exit button — appears when sketch is active */
-  .tp-exit-btn{
-    display:none; /* shown via JS when active */
-    position:absolute;
-    top:10px;right:10px;
-    z-index:20;
-    background:#fff;
-    border:1px solid #000;
-    font-family:var(--mono);
-    font-size:9px;
-    letter-spacing:2px;
-    text-transform:uppercase;
-    padding:6px 10px;
-    cursor:pointer;
-    line-height:1;
-  }
-  .tp-canvas-wrap.tp-active .tp-exit-btn{
-    display:block;
   }
 
   .tp-hint{
@@ -321,7 +262,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
     bottom:8px;
   }
 
-  /* footer */
+  /* footer: two rows — desc, then nav right-aligned */
   .tp-slide-footer{
     display:flex;
     flex-direction:column;
@@ -334,15 +275,15 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
     line-height:1.35;
     letter-spacing:0;
   }
-  .tp-meta{display:none;}
+  .tp-meta{ display:none; }
   .tp-nav{
     display:flex;
     align-items:center;
     gap:8px;
     justify-content:flex-end;
   }
-  .tp-btn{width:44px;height:44px;font-size:16px;}
-  .tp-counter{min-width:28px;font-size:9px;}
+  .tp-btn{ width:44px; height:44px; font-size:16px; }
+  .tp-counter{ min-width:28px; font-size:9px; }
 }
 
 /* ── BIO ── */
@@ -1160,54 +1101,19 @@ setVH();
 window.addEventListener('resize',setVH);
 window.addEventListener('orientationchange',function(){setTimeout(setVH,300);});
 
-// ── TAP-TO-ACTIVATE + SWIPE NAVIGATION (mobile) ──
+// ── SWIPE NAVIGATION (horizontal only, vertical scroll stays with browser) ──
 (function(){
-  var isMobile = window.matchMedia('(max-width:700px)').matches;
-
-  // activate / deactivate a canvas wrap for touch interaction
-  function activate(wrap){
-    document.querySelectorAll('.tp-canvas-wrap.tp-active').forEach(function(w){
-      if(w!==wrap) deactivate(w);
-    });
-    wrap.classList.add('tp-active');
-  }
-  function deactivate(wrap){
-    wrap.classList.remove('tp-active');
-  }
-
-  // wire overlays and exit buttons (only meaningful on mobile, harmless on desktop)
-  document.querySelectorAll('.tp-activate').forEach(function(overlay){
-    overlay.addEventListener('click',function(e){
-      e.stopPropagation();
-      activate(overlay.closest('.tp-canvas-wrap'));
-    });
-  });
-  document.querySelectorAll('.tp-exit-btn').forEach(function(btn){
-    btn.addEventListener('click',function(e){
-      e.stopPropagation();
-      deactivate(btn.closest('.tp-canvas-wrap'));
-    });
-  });
-
-  // swipe navigation — only fires when canvas is NOT active
   var el=document.querySelector('.tp-show');
-  var startX=0,startY=0,tracking=false;
+  var startX=0,startY=0;
   el.addEventListener('touchstart',function(e){
-    var wrap=e.target.closest('.tp-canvas-wrap');
-    // if touching an active (interactive) canvas, let it handle everything
-    if(wrap && wrap.classList.contains('tp-active')) return;
     startX=e.touches[0].clientX;
     startY=e.touches[0].clientY;
-    tracking=true;
   },{passive:true});
   el.addEventListener('touchend',function(e){
-    if(!tracking) return;
-    tracking=false;
     var dx=e.changedTouches[0].clientX-startX;
     var dy=e.changedTouches[0].clientY-startY;
-    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5){
-      // deactivate any active sketch when swiping to new slide
-      document.querySelectorAll('.tp-canvas-wrap.tp-active').forEach(deactivate);
+    // only fire on clear horizontal swipe (>50px, more horizontal than vertical)
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*2){
       tpGo(dx<0?1:-1);
     }
   },{passive:true});
