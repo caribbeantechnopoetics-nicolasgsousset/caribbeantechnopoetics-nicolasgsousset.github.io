@@ -704,109 +704,149 @@ footer{
 .section-title{font-size:clamp(28px,8vw,52px);}
 }
 
-/* ── DESPLAZAMIENTO FORZADO ── */
-#desplazamiento{
+/* ── EXPOSICIONES 2026 ── */
+#exposiciones{
   border-top:3px solid var(--border);
-  padding:48px 48px 60px;
+  position:relative;
+  overflow:hidden;
+}
+
+/* section header bar */
+.expo-header{
+  padding:24px 48px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--border-light);
+}
+.expo-section-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--muted);margin:0;
+}
+
+/* exhibition-level navigation — bottom-right of section */
+.expo-nav{
+  display:flex;align-items:center;gap:10px;
+}
+.expo-nav-btn{
+  width:40px;height:40px;
+  border:1px solid #000;background:#fff;
+  font-family:var(--mono);font-size:16px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background 0.15s,color 0.15s;
+}
+.expo-nav-btn:hover{background:#000;color:#fff;}
+.expo-nav-btn:disabled{opacity:0.25;cursor:default;}
+.expo-nav-counter{
+  font-family:var(--mono);font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--muted);min-width:36px;text-align:center;
+}
+
+/* outer slide track — one per exhibition */
+.expo-track{
+  display:flex;
+  transition:transform 0.6s cubic-bezier(.77,0,.18,1);
+}
+.expo-item{
+  flex:0 0 100%;width:100%;
+  padding:40px 48px 56px;
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:48px 60px;
+  box-sizing:border-box;
 }
 
-/* left column */
-.df-left{display:flex;flex-direction:column;gap:40px;}
-.df-title{
+/* left info column */
+.expo-left{display:flex;flex-direction:column;gap:32px;}
+.expo-title{
   font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
-  font-weight:400;font-size:clamp(52px,7.9vw,114px);line-height:1.1;
-  letter-spacing:-3.42px;text-transform:uppercase;color:#000;margin:0;
+  font-weight:400;font-size:clamp(40px,5.8vw,84px);line-height:1.05;
+  letter-spacing:-2.5px;text-transform:uppercase;color:#000;margin:0;
 }
-.df-desc{
-  font-family:var(--garamond);font-size:clamp(15px,1.4vw,20px);
-  line-height:1.75;letter-spacing:-0.5px;color:#000;margin:0;max-width:520px;
+.expo-desc{
+  font-family:var(--garamond);font-size:clamp(14px,1.3vw,19px);
+  line-height:1.75;letter-spacing:-0.4px;color:#000;margin:0;
 }
-.df-meta{
+.expo-meta{
   font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
-  font-size:11.5px;line-height:16px;letter-spacing:-0.46px;
+  font-size:11.5px;line-height:17px;letter-spacing:-0.46px;
   text-transform:uppercase;color:#000;margin-top:auto;
 }
-.df-meta strong{font-weight:700;}
-.df-meta a{text-decoration:underline;}
-.df-pdf-btn{
+.expo-meta strong{font-weight:700;}
+.expo-pdf-btn{
   display:inline-flex;align-items:center;justify-content:center;
   background:#000;color:#fff;
   font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
   font-weight:800;font-size:11.5px;letter-spacing:-0.46px;text-transform:uppercase;
   text-decoration:none;
-  border-radius:40px;padding:14px 28px;
-  width:fit-content;align-self:flex-start;margin-top:8px;
+  border-radius:40px;padding:13px 26px;
+  width:fit-content;align-self:flex-start;
   transition:background 0.15s,color 0.15s;
 }
-.df-pdf-btn:hover{background:#fff;color:#000;box-shadow:inset 0 0 0 1px #000;}
+.expo-pdf-btn:hover{background:#fff;color:#000;box-shadow:inset 0 0 0 1px #000;}
 
-/* subtitle tag */
-.df-subtitle{
-  font-family:var(--mono);font-size:10px;letter-spacing:3px;
-  text-transform:uppercase;color:var(--muted);margin:0;
-}
-
-/* right column — photo carousel */
-.df-right{display:flex;align-items:center;justify-content:center;}
-.df-carousel{
+/* right — media carousel */
+.expo-right{display:flex;align-items:flex-start;justify-content:center;}
+.media-carousel{
   position:relative;width:100%;
   border:1px solid #000;border-radius:60px;overflow:hidden;
-  aspect-ratio:778/658;background:#0a0a0a;
+  aspect-ratio:3/2;          /* 3:2 works well for landscape photo & video */
+  background:#0a0a0a;
 }
-.df-track{
+.media-track{
   display:flex;height:100%;
-  transition:transform 0.5s cubic-bezier(.77,0,.18,1);
+  transition:transform 0.45s cubic-bezier(.77,0,.18,1);
+  will-change:transform;
 }
-.df-slide{
-  flex:0 0 100%;width:100%;height:100%;
-  display:flex;align-items:center;justify-content:center;
-}
-.df-slide img{
+.media-slide{flex:0 0 100%;width:100%;height:100%;}
+.media-slide img,
+.media-slide video{
   width:100%;height:100%;
-  object-fit:contain;  /* show full image, letterbox with dark bg */
+  object-fit:cover;          /* fill frame, natural crop */
   display:block;
 }
-.df-slide video{
-  width:100%;height:100%;
-  object-fit:contain;
-  display:block;background:#000;
-}
 
-/* carousel controls */
-.df-controls{
-  position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
-  display:flex;align-items:center;gap:10px;z-index:2;
+/* media controls — bottom-right inside frame */
+.media-controls{
+  position:absolute;bottom:16px;right:16px;
+  display:flex;align-items:center;gap:8px;z-index:2;
 }
-.df-btn{
-  width:36px;height:36px;
-  background:rgba(255,255,255,0.85);
-  border:1px solid #000;border-radius:50%;
-  font-family:var(--mono);font-size:14px;
+.media-btn{
+  width:34px;height:34px;
+  background:rgba(255,255,255,0.88);
+  border:1px solid rgba(0,0,0,0.3);border-radius:50%;
+  font-family:var(--mono);font-size:13px;
   cursor:pointer;display:flex;align-items:center;justify-content:center;
-  backdrop-filter:blur(4px);transition:background 0.15s;
+  backdrop-filter:blur(6px);transition:background 0.15s,color 0.15s;
 }
-.df-btn:hover{background:#000;color:#fff;}
-.df-btn:disabled{opacity:0.3;cursor:default;}
-.df-counter{
+.media-btn:hover{background:#000;color:#fff;}
+.media-btn:disabled{opacity:0.3;cursor:default;}
+.media-counter{
   font-family:var(--mono);font-size:9px;letter-spacing:2px;
   text-transform:uppercase;color:#fff;
-  background:rgba(0,0,0,0.45);padding:3px 8px;border-radius:20px;
-  backdrop-filter:blur(4px);
+  background:rgba(0,0,0,0.5);padding:3px 8px;border-radius:20px;
+  backdrop-filter:blur(6px);
+}
+
+/* placeholder for upcoming exhibitions */
+.expo-placeholder{
+  display:flex;align-items:center;justify-content:center;
+  height:300px;
+  font-family:var(--mono);font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--muted);
+  border:1px dashed var(--border-light);border-radius:20px;
 }
 
 /* mobile */
 @media(max-width:700px){
-  #desplazamiento{
+  .expo-header{padding:16px;}
+  .expo-item{
     grid-template-columns:1fr;
-    padding:32px 16px 40px;
-    gap:32px;
+    padding:24px 16px 40px;
+    gap:28px;
   }
-  .df-carousel{aspect-ratio:1/1;border-radius:30px;}
-  .df-left{gap:24px;}
-  .df-pdf-btn{width:100%;justify-content:center;}
+  .media-carousel{aspect-ratio:4/3;border-radius:30px;}
+  .expo-left{gap:20px;}
+  .expo-pdf-btn{width:100%;justify-content:center;}
+  .expo-title{font-size:clamp(34px,9vw,52px);}
 }
 </style>
 </head>
@@ -816,7 +856,7 @@ footer{
 <nav class="site-nav">
 <span class="site-nav-inner">
 <a href="#tecnopoemas">tecnopoemas</a><span class="sep"> / </span>
-<a href="#desplazamiento">desplazamiento</a><span class="sep"> / </span>
+<a href="#exposiciones">exposiciones</a><span class="sep"> / </span>
 <a href="#bio">bio</a><span class="sep"> / </span>
 <a href="#cv">cv</a><span class="sep"> / </span>
 <a href="#escrituras">escrituras</a><span class="sep"> / </span>
@@ -1025,55 +1065,105 @@ footer{
 </section>
 
 <!-- ── DESPLAZAMIENTO FORZADO ── -->
-<section id="desplazamiento">
+<section id="exposiciones">
 
-  <!-- LEFT: title + description + meta + PDF -->
-  <div class="df-left">
-    <p class="df-subtitle">Exposición</p>
-    <h2 class="df-title">Desplazamiento<br>forzado</h2>
-    <p class="df-desc">Desplazamiento Forzado es un proyecto expositivo sobre la migración venezolana que explora la fractura familiar como consecuencia de los procesos migratorios. A través de poemas interactivos, material de archivo y videoensayos, la exposición recrea el reencuentro entre los hermanos gemelos Nicolás Gerardi Rousset y Augusto Gerardi Rousset tras cinco años de separación física, producto de los distintos procesos migratorios que cada uno emprendió. Reunidos bajo el mismo cielo, en Berlín, ambos hermanos compartieron los proyectos, obras, ideas y archivos acumulados durante esos cinco años.</p>
-    <div class="df-meta">
-      <span style="text-decoration:underline">Inauguración</span><br>
-      11 de abril · 2025<br>
-      ID Art Lab<br>
-      <strong>676 NW Miami, FL</strong><br>
-      33127
-    </div>
-    <a class="df-pdf-btn" href="desplazamientoforzado/catalogo.pdf" target="_blank" rel="noopener">PDF — Catálogo</a>
-  </div>
-
-  <!-- RIGHT: mixed media carousel (images + videos) -->
-  <div class="df-right">
-    <div class="df-carousel" id="df-carousel">
-      <div class="df-track" id="df-track">
-        <div class="df-slide"><img src="desplazamientoforzado/df_01.jpg" alt="Desplazamiento forzado 1" loading="lazy"></div>
-        <div class="df-slide"><img src="desplazamientoforzado/df_02.jpg" alt="Desplazamiento forzado 2" loading="lazy"></div>
-        <div class="df-slide"><img src="desplazamientoforzado/df_03.jpg" alt="Desplazamiento forzado 3" loading="lazy"></div>
-        <div class="df-slide"><video src="desplazamientoforzado/df_v01.mov" muted playsinline loop preload="none"></video></div>
-        <div class="df-slide"><img src="desplazamientoforzado/df_04.jpg" alt="Desplazamiento forzado 4" loading="lazy"></div>
-        <div class="df-slide"><img src="desplazamientoforzado/df_05.jpg" alt="Desplazamiento forzado 5" loading="lazy"></div>
-        <div class="df-slide"><video src="desplazamientoforzado/df_v02.mov" muted playsinline loop preload="none"></video></div>
-        <div class="df-slide"><img src="desplazamientoforzado/df_06.jpg" alt="Desplazamiento forzado 6" loading="lazy"></div>
-        <div class="df-slide"><video src="desplazamientoforzado/df_v03.mov" muted playsinline loop preload="none"></video></div>
-        <div class="df-slide"><img src="desplazamientoforzado/df_07.jpg" alt="Desplazamiento forzado 7" loading="lazy"></div>
-        <div class="df-slide"><video src="desplazamientoforzado/df_v04.mov" muted playsinline loop preload="none"></video></div>
-        <div class="df-slide"><img src="desplazamientoforzado/df_08.jpg" alt="Desplazamiento forzado 8" loading="lazy"></div>
-        <div class="df-slide"><video src="desplazamientoforzado/df_v05.mov" muted playsinline loop preload="none"></video></div>
-        <div class="df-slide"><img src="desplazamientoforzado/df_09.jpg" alt="Desplazamiento forzado 9" loading="lazy"></div>
-        <div class="df-slide"><img src="desplazamientoforzado/df_10.jpg" alt="Desplazamiento forzado 10" loading="lazy"></div>
-        <div class="df-slide"><video src="desplazamientoforzado/df_v06.mov" muted playsinline loop preload="none"></video></div>
-        <div class="df-slide"><img src="desplazamientoforzado/df_11.jpg" alt="Desplazamiento forzado 11" loading="lazy"></div>
-        <div class="df-slide"><video src="desplazamientoforzado/df_v07.mp4" muted playsinline loop preload="none"></video></div>
-        <div class="df-slide"><img src="desplazamientoforzado/df_12.jpg" alt="Desplazamiento forzado 12" loading="lazy"></div>
-        <div class="df-slide"><video src="desplazamientoforzado/df_v08.mp4" muted playsinline loop preload="none"></video></div>
-      </div>
-      <div class="df-controls">
-        <button class="df-btn" id="df-prev" disabled>←</button>
-        <span class="df-counter" id="df-counter">1 / 20</span>
-        <button class="df-btn" id="df-next">→</button>
-      </div>
+  <!-- section header -->
+  <div class="expo-header">
+    <p class="expo-section-label">Exposiciones 2026</p>
+    <div class="expo-nav">
+      <button class="expo-nav-btn" id="expo-prev" disabled>←</button>
+      <span class="expo-nav-counter" id="expo-counter">1 / 4</span>
+      <button class="expo-nav-btn" id="expo-next">→</button>
     </div>
   </div>
+
+  <!-- outer exhibition track -->
+  <div class="expo-track" id="expo-track">
+
+    <!-- ── EXPOSICIÓN 1: Desplazamiento Forzado ── -->
+    <div class="expo-item">
+      <div class="expo-left">
+        <h2 class="expo-title">Desplazamiento<br>forzado</h2>
+        <p class="expo-desc">Desplazamiento Forzado es un proyecto expositivo sobre la migración venezolana que explora la fractura familiar como consecuencia de los procesos migratorios. A través de poemas interactivos, material de archivo y videoensayos, la exposición recrea el reencuentro entre los hermanos gemelos Nicolás Gerardi Rousset y Augusto Gerardi Rousset tras cinco años de separación física.</p>
+        <div class="expo-meta">
+          <span style="text-decoration:underline">Inauguración</span><br>
+          11 de abril · 2025<br>
+          ID Art Lab<br>
+          <strong>676 NW Miami, FL</strong><br>
+          33127
+        </div>
+        <a class="expo-pdf-btn" href="desplazamientoforzado/catalogo.pdf" target="_blank" rel="noopener">PDF — Catálogo</a>
+      </div>
+      <div class="expo-right">
+        <div class="media-carousel" id="mc-1">
+          <div class="media-track" id="mt-1">
+            <div class="media-slide"><img src="desplazamientoforzado/df_01.jpg" alt="" loading="lazy"></div>
+            <div class="media-slide"><img src="desplazamientoforzado/df_02.jpg" alt="" loading="lazy"></div>
+            <div class="media-slide"><img src="desplazamientoforzado/df_03.jpg" alt="" loading="lazy"></div>
+            <div class="media-slide"><video src="desplazamientoforzado/df_v01.mov" muted playsinline loop preload="none"></video></div>
+            <div class="media-slide"><img src="desplazamientoforzado/df_04.jpg" alt="" loading="lazy"></div>
+            <div class="media-slide"><img src="desplazamientoforzado/df_05.jpg" alt="" loading="lazy"></div>
+            <div class="media-slide"><video src="desplazamientoforzado/df_v02.mov" muted playsinline loop preload="none"></video></div>
+            <div class="media-slide"><img src="desplazamientoforzado/df_06.jpg" alt="" loading="lazy"></div>
+            <div class="media-slide"><video src="desplazamientoforzado/df_v03.mov" muted playsinline loop preload="none"></video></div>
+            <div class="media-slide"><img src="desplazamientoforzado/df_07.jpg" alt="" loading="lazy"></div>
+            <div class="media-slide"><video src="desplazamientoforzado/df_v04.mov" muted playsinline loop preload="none"></video></div>
+            <div class="media-slide"><img src="desplazamientoforzado/df_08.jpg" alt="" loading="lazy"></div>
+            <div class="media-slide"><video src="desplazamientoforzado/df_v05.mov" muted playsinline loop preload="none"></video></div>
+            <div class="media-slide"><img src="desplazamientoforzado/df_09.jpg" alt="" loading="lazy"></div>
+            <div class="media-slide"><img src="desplazamientoforzado/df_10.jpg" alt="" loading="lazy"></div>
+            <div class="media-slide"><video src="desplazamientoforzado/df_v06.mov" muted playsinline loop preload="none"></video></div>
+            <div class="media-slide"><img src="desplazamientoforzado/df_11.jpg" alt="" loading="lazy"></div>
+            <div class="media-slide"><video src="desplazamientoforzado/df_v07.mp4" muted playsinline loop preload="none"></video></div>
+            <div class="media-slide"><img src="desplazamientoforzado/df_12.jpg" alt="" loading="lazy"></div>
+            <div class="media-slide"><video src="desplazamientoforzado/df_v08.mp4" muted playsinline loop preload="none"></video></div>
+          </div>
+          <div class="media-controls">
+            <button class="media-btn" data-mc="1" data-dir="-1" disabled>←</button>
+            <span class="media-counter" id="mc-counter-1">1 / 20</span>
+            <button class="media-btn" data-mc="1" data-dir="1">→</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── EXPOSICIÓN 2: placeholder ── -->
+    <div class="expo-item">
+      <div class="expo-left">
+        <h2 class="expo-title">Próximamente</h2>
+      </div>
+      <div class="expo-right">
+        <div class="media-carousel">
+          <div class="expo-placeholder">Exposición 2 · en preparación</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── EXPOSICIÓN 3: placeholder ── -->
+    <div class="expo-item">
+      <div class="expo-left">
+        <h2 class="expo-title">Próximamente</h2>
+      </div>
+      <div class="expo-right">
+        <div class="media-carousel">
+          <div class="expo-placeholder">Exposición 3 · en preparación</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── EXPOSICIÓN 4: placeholder ── -->
+    <div class="expo-item">
+      <div class="expo-left">
+        <h2 class="expo-title">Próximamente</h2>
+      </div>
+      <div class="expo-right">
+        <div class="media-carousel">
+          <div class="expo-placeholder">Exposición 4 · en preparación</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /expo-track -->
 
 </section>
 
@@ -1188,52 +1278,98 @@ footer{
 </footer>
 
 <script>
-// ── DESPLAZAMIENTO FORZADO CAROUSEL ──
+// ── EXPOSICIONES 2026 — two-level navigation ──
 (function(){
-  var slides=document.querySelectorAll('#df-track .df-slide');
-  var total=slides.length;
-  var current=0;
-  var track=document.getElementById('df-track');
-  var counter=document.getElementById('df-counter');
-  var prev=document.getElementById('df-prev');
-  var next=document.getElementById('df-next');
 
-  function currentVideo(){
-    return slides[current].querySelector('video');
+  // ── outer: exhibition slides ──
+  var expoTrack = document.getElementById('expo-track');
+  var expoPrev  = document.getElementById('expo-prev');
+  var expoNext  = document.getElementById('expo-next');
+  var expoCount = document.getElementById('expo-counter');
+  var expoItems = document.querySelectorAll('.expo-item');
+  var expoTotal = expoItems.length;
+  var expoCur   = 0;
+
+  function expoGo(n){
+    expoCur = Math.max(0, Math.min(expoTotal-1, n));
+    expoTrack.style.transform = 'translateX(-'+expoCur*100+'%)';
+    expoCount.textContent = (expoCur+1)+' / '+expoTotal;
+    expoPrev.disabled = expoCur===0;
+    expoNext.disabled = expoCur===expoTotal-1;
   }
-  function pauseAll(){
-    document.querySelectorAll('#df-track video').forEach(function(v){
-      v.pause();
+  expoPrev.addEventListener('click', function(){ expoGo(expoCur-1); });
+  expoNext.addEventListener('click', function(){ expoGo(expoCur+1); });
+
+  // swipe on the track
+  var expoSX=0, expoSY=0;
+  expoTrack.addEventListener('touchstart',function(e){
+    expoSX=e.touches[0].clientX; expoSY=e.touches[0].clientY;
+  },{passive:true});
+  expoTrack.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-expoSX;
+    var dy=e.changedTouches[0].clientY-expoSY;
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*2) expoGo(expoCur+(dx<0?1:-1));
+  },{passive:true});
+
+  expoGo(0);
+
+  // ── inner: per-exhibition media carousels ──
+  // state keyed by carousel id
+  var mcState = {};
+
+  function initMediaCarousel(id){
+    var track   = document.getElementById('mt-'+id);
+    if(!track) return;
+    var slides  = track.querySelectorAll('.media-slide');
+    var total   = slides.length;
+    var counter = document.getElementById('mc-counter-'+id);
+    var cur     = 0;
+
+    function pauseVideos(){ track.querySelectorAll('video').forEach(function(v){ v.pause(); }); }
+
+    function goTo(n){
+      pauseVideos();
+      cur = Math.max(0, Math.min(total-1, n));
+      track.style.transform = 'translateX(-'+cur*100+'%)';
+      if(counter) counter.textContent = (cur+1)+' / '+total;
+      // update buttons
+      document.querySelectorAll('.media-btn[data-mc="'+id+'"]').forEach(function(btn){
+        btn.disabled = (parseInt(btn.getAttribute('data-dir'))===-1) ? cur===0 : cur===total-1;
+      });
+      // autoplay video
+      var v = slides[cur].querySelector('video');
+      if(v) v.play().catch(function(){});
+    }
+
+    mcState[id] = { goTo: goTo, get cur(){ return cur; } };
+
+    // swipe inside carousel
+    var mc = document.getElementById('mc-'+id);
+    if(mc){
+      var sx=0,sy=0;
+      mc.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
+      mc.addEventListener('touchend',function(e){
+        var dx=e.changedTouches[0].clientX-sx;
+        var dy=e.changedTouches[0].clientY-sy;
+        if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)*1.5) goTo(cur+(dx<0?1:-1));
+      },{passive:true});
+    }
+
+    goTo(0);
+  }
+
+  // wire button clicks for all media carousels
+  document.querySelectorAll('.media-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var id  = btn.getAttribute('data-mc');
+      var dir = parseInt(btn.getAttribute('data-dir'));
+      if(mcState[id]) mcState[id].goTo(mcState[id].cur + dir);
     });
-  }
-  function goTo(n){
-    pauseAll();
-    current=Math.max(0,Math.min(total-1,n));
-    track.style.transform='translateX(-'+current*100+'%)';
-    counter.textContent=(current+1)+' / '+total;
-    prev.disabled=current===0;
-    next.disabled=current===total-1;
-    // autoplay video slides
-    var v=currentVideo();
-    if(v){ v.play().catch(function(){}); }
-  }
+  });
 
-  prev.addEventListener('click',function(){goTo(current-1);});
-  next.addEventListener('click',function(){goTo(current+1);});
+  // init carousel 1 immediately (it's visible)
+  initMediaCarousel(1);
 
-  // swipe
-  var startX=0,startY=0;
-  var carousel=document.getElementById('df-carousel');
-  carousel.addEventListener('touchstart',function(e){
-    startX=e.touches[0].clientX;startY=e.touches[0].clientY;
-  },{passive:true});
-  carousel.addEventListener('touchend',function(e){
-    var dx=e.changedTouches[0].clientX-startX;
-    var dy=e.changedTouches[0].clientY-startY;
-    if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)*1.5) goTo(current+(dx<0?1:-1));
-  },{passive:true});
-
-  goTo(0);
 })();
 
 const sketches={
