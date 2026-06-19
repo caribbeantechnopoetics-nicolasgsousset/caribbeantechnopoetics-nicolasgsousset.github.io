@@ -714,7 +714,7 @@ footer{
       <div class="tp-slide">
         <div class="tp-slide-header">
           <h2 class="tp-title">Tecnopoemas</h2>
-          <span class="tp-slide-num">01 / 03</span>
+          <span class="tp-slide-num">01 / 04</span>
         </div>
         <div class="tp-canvas-wrap" id="tp-canvas-wrap">
           <div id="tp-canvas-container"></div>
@@ -741,7 +741,7 @@ footer{
       <div class="tp-slide">
         <div class="tp-slide-header">
           <h2 class="tp-title">Inmanente</h2>
-          <span class="tp-slide-num">02 / 03</span>
+          <span class="tp-slide-num">02 / 04</span>
         </div>
         <div class="tp-canvas-wrap" id="tp-canvas-wrap-2">
           <div id="tp-canvas-container-2"></div>
@@ -768,7 +768,7 @@ footer{
       <div class="tp-slide">
         <div class="tp-slide-header">
           <h2 class="tp-title">Resuena conmigo</h2>
-          <span class="tp-slide-num">03 / 03</span>
+          <span class="tp-slide-num">03 / 04</span>
         </div>
         <div class="tp-canvas-wrap" id="tp-canvas-wrap-3">
           <div id="tp-canvas-container-3"></div>
@@ -786,6 +786,33 @@ footer{
           <div class="tp-nav">
             <button class="tp-btn" onclick="tpGo(-1)">←</button>
             <span class="tp-counter">3 / 3</span>
+            <button class="tp-btn" onclick="tpGo(1)" disabled>→</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: Razones Humanitarias -->
+      <div class="tp-slide">
+        <div class="tp-slide-header">
+          <h2 class="tp-title">Razones Humanitarias</h2>
+          <span class="tp-slide-num">04 / 04</span>
+        </div>
+        <div class="tp-canvas-wrap" id="tp-canvas-wrap-4">
+          <div id="tp-canvas-container-4"></div>
+          <div class="tp-hint" id="tp-hint-4">Haz click o presiona una tecla</div>
+        </div>
+        <div class="tp-slide-footer">
+          <p class="tp-desc">La transcripción de los diarios durante mis meses indocumentado en México encarnan mi foto de la COMAR.</p>
+          <div class="tp-meta">
+            Razones Humanitarias<br>
+            2024<br>
+            Processing<br>
+            <strong>Poema interactivo</strong><br>
+            Dimensiones variables
+          </div>
+          <div class="tp-nav">
+            <button class="tp-btn" onclick="tpGo(-1)">←</button>
+            <span class="tp-counter">4 / 4</span>
             <button class="tp-btn" onclick="tpGo(1)" disabled>→</button>
           </div>
         </div>
@@ -1252,6 +1279,101 @@ var resuenaObs=new IntersectionObserver(function(entries){
   }
 },{threshold:0.1});
 resuenaObs.observe(document.getElementById('tp-canvas-wrap-3'));
+
+// ── RAZONES HUMANITARIAS — word cloud from diary ──
+function initRazones(){
+  new p5(function(p){
+    var words=["13/06/2023","Hoy","fue","mi","última","presentación","con","el","Grupo","de","teatro","de","cuarto","año","B.","Roberto","entró","en","escena","gritando.","Patiquín,","Olfateador","de","ventosidades,","los","zorros","rojos","como","tú","tienen","muchos","trucos","pero","el","erizo","tiene","solo","uno.","Cubría","su","pecho","con","una","capa","y","elevaba","el","mentón","viendo","hacia","la","cámara","como","le","había","enseñado.","Tras","terminar","el","diálogo","Roberto","corrió","la","capa","que","lo","ocultaba","y","dejó","al","descubierto","su","torso","desnudo.","Eramos","los","protagonistas","de","un","zampe","colectivo","e","hipnótico.","Ese","fue","mi","último","show.","Al","día","siguiente","desperté","siendo","un","bachaco.","15/06/23","Ser","un","bachaco","no","es","tan","malo","si","se","tiene","tiempo","para","alumbrar","con","la","linterna","del","ocio","las","regiones","inciertas","del","cielo.","el","hábito","es","como","una","cobija","de","algodón,","cubre","las","singularidades,","suaviza","los","bordes","y","difumina","los","volúmenes.","Ser","un","bachaco","es","lo","contrario","al","hábito,","es","la","negación","del","hábito.","Ser","un","bachaco","es","como","el","primer","día","en","una","clase","de","natación.","16/06/23","En","la","madrugada","sentí","el","acre","olor","del","sargazo.","La","neblina","oxidada","de","la","costa","emergía","del","mar","y","cubría","la","carretera","a","San","Rafael","del","Moján.","Danielito","y","Marino","se","entibiaban","en","mi","pecho.","Adiós","Tío","Raúl,","nos","vemos","pronto.","17/06/23","El","señor","Froilan,","taxista","y","veguero,","manejaba","un","Malibú","chillón.","Monte","de","chivo,","lemna,","cocotero","y","farallón.","El","sol","aquí","todo","lo","muestra.","Somos","bachacos","sin","hormiguero,","himenópteros","huérfanos.","17/06/23","Toda","forma","de","vida","superficial","tiene","por","madre","al","exilio.","Los","bachacos","somos","entonces","mutantes.","18/06/23","Maicao","quiere","decir","ojo","de","maíz.","19/06/23","Este","viaje","no","es","un","viaje,","es","un","fin","en","sí","mismo.","20/06/23","Desperté","atolondrado","por","las","curvas","del","camino.","¿Un","grupo","de","Whatsapp","puede","ser","una","nación?","¿Quién","se","robó","mi","humanidad","y","me","transformó","en","bachaco?","22/06/23","Hoy","me","escapé","al","mar","a","enredarme","en","las","trenzas","de","coco","de","Yemaíl.","Braceamos","hasta","la","boya","más","lejana.","Nos","dejamos","arrejuntar","por","la","cadencia","de","las","olas.","23/06/23","Mi","país","eran","las","piernas","de","Ana","y","las","nalgas","de","Cristina.","Mi","país","era","una","tierra","sin","idioma.","Vi","a","un","grupo","de","bachacos","rojos","comiéndose","el","cuerpo","despedazado","de","otro","bachaco","rojo.","Para","volver","a","ser","humanos","primero","tenemos","que","ser","bestias.","24/06/23","Una","chama","de","mi","edad","completamente","deshidratada","buscaba","a","su","tía","que","nunca","regresó.","Daniel","vomitaba","y","lloraba,","Marino","y","yo","cagábamos","a","cada","rato.","25/06/23","El","guía","nos","despojó","del","dinero","y","los","aparatos","electrónicos.","La","nariz","como","pico","de","loro,","tez","ocre,","los","dientes","picados","en","sierra.","26/06/23","Perdí","mi","identidad.","Me","transformé","en","un","animal","sin","nombre","gateando","en","un","pantano","paramilitar.","Colinas","de","lodo,","caminantes","sonámbulos,","niños","sedientos,","un","frío","medular.","27/06/23","Entregué","mi","identidad","por","segunda","vez","sin","dolor","ni","pena.","Ya","no","existíamos.","28/06/23","Llegó","el","momento","de","cruzar","El","Paso","de","la","Cascada.","Torrentes","de","agua","venenosa.","Las","piernas","moradas","de","papá.","Daniel","no","lloraba","cuando","reposaba","sobre","el","pecho","de","Papá.","29/06/23","Con","tan","solo","un","suspiro","el","río","amarró","en","su","cauce","a","Danielito","y","a","Papá.","Maldito","Maduro,","Maldito","Chávez,","Malditos","Opositores,","Maldito","Gobierno,","Maldito","Imperio,","Maldito","Mundo.","30/06/23","Maldito","Chávez,","maldito","Maduro,","maldito","Pipo,","malditos","malparidos.","01/07/23","Ya","no","existo.","Un","hilo","invisible","poco","a","poco","me","corta","la","respiración.","En","Venezuela","todos","somos","educados","para","desaparecer","sin","dejar","rastro.","02/07/23","Primer","nombre:","Juán","Segundo","nombre:","Pablo,","pablito","para","los","amigos.","Fecha","de","nacimiento:","13/04/2006","Número","de","Pasaporte:","No","tengo,","me","lo","robaron.","Nacionalidad:","Venenolano.","Estado","Civil:","Decepcionado.","Dirección","Actual:","La","totona","de","tu","maldita","abuela.","30/07/23","Llegamos","al","primer","hormiguero.","Mamá","llamó","a","los","tíos,","llamó","a","la","abuela.","Ser","insignificante","y","a","la","vez","hablar","alto","y","con","soberbia."];
+
+    var drawnWords=[], wordIndex=0, WORDS_PER_CLICK=28;
+    var startTime=0, timerStarted=false;
+    var img, imgLoaded=false, wrap4, hintHidden=false;
+
+    p.preload=function(){
+      img=p.loadImage('Nico_refugio2.jpg',function(){ imgLoaded=true; },function(){ imgLoaded=false; });
+    };
+
+    p.setup=function(){
+      wrap4=document.getElementById('tp-canvas-wrap-4');
+      var w=wrap4.offsetWidth||800;
+      var h=wrap4.offsetHeight||500;
+      var cnv=p.createCanvas(w,h);
+      cnv.parent('tp-canvas-container-4');
+      p.background(255);
+      p.textAlign(p.LEFT,p.BASELINE);
+      if(imgLoaded) img.resize(w,h);
+      new ResizeObserver(function(entries){
+        var e=entries[0].contentRect;
+        p.resizeCanvas(e.width,e.height);
+        if(imgLoaded) img.resize(e.width,e.height);
+        drawnWords=[]; wordIndex=0; timerStarted=false;
+      }).observe(wrap4);
+    };
+
+    function showNextWords(){
+      for(var i=0;i<WORDS_PER_CLICK;i++){
+        var xp=p.random(p.width);
+        var yp=p.random(p.height);
+        var word=words[wordIndex%words.length];
+        var c;
+        if(imgLoaded){
+          c=img.get(Math.floor(xp),Math.floor(yp));
+        } else {
+          c=p.color(p.random(30,80));
+        }
+        drawnWords.push({txt:word,x:xp,y:yp,sz:p.random(9,20),r:p.red(c),g:p.green(c),b:p.blue(c),a:255});
+        wordIndex++;
+      }
+      if(!timerStarted){ timerStarted=true; startTime=p.millis(); }
+      if(!hintHidden){
+        var hint=document.getElementById('tp-hint-4');
+        if(hint) hint.classList.add('hidden');
+        hintHidden=true;
+      }
+    }
+
+    p.draw=function(){
+      p.background(255);
+      if(timerStarted){
+        var elapsed=p.millis()-startTime;
+        if(elapsed>18000){
+          var groupsToFade=Math.floor((elapsed-18000)/2000);
+          for(var i=0;i<drawnWords.length;i++){
+            if(Math.floor(i/WORDS_PER_CLICK)<groupsToFade){
+              drawnWords[i].a=Math.max(0,drawnWords[i].a-3);
+            }
+          }
+        }
+      }
+      for(var i=0;i<drawnWords.length;i++){
+        var w=drawnWords[i];
+        p.fill(w.r,w.g,w.b,w.a);
+        p.noStroke();
+        p.textSize(w.sz);
+        p.text(w.txt,w.x,w.y);
+      }
+    };
+
+    p.mousePressed=function(){
+      if(p.mouseX>=0&&p.mouseX<=p.width&&p.mouseY>=0&&p.mouseY<=p.height)
+        showNextWords();
+    };
+    p.keyPressed=function(){ showNextWords(); };
+    p.touchStarted=function(){
+      if(p.mouseX>=0&&p.mouseX<=p.width&&p.mouseY>=0&&p.mouseY<=p.height){
+        showNextWords(); return false;
+      }
+    };
+  },'tp-canvas-container-4');
+}
+
+var razonesObs=new IntersectionObserver(function(entries){
+  if(entries[0].isIntersecting&&typeof p5!=='undefined'){
+    initRazones();
+    razonesObs.disconnect();
+  }
+},{threshold:0.1});
+razonesObs.observe(document.getElementById('tp-canvas-wrap-4'));
 </script>
 </body>
 </html>
