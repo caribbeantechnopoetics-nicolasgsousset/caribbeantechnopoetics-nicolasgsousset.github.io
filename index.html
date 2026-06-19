@@ -743,12 +743,18 @@ footer{
 }
 .df-pdf-btn:hover{background:#fff;color:#000;box-shadow:inset 0 0 0 1px #000;}
 
+/* subtitle tag */
+.df-subtitle{
+  font-family:var(--mono);font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--muted);margin:0;
+}
+
 /* right column — photo carousel */
 .df-right{display:flex;align-items:center;justify-content:center;}
 .df-carousel{
   position:relative;width:100%;
   border:1px solid #000;border-radius:60px;overflow:hidden;
-  aspect-ratio:778/658;
+  aspect-ratio:778/658;background:#0a0a0a;
 }
 .df-track{
   display:flex;height:100%;
@@ -756,8 +762,18 @@ footer{
 }
 .df-slide{
   flex:0 0 100%;width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
 }
-.df-slide img{width:100%;height:100%;object-fit:cover;display:block;}
+.df-slide img{
+  width:100%;height:100%;
+  object-fit:contain;  /* show full image, letterbox with dark bg */
+  display:block;
+}
+.df-slide video{
+  width:100%;height:100%;
+  object-fit:contain;
+  display:block;background:#000;
+}
 
 /* carousel controls */
 .df-controls{
@@ -1013,11 +1029,12 @@ footer{
 
   <!-- LEFT: title + description + meta + PDF -->
   <div class="df-left">
+    <p class="df-subtitle">Exposición</p>
     <h2 class="df-title">Desplazamiento<br>forzado</h2>
     <p class="df-desc">Desplazamiento Forzado es un proyecto expositivo sobre la migración venezolana que explora la fractura familiar como consecuencia de los procesos migratorios. A través de poemas interactivos, material de archivo y videoensayos, la exposición recrea el reencuentro entre los hermanos gemelos Nicolás Gerardi Rousset y Augusto Gerardi Rousset tras cinco años de separación física, producto de los distintos procesos migratorios que cada uno emprendió. Reunidos bajo el mismo cielo, en Berlín, ambos hermanos compartieron los proyectos, obras, ideas y archivos acumulados durante esos cinco años.</p>
     <div class="df-meta">
-      <span style="text-decoration:underline">Opening reception</span><br>
-      April 11 · 2025<br>
+      <span style="text-decoration:underline">Inauguración</span><br>
+      11 de abril · 2025<br>
       ID Art Lab<br>
       <strong>676 NW Miami, FL</strong><br>
       33127
@@ -1025,26 +1042,34 @@ footer{
     <a class="df-pdf-btn" href="desplazamientoforzado/catalogo.pdf" target="_blank" rel="noopener">PDF — Catálogo</a>
   </div>
 
-  <!-- RIGHT: photo carousel -->
+  <!-- RIGHT: mixed media carousel (images + videos) -->
   <div class="df-right">
     <div class="df-carousel" id="df-carousel">
       <div class="df-track" id="df-track">
         <div class="df-slide"><img src="desplazamientoforzado/df_01.jpg" alt="Desplazamiento forzado 1" loading="lazy"></div>
         <div class="df-slide"><img src="desplazamientoforzado/df_02.jpg" alt="Desplazamiento forzado 2" loading="lazy"></div>
         <div class="df-slide"><img src="desplazamientoforzado/df_03.jpg" alt="Desplazamiento forzado 3" loading="lazy"></div>
+        <div class="df-slide"><video src="desplazamientoforzado/df_v01.mov" muted playsinline loop preload="none"></video></div>
         <div class="df-slide"><img src="desplazamientoforzado/df_04.jpg" alt="Desplazamiento forzado 4" loading="lazy"></div>
         <div class="df-slide"><img src="desplazamientoforzado/df_05.jpg" alt="Desplazamiento forzado 5" loading="lazy"></div>
+        <div class="df-slide"><video src="desplazamientoforzado/df_v02.mov" muted playsinline loop preload="none"></video></div>
         <div class="df-slide"><img src="desplazamientoforzado/df_06.jpg" alt="Desplazamiento forzado 6" loading="lazy"></div>
+        <div class="df-slide"><video src="desplazamientoforzado/df_v03.mov" muted playsinline loop preload="none"></video></div>
         <div class="df-slide"><img src="desplazamientoforzado/df_07.jpg" alt="Desplazamiento forzado 7" loading="lazy"></div>
+        <div class="df-slide"><video src="desplazamientoforzado/df_v04.mov" muted playsinline loop preload="none"></video></div>
         <div class="df-slide"><img src="desplazamientoforzado/df_08.jpg" alt="Desplazamiento forzado 8" loading="lazy"></div>
+        <div class="df-slide"><video src="desplazamientoforzado/df_v05.mov" muted playsinline loop preload="none"></video></div>
         <div class="df-slide"><img src="desplazamientoforzado/df_09.jpg" alt="Desplazamiento forzado 9" loading="lazy"></div>
         <div class="df-slide"><img src="desplazamientoforzado/df_10.jpg" alt="Desplazamiento forzado 10" loading="lazy"></div>
+        <div class="df-slide"><video src="desplazamientoforzado/df_v06.mov" muted playsinline loop preload="none"></video></div>
         <div class="df-slide"><img src="desplazamientoforzado/df_11.jpg" alt="Desplazamiento forzado 11" loading="lazy"></div>
+        <div class="df-slide"><video src="desplazamientoforzado/df_v07.mp4" muted playsinline loop preload="none"></video></div>
         <div class="df-slide"><img src="desplazamientoforzado/df_12.jpg" alt="Desplazamiento forzado 12" loading="lazy"></div>
+        <div class="df-slide"><video src="desplazamientoforzado/df_v08.mp4" muted playsinline loop preload="none"></video></div>
       </div>
       <div class="df-controls">
         <button class="df-btn" id="df-prev" disabled>←</button>
-        <span class="df-counter" id="df-counter">1 / 12</span>
+        <span class="df-counter" id="df-counter">1 / 20</span>
         <button class="df-btn" id="df-next">→</button>
       </div>
     </div>
@@ -1165,24 +1190,38 @@ footer{
 <script>
 // ── DESPLAZAMIENTO FORZADO CAROUSEL ──
 (function(){
-  var current=0, total=12;
+  var slides=document.querySelectorAll('#df-track .df-slide');
+  var total=slides.length;
+  var current=0;
   var track=document.getElementById('df-track');
   var counter=document.getElementById('df-counter');
   var prev=document.getElementById('df-prev');
   var next=document.getElementById('df-next');
 
+  function currentVideo(){
+    return slides[current].querySelector('video');
+  }
+  function pauseAll(){
+    document.querySelectorAll('#df-track video').forEach(function(v){
+      v.pause();
+    });
+  }
   function goTo(n){
+    pauseAll();
     current=Math.max(0,Math.min(total-1,n));
     track.style.transform='translateX(-'+current*100+'%)';
     counter.textContent=(current+1)+' / '+total;
     prev.disabled=current===0;
     next.disabled=current===total-1;
+    // autoplay video slides
+    var v=currentVideo();
+    if(v){ v.play().catch(function(){}); }
   }
 
   prev.addEventListener('click',function(){goTo(current-1);});
   next.addEventListener('click',function(){goTo(current+1);});
 
-  // swipe support
+  // swipe
   var startX=0,startY=0;
   var carousel=document.getElementById('df-carousel');
   carousel.addEventListener('touchstart',function(e){
