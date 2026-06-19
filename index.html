@@ -211,20 +211,60 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   text-transform:uppercase;color:var(--muted);min-width:32px;text-align:center;
 }
 
-/* mobile */
+/* ── MOBILE — slideshow ── */
 @media(max-width:700px){
-  .tp-show{height:auto;min-height:calc(100svh - 44px);}
-  .tp-slide{grid-template-rows:auto 1fr auto;}
-  .tp-slide-header{padding:20px 20px 0;}
-  .tp-title{font-size:clamp(40px,12vw,64px);letter-spacing:-2px;}
-  .tp-canvas-wrap{min-height:55vw;}
-  .tp-slide-footer{
-    grid-template-columns:1fr;
-    grid-template-rows:auto auto auto;
-    padding:12px 20px 20px;gap:16px;
+  /* fill the full screen minus nav */
+  .tp-show{
+    height:calc(100svh - 44px);
+    min-height:0;
   }
-  .tp-meta{text-align:left;white-space:normal;}
-  .tp-nav{justify-content:flex-start;}
+  .tp-slide{
+    grid-template-rows:auto 1fr auto;
+    height:100%;
+  }
+  .tp-slide-header{
+    padding:14px 16px 0;
+    border-bottom:1px solid var(--border-light);
+  }
+  .tp-title{
+    font-size:clamp(32px,10vw,52px);
+    letter-spacing:-1.5px;
+    line-height:1.1;
+    padding-bottom:10px;
+  }
+  .tp-canvas-wrap{
+    /* let canvas fill remaining space */
+    min-height:0;
+    flex:1;
+  }
+  .tp-hint{
+    font-size:9px;
+    letter-spacing:2px;
+    white-space:normal;
+    text-align:center;
+    width:90%;
+    bottom:10px;
+  }
+  .tp-slide-footer{
+    grid-template-columns:1fr auto;
+    grid-template-rows:auto auto;
+    padding:10px 16px 14px;
+    gap:8px;
+  }
+  /* desc spans full width, meta hidden on mobile to save space */
+  .tp-desc{
+    font-size:clamp(14px,4vw,18px);
+    grid-column:1 / -1;
+  }
+  .tp-meta{display:none;}
+  .tp-nav{
+    justify-content:flex-end;
+    grid-column:2;
+    grid-row:1;
+    align-self:center;
+  }
+  /* larger touch targets */
+  .tp-btn{width:44px;height:44px;font-size:16px;}
 }
 
 /* ── BIO ── */
@@ -718,7 +758,7 @@ footer{
         </div>
         <div class="tp-canvas-wrap" id="tp-canvas-wrap">
           <div id="tp-canvas-container"></div>
-          <div class="tp-hint" id="tp-hint">Click y arrastra para escribir</div>
+          <div class="tp-hint" id="tp-hint">Toca o arrastra para escribir</div>
         </div>
         <div class="tp-slide-footer">
           <p class="tp-desc">Poemas escritos en el lenguaje de las máquinas y cercanos a las tecnologías digitales</p>
@@ -745,7 +785,7 @@ footer{
         </div>
         <div class="tp-canvas-wrap" id="tp-canvas-wrap-2">
           <div id="tp-canvas-container-2"></div>
-          <div class="tp-hint">Mueve el cursor sobre el texto</div>
+          <div class="tp-hint">Mueve el dedo sobre el texto</div>
         </div>
         <div class="tp-slide-footer">
           <p class="tp-desc">Fragmento de una serie que busca visualizar palabras conceptuales</p>
@@ -772,7 +812,7 @@ footer{
         </div>
         <div class="tp-canvas-wrap" id="tp-canvas-wrap-3">
           <div id="tp-canvas-container-3"></div>
-          <div class="tp-hint" id="tp-hint-3">Haz click para escribir</div>
+          <div class="tp-hint" id="tp-hint-3">Toca para escribir</div>
         </div>
         <div class="tp-slide-footer">
           <p class="tp-desc">Un poema sobre la resonancia del agua</p>
@@ -799,7 +839,7 @@ footer{
         </div>
         <div class="tp-canvas-wrap" id="tp-canvas-wrap-4">
           <div id="tp-canvas-container-4"></div>
-          <div class="tp-hint" id="tp-hint-4">Haz click o presiona una tecla</div>
+          <div class="tp-hint" id="tp-hint-4">Toca para revelar</div>
         </div>
         <div class="tp-slide-footer">
           <p class="tp-desc">Retrato de la COMAR dibujado por mis diarios de indocumentado.</p>
@@ -820,17 +860,17 @@ footer{
 
       <!-- SLIDE 5: Mi raza -->
       <div class="tp-slide">
-        <div class="tp-slide-header" style="background:#141414;border-bottom-color:#333;">
-          <h2 class="tp-title" style="color:#fff;">Mi raza</h2>
-          <span class="tp-slide-num" style="color:#555;">05 / 05</span>
+        <div class="tp-slide-header">
+          <h2 class="tp-title">Mi raza</h2>
+          <span class="tp-slide-num">05 / 05</span>
         </div>
-        <div class="tp-canvas-wrap" id="tp-canvas-wrap-5" style="background:#141414;cursor:crosshair;">
+        <div class="tp-canvas-wrap" id="tp-canvas-wrap-5">
           <div id="tp-canvas-container-5"></div>
-          <div class="tp-hint" id="tp-hint-5" style="color:#555;">Mueve el cursor · haz click para cambiar el texto</div>
+          <div class="tp-hint" id="tp-hint-5">Mueve el cursor · toca para cambiar el texto</div>
         </div>
-        <div class="tp-slide-footer" style="background:#141414;border-top-color:#333;">
-          <p class="tp-desc" style="color:#fff;">Un poema sobre mi raza, la raza de los desplazados.</p>
-          <div class="tp-meta" style="color:#fff;">
+        <div class="tp-slide-footer">
+          <p class="tp-desc">Un poema sobre mi raza, la raza de los desplazados.</p>
+          <div class="tp-meta">
             Mi raza<br>
             2025<br>
             Processing<br>
@@ -838,9 +878,9 @@ footer{
             Dimensiones variables
           </div>
           <div class="tp-nav">
-            <button class="tp-btn" data-dir="-1" onclick="tpGo(-1)" style="border-color:#fff;color:#fff;background:transparent;">←</button>
-            <span class="tp-counter" style="color:#555;">5 / 5</span>
-            <button class="tp-btn" data-dir="1" onclick="tpGo(1)" disabled style="border-color:#fff;color:#fff;background:transparent;">→</button>
+            <button class="tp-btn" data-dir="-1" onclick="tpGo(-1)">←</button>
+            <span class="tp-counter">5 / 5</span>
+            <button class="tp-btn" data-dir="1" onclick="tpGo(1)" disabled>→</button>
           </div>
         </div>
       </div>
@@ -1022,6 +1062,29 @@ function tpGo(dir){
   });
 }
 tpGo(0);
+
+// ── SWIPE NAVIGATION FOR SLIDESHOW ──
+(function(){
+  var el=document.querySelector('.tp-show');
+  var startX=0, startY=0, moved=false;
+  el.addEventListener('touchstart',function(e){
+    startX=e.touches[0].clientX;
+    startY=e.touches[0].clientY;
+    moved=false;
+  },{passive:true});
+  el.addEventListener('touchmove',function(e){
+    moved=true;
+  },{passive:true});
+  el.addEventListener('touchend',function(e){
+    if(!moved) return;
+    var dx=e.changedTouches[0].clientX-startX;
+    var dy=e.changedTouches[0].clientY-startY;
+    /* only trigger on predominantly horizontal swipe > 50px */
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5){
+      tpGo(dx<0?1:-1);
+    }
+  },{passive:true});
+})();
 
 // ── EL NOMBRE Y LA FRONTERA — load p5.js + init sketch on scroll into view ──
 var tpSketchStarted=false;
@@ -1460,8 +1523,8 @@ function initMiRaza(){
     };
 
     p.draw=function(){
-      p.background(20);
-      p.fill(255);
+      p.background(255);
+      p.fill(0);
       p.noStroke();
       p.translate(0, p.height/2);
       var tsz=p.map(p.mouseY,0,p.height,15,50);
