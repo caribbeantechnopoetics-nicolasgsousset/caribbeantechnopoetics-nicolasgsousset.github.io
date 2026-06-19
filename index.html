@@ -1078,19 +1078,32 @@ window.addEventListener('resize',scaleHero);
 
 // ── TECNOPOEMAS SLIDESHOW ──
 var tpCurrent=0;
+// flags so each sketch only inits once
+var tpInited=[false,false,false,false,false];
+
 function tpGo(dir){
   var slides=document.querySelectorAll('.tp-slide');
   var n=slides.length;
   tpCurrent=Math.max(0,Math.min(n-1,tpCurrent+dir));
   document.getElementById('tp-track').style.transform='translateX(-'+tpCurrent*100+'%)';
-  /* update all counters and nav buttons inside each slide */
   document.querySelectorAll('.tp-counter').forEach(function(el){el.textContent=(tpCurrent+1)+' / '+n;});
   document.querySelectorAll('.tp-btn').forEach(function(btn){
-    var dir=parseInt(btn.getAttribute('data-dir'),10);
-    btn.disabled=(dir===-1)?(tpCurrent===0):(tpCurrent===n-1);
+    var d=parseInt(btn.getAttribute('data-dir'),10);
+    btn.disabled=(d===-1)?(tpCurrent===0):(tpCurrent===n-1);
   });
+  // trigger lazy init for the slide now entering view
+  tpMaybeInit(tpCurrent);
 }
 tpGo(0);
+
+// called when navigating to a slide — inits sketch if p5 is ready and not yet inited
+function tpMaybeInit(idx){
+  if(tpInited[idx]) return;
+  if(typeof p5==='undefined') return; // p5 not loaded yet
+  tpInited[idx]=true;
+  var fns=[null,initInmanente,initResuena,initRazones,initMiRaza];
+  if(fns[idx]) fns[idx]();
+}
 
 // ── iOS Safari viewport height fix ──
 // Sets --vh so calc(var(--vh)*100) equals window.innerHeight (excludes address bar)
@@ -1122,6 +1135,7 @@ window.addEventListener('orientationchange',function(){setTimeout(setVH,300);});
 // ── EL NOMBRE Y LA FRONTERA — load p5.js + init sketch on scroll into view ──
 var tpSketchStarted=false;
 function initTpSketch(){
+  tpInited[0]=true;
   new p5(function(p){
   var x=0,y=0,stepSize=3;
   var letters='    Todo nombre es también una frontera';
@@ -1175,6 +1189,7 @@ function initTpSketch(){
 
     p.mousePressed=function(){x=p.mouseX;y=p.mouseY;};
     p.touchStarted=function(){x=p.mouseX;y=p.mouseY;};
+    p.touchMoved=function(){};  // allow vertical scroll during drag
   },'tp-canvas-container');
 }
 new IntersectionObserver(function(entries){
@@ -1182,7 +1197,7 @@ new IntersectionObserver(function(entries){
     tpSketchStarted=true;
     var s=document.createElement('script');
     s.src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js';
-    s.onload=initTpSketch;
+    s.onload=function(){ initTpSketch(); tpMaybeInit(tpCurrent); };
     document.head.appendChild(s);
   }
 },{threshold:0.1}).observe(document.getElementById('tecnopoemas'));
@@ -1257,12 +1272,14 @@ function initInmanente(){
         p.ellipse(pt.x,pt.y,pt.r*2,pt.r*2);
       }
     };
+    p.touchMoved=function(){};
   },'tp-canvas-container-2');
 }
 
 /* lazy-init Inmanente when slide 2 becomes active (watch tp-canvas-wrap-2) */
 var inmanenteObs=new IntersectionObserver(function(entries){
-  if(entries[0].isIntersecting&&typeof p5!=='undefined'){
+  if(entries[0].isIntersecting&&typeof p5!=='undefined'&&!tpInited[1]){
+    tpInited[1]=true;
     initInmanente();
     inmanenteObs.disconnect();
   }
@@ -1411,11 +1428,13 @@ function initResuena(){
       p.fill(0); p.noStroke();
       p.ellipse(p.mouseX,p.mouseY,14,14);
     };
+    p.touchMoved=function(){};
   },'tp-canvas-container-3');
 }
 
 var resuenaObs=new IntersectionObserver(function(entries){
-  if(entries[0].isIntersecting&&typeof p5!=='undefined'){
+  if(entries[0].isIntersecting&&typeof p5!=='undefined'&&!tpInited[2]){
+    tpInited[2]=true;
     initResuena();
     resuenaObs.disconnect();
   }
@@ -1525,11 +1544,13 @@ function initRazones(){
         showNextWords();
       }
     };
+    p.touchMoved=function(){};
   },'tp-canvas-container-4');
 }
 
 var razonesObs=new IntersectionObserver(function(entries){
-  if(entries[0].isIntersecting&&typeof p5!=='undefined'){
+  if(entries[0].isIntersecting&&typeof p5!=='undefined'&&!tpInited[3]){
+    tpInited[3]=true;
     initRazones();
     razonesObs.disconnect();
   }
@@ -1578,11 +1599,13 @@ function initMiRaza(){
       displayText=phrases[clickCount%phrases.length];
       clickCount++;
     };
+    p.touchMoved=function(){};
   },'tp-canvas-container-5');
 }
 
 var miRazaObs=new IntersectionObserver(function(entries){
-  if(entries[0].isIntersecting&&typeof p5!=='undefined'){
+  if(entries[0].isIntersecting&&typeof p5!=='undefined'&&!tpInited[4]){
+    tpInited[4]=true;
     initMiRaza();
     miRazaObs.disconnect();
   }
