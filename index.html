@@ -1174,7 +1174,7 @@ function initTpSketch(){
   };
 
     p.mousePressed=function(){x=p.mouseX;y=p.mouseY;};
-    p.touchStarted=function(){x=p.mouseX;y=p.mouseY;return false;};
+    p.touchStarted=function(){x=p.mouseX;y=p.mouseY;};
   },'tp-canvas-container');
 }
 new IntersectionObserver(function(entries){
@@ -1352,7 +1352,7 @@ function initResuena(){
     p.mousePressed=function(){
       if(p.mouseX>=0&&p.mouseX<=p.width&&p.mouseY>=0&&p.mouseY<=p.height) burst();
     };
-    p.touchStarted=function(){ burst(); return false; };
+    p.touchStarted=function(){ burst(); };
 
     p.draw=function(){
       p.background(255);
@@ -1522,7 +1522,7 @@ function initRazones(){
     p.keyPressed=function(){ showNextWords(); };
     p.touchStarted=function(){
       if(p.mouseX>=0&&p.mouseX<=p.width&&p.mouseY>=0&&p.mouseY<=p.height){
-        showNextWords(); return false;
+        showNextWords();
       }
     };
   },'tp-canvas-container-4');
@@ -1577,7 +1577,6 @@ function initMiRaza(){
     p.touchStarted=function(){
       displayText=phrases[clickCount%phrases.length];
       clickCount++;
-      return false;
     };
   },'tp-canvas-container-5');
 }
