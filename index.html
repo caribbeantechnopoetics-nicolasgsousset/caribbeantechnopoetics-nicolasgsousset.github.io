@@ -107,65 +107,124 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   color:var(--text);
 }
 
-/* ── TECNOPOEMAS ── */
-#tecnopoemas{border-top:3px solid var(--border);}
+/* ── TECNOPOEMAS SLIDESHOW ── */
+#tecnopoemas{border-top:3px solid var(--border);position:relative;}
 
-.tp-header{
-  padding:48px 48px 0;
+/* outer viewport window — subtract sticky nav height */
+.tp-show{
+  width:100%;
+  height:calc(100vh - 56px);
+  min-height:600px;
+  overflow:hidden;
+  position:relative;
+}
+
+/* sliding track */
+.tp-track{
   display:flex;
-  align-items:flex-start;
+  height:100%;
+  transition:transform 0.5s cubic-bezier(.77,0,.18,1);
+}
+
+/* each slide = full desktop frame */
+.tp-slide{
+  flex:0 0 100%;
+  width:100%;
+  height:100%;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  overflow:hidden;
+}
+
+/* slide header row */
+.tp-slide-header{
+  padding:32px 48px 0;
+  display:flex;
+  align-items:baseline;
   justify-content:space-between;
+  border-bottom:1px solid var(--border-light);
 }
 .tp-title{
   font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
-  font-weight:400;font-size:114px;line-height:137px;
+  font-weight:400;font-size:clamp(52px,7.9vw,114px);line-height:1.2;
   letter-spacing:-3.42px;text-transform:uppercase;color:#000;
   margin:0;
 }
+.tp-slide-num{
+  font-family:var(--mono);font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--muted);
+}
+
+/* slide canvas area */
 .tp-canvas-wrap{
   position:relative;
-  width:100%;height:548px;
+  width:100%;
+  min-height:300px;
   background:#fff;cursor:crosshair;
   overflow:hidden;
 }
-#tp-canvas{display:block;}
 .tp-hint{
-  position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
+  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
   font-family:var(--mono);font-size:10px;letter-spacing:3px;
   text-transform:uppercase;color:var(--muted);
-  pointer-events:none;transition:opacity 0.5s;
+  pointer-events:none;transition:opacity 0.6s;white-space:nowrap;
 }
 .tp-hint.hidden{opacity:0;}
-.tp-footer{
-  padding:24px 48px 80px;
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:40px;
+
+/* slide footer row — grid: desc | meta | nav-buttons */
+.tp-slide-footer{
+  padding:16px 48px 20px;
+  display:grid;
+  grid-template-columns:1fr auto auto;
+  align-items:center;
+  gap:32px;
+  border-top:1px solid var(--border-light);
 }
 .tp-desc{
   font-family:var(--garamond);
-  font-size:33px;line-height:56px;
-  letter-spacing:-1.32px;color:#000;
-  max-width:660px;margin:0;
+  font-size:clamp(16px,1.8vw,28px);line-height:1.4;
+  letter-spacing:-0.5px;color:#000;
+  margin:0;
 }
 .tp-meta{
   font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
-  font-size:11.5px;line-height:13px;
+  font-size:11.5px;line-height:16px;
   letter-spacing:-0.46px;text-transform:uppercase;color:#000;
-  white-space:nowrap;padding-top:4px;
+  white-space:nowrap;text-align:right;
 }
 .tp-meta a{text-decoration:underline;}
 .tp-meta strong{font-weight:700;}
 
+/* nav sits in the third footer column */
+.tp-nav{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.tp-btn{
+  width:36px;height:36px;
+  border:1px solid #000;background:#fff;
+  font-family:var(--mono);font-size:14px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background 0.15s,color 0.15s;
+}
+.tp-btn:hover{background:#000;color:#fff;}
+.tp-btn:disabled{opacity:0.25;cursor:default;}
+.tp-counter{
+  font-family:var(--mono);font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--muted);min-width:32px;text-align:center;
+}
+
 /* mobile */
 @media(max-width:700px){
-  .tp-header{padding:28px 20px 0;}
-  .tp-title{font-size:clamp(48px,13vw,80px);line-height:1.05;letter-spacing:-2px;}
-  .tp-canvas-wrap{height:60vw;min-height:220px;}
-  .tp-footer{flex-direction:column;gap:24px;padding:20px 20px 60px;}
-  .tp-desc{font-size:22px;line-height:1.5;letter-spacing:-0.5px;}
-  .tp-meta{white-space:normal;}
+  .tp-show{height:auto;min-height:calc(100svh - 44px);}
+  .tp-slide{grid-template-rows:auto 1fr auto;}
+  .tp-slide-header{padding:20px 20px 0;}
+  .tp-title{font-size:clamp(40px,12vw,64px);letter-spacing:-2px;}
+  .tp-canvas-wrap{min-height:55vw;}
+  .tp-slide-footer{
+    grid-template-columns:1fr;
+    grid-template-rows:auto auto auto;
+    padding:12px 20px 20px;gap:16px;
+  }
+  .tp-meta{text-align:left;white-space:normal;}
+  .tp-nav{justify-content:flex-start;}
 }
 
 /* ── BIO ── */
@@ -586,7 +645,6 @@ footer{
 .section-title{font-size:clamp(28px,8vw,52px);}
 }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
 </head>
 <body>
 
@@ -609,9 +667,9 @@ footer{
   <div class="hm-line"> — ¡Hola! Soy <span class="gm-italic">Nicolás</span></div>
   <div class="hm-line"><span class="gm-italic">Gerardi Rousset.</span> Investigo la</div>
   <div class="hm-line">relación <div class="hm-pill hm-pill-inmanente"><img src="inmanente.gif" alt=""></div> entre:</div>
-  <div class="hm-line">escritura <div class="hm-pill hm-pill-razon"><img src="razoneshumanitarias_final.gif" alt=""></div></div>
+  <div class="hm-line">escritura <div class="hm-pill hm-pill-razon"><img src="razoneshumanitarias_final.gif" alt="" loading="lazy"></div></div>
   <div class="hm-line">creativa, tecnología y</div>
-  <div class="hm-line">diseño <div class="hm-pill hm-pill-pulso"><img src="pulso.gif" alt=""></div> en <div class="hm-pill hm-pill-caribe"><img src="caribe.gif" alt=""></div> el</div>
+  <div class="hm-line">diseño <div class="hm-pill hm-pill-pulso"><img src="pulso.gif" alt="" loading="lazy"></div> en <div class="hm-pill hm-pill-caribe"><img src="caribe.gif" alt="" loading="lazy"></div> el</div>
   <div class="hm-line hm-bold">Caribe.</div>
 </div>
 
@@ -636,9 +694,9 @@ footer{
 <!-- L6: diseño | [pill] | en | [pill] | el -->
 <div class="hl hl-6">
   <span>diseño</span>
-  <div class="hero-pill pill-pulso"><img src="pulso.gif" alt="" /></div>
+  <div class="hero-pill pill-pulso"><img src="pulso.gif" alt="" loading="lazy" /></div>
   <span>en</span>
-  <div class="hero-pill pill-caribe"><img src="caribe.gif" alt="" /></div>
+  <div class="hero-pill pill-caribe"><img src="caribe.gif" alt="" loading="lazy" /></div>
   <span>el</span>
 </div>
 <!-- L7: Caribe. -->
@@ -648,25 +706,92 @@ footer{
 
 <!-- ── TECNOPOEMAS ── -->
 <section id="tecnopoemas">
-  <div class="tp-header">
-    <h2 class="tp-title">Tecnopoemas</h2>
-  </div>
+  <!-- slideshow viewport -->
+  <div class="tp-show">
+    <div class="tp-track" id="tp-track">
 
-  <!-- interactive p5.js sketch fills the middle -->
-  <div class="tp-canvas-wrap" id="tp-canvas-wrap">
-    <div id="tp-canvas-container"></div>
-    <div class="tp-hint" id="tp-hint">Click y arrastra para escribir</div>
-  </div>
+      <!-- ── SLIDE 1: El nombre y la frontera ── -->
+      <div class="tp-slide">
+        <div class="tp-slide-header">
+          <h2 class="tp-title">Tecnopoemas</h2>
+          <span class="tp-slide-num">01 / 03</span>
+        </div>
+        <div class="tp-canvas-wrap" id="tp-canvas-wrap">
+          <div id="tp-canvas-container"></div>
+          <div class="tp-hint" id="tp-hint">Click y arrastra para escribir</div>
+        </div>
+        <div class="tp-slide-footer">
+          <p class="tp-desc">Poemas escritos en el lenguaje de las máquinas y cercanos a las tecnologías digitales</p>
+          <div class="tp-meta">
+            El nombre y la frontera<br>
+            2025<br>
+            Processing<br>
+            <strong>Poema interactivo</strong><br>
+            Dimensiones variables
+          </div>
+          <div class="tp-nav">
+            <button class="tp-btn" id="tp-prev" onclick="tpGo(-1)" disabled>←</button>
+            <span class="tp-counter" id="tp-counter">1 / 1</span>
+            <button class="tp-btn" id="tp-next" onclick="tpGo(1)" disabled>→</button>
+          </div>
+        </div>
+      </div>
 
-  <div class="tp-footer">
-    <p class="tp-desc">Poemas escritos en el lenguaje de las máquinas y cercanos a las tecnologías digitales</p>
-    <div class="tp-meta">
-      <a href="#">El nombre y la frontera</a><br>
-      2025<br>
-      Processing<br>
-      <strong>Poema interactivo</strong><br>
-      Dimensiones variables
-    </div>
+      <!-- ── SLIDE 2: Inmanente ── -->
+      <div class="tp-slide">
+        <div class="tp-slide-header">
+          <h2 class="tp-title">Inmanente</h2>
+          <span class="tp-slide-num">02 / 03</span>
+        </div>
+        <div class="tp-canvas-wrap" id="tp-canvas-wrap-2">
+          <div id="tp-canvas-container-2"></div>
+          <div class="tp-hint">Mueve el cursor sobre el texto</div>
+        </div>
+        <div class="tp-slide-footer">
+          <p class="tp-desc">Fragmento de una serie que busca visualizar palabras conceptuales</p>
+          <div class="tp-meta">
+            Inmanente<br>
+            2022<br>
+            Processing<br>
+            <strong>Poema interactivo</strong><br>
+            Dimensiones variables
+          </div>
+          <div class="tp-nav">
+            <button class="tp-btn" onclick="tpGo(-1)">←</button>
+            <span class="tp-counter">2 / 2</span>
+            <button class="tp-btn" onclick="tpGo(1)" disabled>→</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: Resuena conmigo -->
+      <div class="tp-slide">
+        <div class="tp-slide-header">
+          <h2 class="tp-title">Resuena conmigo</h2>
+          <span class="tp-slide-num">03 / 03</span>
+        </div>
+        <div class="tp-canvas-wrap" id="tp-canvas-wrap-3">
+          <div id="tp-canvas-container-3"></div>
+          <div class="tp-hint" id="tp-hint-3">Haz click para escribir</div>
+        </div>
+        <div class="tp-slide-footer">
+          <p class="tp-desc">Un poema en código que reproduce la resonancia del agua</p>
+          <div class="tp-meta">
+            Resuena conmigo<br>
+            2025<br>
+            Processing<br>
+            <strong>Poema interactivo</strong><br>
+            Dimensiones variables
+          </div>
+          <div class="tp-nav">
+            <button class="tp-btn" onclick="tpGo(-1)">←</button>
+            <span class="tp-counter">3 / 3</span>
+            <button class="tp-btn" onclick="tpGo(1)" disabled>→</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tp-track -->
   </div>
 </section>
 
@@ -827,31 +952,27 @@ document.getElementById('hero').style.height=(1024*s)+'px';
 scaleHero();
 window.addEventListener('resize',scaleHero);
 
-// Force pulso GIF to loop infinitely by restarting its src
-(function loopPulso(){
-  var imgs=document.querySelectorAll('.pill-pulso img,.hm-pill-pulso img');
-  imgs.forEach(function(img){
-    img.addEventListener('load',function(){
-      /* reset src after each play to restart the loop */
-    });
-  });
-  /* After first load, loop by clearing then restoring src (uses browser cache) */
-  imgs.forEach(function(img){
-    var ready=false;
-    img.addEventListener('load',function(){
-      if(ready)return;
-      ready=true;
-      setInterval(function(){
-        var src=img.src;
-        img.src='';
-        setTimeout(function(){img.src=src;},50);
-      },5000);
-    });
-  });
-})();
 
-// ── EL NOMBRE Y LA FRONTERA — p5.js sketch ──
-new p5(function(p){
+// ── TECNOPOEMAS SLIDESHOW ──
+var tpCurrent=0;
+function tpGo(dir){
+  var slides=document.querySelectorAll('.tp-slide');
+  var n=slides.length;
+  tpCurrent=Math.max(0,Math.min(n-1,tpCurrent+dir));
+  document.getElementById('tp-track').style.transform='translateX(-'+tpCurrent*100+'%)';
+  /* update all counters and nav buttons inside each slide */
+  document.querySelectorAll('.tp-counter').forEach(function(el){el.textContent=(tpCurrent+1)+' / '+n;});
+  document.querySelectorAll('.tp-btn').forEach(function(btn){
+    var isPrev=btn.getAttribute('onclick')==='tpGo(-1)';
+    btn.disabled=isPrev?(tpCurrent===0):(tpCurrent===n-1);
+  });
+}
+tpGo(0);
+
+// ── EL NOMBRE Y LA FRONTERA — load p5.js + init sketch on scroll into view ──
+var tpSketchStarted=false;
+function initTpSketch(){
+  new p5(function(p){
   var x=0,y=0,stepSize=3;
   var letters='    Todo nombre es también una frontera';
   var fontSizeMin=3,counter=0;
@@ -859,7 +980,9 @@ new p5(function(p){
 
   p.setup=function(){
     var wrap=document.getElementById('tp-canvas-wrap');
-    var cnv=p.createCanvas(wrap.offsetWidth,wrap.offsetHeight);
+    var w=wrap.offsetWidth||window.innerWidth;
+    var h=wrap.offsetHeight||400;
+    var cnv=p.createCanvas(w,h);
     cnv.parent('tp-canvas-container');
     p.background(255);
     p.textFont('EB Garamond, Georgia, serif');
@@ -867,7 +990,13 @@ new p5(function(p){
     p.textAlign(p.LEFT);
     p.fill(0);
     p.cursor(p.CROSS);
-    x=p.mouseX; y=p.mouseY;
+    x=w/2; y=h/2;
+
+    /* resize canvas whenever the wrap changes size */
+    new ResizeObserver(function(entries){
+      var e=entries[0].contentRect;
+      p.resizeCanvas(e.width,e.height);
+    }).observe(wrap);
   };
 
   p.draw=function(){
@@ -894,21 +1023,235 @@ new p5(function(p){
     }
   };
 
-  p.mousePressed=function(){
-    x=p.mouseX; y=p.mouseY;
-  };
+    p.mousePressed=function(){x=p.mouseX;y=p.mouseY;};
+    p.touchStarted=function(){x=p.mouseX;y=p.mouseY;return false;};
+  },'tp-canvas-container');
+}
+new IntersectionObserver(function(entries){
+  if(entries[0].isIntersecting&&!tpSketchStarted){
+    tpSketchStarted=true;
+    var s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js';
+    s.onload=initTpSketch;
+    document.head.appendChild(s);
+  }
+},{threshold:0.1}).observe(document.getElementById('tecnopoemas'));
 
-  p.touchStarted=function(){
-    x=p.mouseX; y=p.mouseY;
-    return false;
-  };
+// ── INMANENTE — particle text sketch ──
+function initInmanente(){
+  new p5(function(p){
+    var impactRange=150,particleDensity=20;
+    var particles=[];
+    var wrap2,initiated=false;
 
-  p.windowResized=function(){
-    var wrap=document.getElementById('tp-canvas-wrap');
-    p.resizeCanvas(wrap.offsetWidth,wrap.offsetHeight);
-    p.background(255);
-  };
-},'tp-canvas-container');
+    p.setup=function(){
+      wrap2=document.getElementById('tp-canvas-wrap-2');
+      var w=wrap2.offsetWidth||800;
+      var h=wrap2.offsetHeight||400;
+      var cnv=p.createCanvas(w,h);
+      cnv.parent('tp-canvas-container-2');
+      p.frameRate(30);
+      p.pixelDensity(1);
+      generateParticles(w,h);
+      new ResizeObserver(function(entries){
+        var e=entries[0].contentRect;
+        p.resizeCanvas(e.width,e.height);
+        generateParticles(e.width,e.height);
+      }).observe(wrap2);
+    };
+
+    function generateParticles(w,h){
+      particles=[];
+      var fontSize=Math.min(w,h)*0.12;
+      var g=p.createGraphics(w,h);
+      g.pixelDensity(1);
+      g.background(0);
+      g.fill(255);
+      g.noStroke();
+      g.textAlign(p.CENTER,p.CENTER);
+      g.textSize(fontSize);
+      g.textFont('Bricolage Grotesque, Arial, sans-serif');
+      g.text('Inmanente',w/2,h/2);
+      g.loadPixels();
+      var step=3;
+      for(var x=0;x<w;x+=step){
+        for(var y=0;y<h;y+=step){
+          var idx=(x+y*w)*4;
+          if(g.pixels[idx]>128){
+            particles.push({x:x,y:y,ox:x,oy:y,r:2});
+          }
+        }
+      }
+      g.remove();
+    }
+
+    p.draw=function(){
+      p.background(255);
+      p.fill(0);
+      p.noStroke();
+      for(var i=0;i<particles.length;i++){
+        var pt=particles[i];
+        var dm=p.dist(pt.x,pt.y,p.mouseX,p.mouseY);
+        var do_=p.dist(pt.ox,pt.oy,pt.x,pt.y);
+        if(dm<impactRange){
+          var ang=p.atan2(pt.y-p.mouseY,pt.x-p.mouseX);
+          var force=(impactRange-dm)/impactRange*particleDensity;
+          pt.x+=p.cos(ang)*force;
+          pt.y+=p.sin(ang)*force;
+        } else {
+          var aang=p.atan2(pt.oy-pt.y,pt.ox-pt.x);
+          var af=Math.abs(do_)/particleDensity;
+          pt.x+=p.cos(aang)*af;
+          pt.y+=p.sin(aang)*af;
+        }
+        p.ellipse(pt.x,pt.y,pt.r*2,pt.r*2);
+      }
+    };
+  },'tp-canvas-container-2');
+}
+
+/* lazy-init Inmanente when slide 2 becomes active (watch tp-canvas-wrap-2) */
+var inmanenteObs=new IntersectionObserver(function(entries){
+  if(entries[0].isIntersecting&&typeof p5!=='undefined'){
+    initInmanente();
+    inmanenteObs.disconnect();
+  }
+},{threshold:0.1});
+inmanenteObs.observe(document.getElementById('tp-canvas-wrap-2'));
+
+// ── RESUENA CONMIGO — grid + text particles ──
+function initResuena(){
+  new p5(function(p){
+    var friction=0.95, resiliency=-0.025, mousePower=0.05, blockSize=14;
+    var pts=[], rows=[], cols=[], textParticles=[], clickCount=0;
+    var hintHidden=false;
+    var wrap3;
+
+    var lines=[
+      'Resuena conmigo',
+      'en la complicidad de este momento',
+      'resuena conmigo',
+      'en la espesura del presente',
+      'resuena conmigo',
+      'en un futuro afilado',
+      'en el farallón o en el mangle',
+      'confuso de la pantalla',
+      'resuena conmigo',
+      'una vez más'
+    ];
+
+    p.setup=function(){
+      wrap3=document.getElementById('tp-canvas-wrap-3');
+      var w=wrap3.offsetWidth||800;
+      var h=wrap3.offsetHeight||500;
+      var cnv=p.createCanvas(w,h);
+      cnv.parent('tp-canvas-container-3');
+      p.background(255);
+      p.textFont('Bricolage Grotesque, Arial, sans-serif');
+      makeGrid(w,h);
+      new ResizeObserver(function(entries){
+        var e=entries[0].contentRect;
+        p.resizeCanvas(e.width,e.height);
+        pts=[]; rows=[]; cols=[]; textParticles=[]; clickCount=0;
+        makeGrid(e.width,e.height);
+      }).observe(wrap3);
+    };
+
+    function makeGrid(w,h){
+      for(var i=0;i<w;i+=blockSize){
+        for(var j=0;j<h;j+=blockSize){
+          pts.push({sx:i,sy:j,px:i,py:j,vx:0,vy:0,ax:0,ay:0});
+        }
+      }
+      for(var i=0;i<w;i+=blockSize){
+        var col=pts.filter(function(pt){return pt.sx===i;});
+        cols.push(col);
+      }
+      for(var j=0;j<h;j+=blockSize){
+        var row=pts.filter(function(pt){return pt.sy===j;});
+        rows.push(row);
+      }
+    }
+
+    function burst(){
+      var mx=p.mouseX, my=p.mouseY;
+      for(var i=0;i<pts.length;i++){
+        var pt=pts[i];
+        var dx=pt.px-mx, dy=pt.py-my;
+        var dist=Math.sqrt(dx*dx+dy*dy);
+        var multi=Math.pow(2,-(dist*mousePower));
+        pt.ax+=dx*multi;
+        pt.ay+=dy*multi;
+      }
+      if(!hintHidden){
+        var hint=document.getElementById('tp-hint-3');
+        if(hint)hint.classList.add('hidden');
+        hintHidden=true;
+      }
+      var txt=lines[clickCount%lines.length];
+      textParticles.push({x:mx,y:my,vx:0,vy:0,ax:0,ay:0,text:txt,gravity:0.000001,fc:p.frameCount});
+      clickCount++;
+    }
+
+    p.mousePressed=function(){ if(p.mouseX>=0&&p.mouseX<=p.width&&p.mouseY>=0&&p.mouseY<=p.height) burst(); };
+    p.touchStarted=function(){ burst(); return false; };
+
+    p.draw=function(){
+      p.background(255);
+      // update grid points
+      for(var i=0;i<pts.length;i++){
+        var pt=pts[i];
+        var dx=pt.px-pt.sx, dy=pt.py-pt.sy;
+        var dist=Math.sqrt(dx*dx+dy*dy);
+        pt.ax+=(-dx*dist)*resiliency;
+        pt.ay+=(-dy*dist)*resiliency;
+        pt.vx=(pt.vx+pt.ax)*friction;
+        pt.vy=(pt.vy+pt.ay)*friction;
+        pt.px+=pt.vx; pt.py+=pt.vy;
+        pt.ax=0; pt.ay=0;
+      }
+      // draw grid lines
+      p.noFill(); p.stroke(0); p.strokeWeight(0.8);
+      for(var r=0;r<rows.length;r++){
+        var row=rows[r];
+        p.beginShape();
+        for(var k=0;k<row.length;k++) p.curveVertex(row[k].px,row[k].py);
+        p.endShape();
+      }
+      for(var c=0;c<cols.length;c++){
+        var col=cols[c];
+        p.beginShape();
+        for(var k=0;k<col.length;k++) p.curveVertex(col[k].px,col[k].py);
+        p.endShape();
+      }
+      // draw text particles
+      p.fill(0); p.noStroke();
+      p.textSize(15); p.textFont('Bricolage Grotesque, Arial, sans-serif');
+      for(var t=0;t<textParticles.length;t++){
+        var tp3=textParticles[t];
+        if(tp3.y<p.height-1){ tp3.ay+=tp3.gravity; } else { tp3.y=p.height-1; tp3.vx=0; tp3.vy=0; tp3.ax=0; tp3.ay=0; }
+        tp3.vx+=tp3.ax; tp3.vy+=tp3.ay;
+        tp3.x+=tp3.vx; tp3.y+=tp3.vy;
+        tp3.ax=0; tp3.ay=0;
+        var fc=p.frameCount-tp3.fc;
+        tp3.x+=Math.sin(fc*0.000001);
+        tp3.y+=Math.cos(fc*0.00002);
+        p.text(tp3.text,tp3.x,tp3.y);
+      }
+      // cursor dot
+      p.fill(0); p.noStroke();
+      p.ellipse(p.mouseX,p.mouseY,14,14);
+    };
+  },'tp-canvas-container-3');
+}
+
+var resuenaObs=new IntersectionObserver(function(entries){
+  if(entries[0].isIntersecting&&typeof p5!=='undefined'){
+    initResuena();
+    resuenaObs.disconnect();
+  }
+},{threshold:0.1});
+resuenaObs.observe(document.getElementById('tp-canvas-wrap-3'));
 </script>
 </body>
 </html>
