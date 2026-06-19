@@ -703,6 +703,95 @@ footer{
 /* section titles */
 .section-title{font-size:clamp(28px,8vw,52px);}
 }
+
+/* ── DESPLAZAMIENTO FORZADO ── */
+#desplazamiento{
+  border-top:3px solid var(--border);
+  padding:48px 48px 60px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:48px 60px;
+}
+
+/* left column */
+.df-left{display:flex;flex-direction:column;gap:40px;}
+.df-title{
+  font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
+  font-weight:400;font-size:clamp(52px,7.9vw,114px);line-height:1.1;
+  letter-spacing:-3.42px;text-transform:uppercase;color:#000;margin:0;
+}
+.df-desc{
+  font-family:var(--garamond);font-size:clamp(15px,1.4vw,20px);
+  line-height:1.75;letter-spacing:-0.5px;color:#000;margin:0;max-width:520px;
+}
+.df-meta{
+  font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
+  font-size:11.5px;line-height:16px;letter-spacing:-0.46px;
+  text-transform:uppercase;color:#000;margin-top:auto;
+}
+.df-meta strong{font-weight:700;}
+.df-meta a{text-decoration:underline;}
+.df-pdf-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  background:#000;color:#fff;
+  font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
+  font-weight:800;font-size:11.5px;letter-spacing:-0.46px;text-transform:uppercase;
+  text-decoration:none;
+  border-radius:40px;padding:14px 28px;
+  width:fit-content;align-self:flex-start;margin-top:8px;
+  transition:background 0.15s,color 0.15s;
+}
+.df-pdf-btn:hover{background:#fff;color:#000;box-shadow:inset 0 0 0 1px #000;}
+
+/* right column — photo carousel */
+.df-right{display:flex;align-items:center;justify-content:center;}
+.df-carousel{
+  position:relative;width:100%;
+  border:1px solid #000;border-radius:60px;overflow:hidden;
+  aspect-ratio:778/658;
+}
+.df-track{
+  display:flex;height:100%;
+  transition:transform 0.5s cubic-bezier(.77,0,.18,1);
+}
+.df-slide{
+  flex:0 0 100%;width:100%;height:100%;
+}
+.df-slide img{width:100%;height:100%;object-fit:cover;display:block;}
+
+/* carousel controls */
+.df-controls{
+  position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:10px;z-index:2;
+}
+.df-btn{
+  width:36px;height:36px;
+  background:rgba(255,255,255,0.85);
+  border:1px solid #000;border-radius:50%;
+  font-family:var(--mono);font-size:14px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(4px);transition:background 0.15s;
+}
+.df-btn:hover{background:#000;color:#fff;}
+.df-btn:disabled{opacity:0.3;cursor:default;}
+.df-counter{
+  font-family:var(--mono);font-size:9px;letter-spacing:2px;
+  text-transform:uppercase;color:#fff;
+  background:rgba(0,0,0,0.45);padding:3px 8px;border-radius:20px;
+  backdrop-filter:blur(4px);
+}
+
+/* mobile */
+@media(max-width:700px){
+  #desplazamiento{
+    grid-template-columns:1fr;
+    padding:32px 16px 40px;
+    gap:32px;
+  }
+  .df-carousel{aspect-ratio:1/1;border-radius:30px;}
+  .df-left{gap:24px;}
+  .df-pdf-btn{width:100%;justify-content:center;}
+}
 </style>
 </head>
 <body>
@@ -711,6 +800,7 @@ footer{
 <nav class="site-nav">
 <span class="site-nav-inner">
 <a href="#tecnopoemas">tecnopoemas</a><span class="sep"> / </span>
+<a href="#desplazamiento">desplazamiento</a><span class="sep"> / </span>
 <a href="#bio">bio</a><span class="sep"> / </span>
 <a href="#cv">cv</a><span class="sep"> / </span>
 <a href="#escrituras">escrituras</a><span class="sep"> / </span>
@@ -918,6 +1008,50 @@ footer{
   </div>
 </section>
 
+<!-- ── DESPLAZAMIENTO FORZADO ── -->
+<section id="desplazamiento">
+
+  <!-- LEFT: title + description + meta + PDF -->
+  <div class="df-left">
+    <h2 class="df-title">Desplazamiento<br>forzado</h2>
+    <p class="df-desc">Desplazamiento Forzado es un proyecto expositivo sobre la migración venezolana que explora la fractura familiar como consecuencia de los procesos migratorios. A través de poemas interactivos, material de archivo y videoensayos, la exposición recrea el reencuentro entre los hermanos gemelos Nicolás Gerardi Rousset y Augusto Gerardi Rousset tras cinco años de separación física, producto de los distintos procesos migratorios que cada uno emprendió. Reunidos bajo el mismo cielo, en Berlín, ambos hermanos compartieron los proyectos, obras, ideas y archivos acumulados durante esos cinco años.</p>
+    <div class="df-meta">
+      <span style="text-decoration:underline">Opening reception</span><br>
+      April 11 · 2025<br>
+      ID Art Lab<br>
+      <strong>676 NW Miami, FL</strong><br>
+      33127
+    </div>
+    <a class="df-pdf-btn" href="desplazamientoforzado/catalogo.pdf" target="_blank" rel="noopener">PDF — Catálogo</a>
+  </div>
+
+  <!-- RIGHT: photo carousel -->
+  <div class="df-right">
+    <div class="df-carousel" id="df-carousel">
+      <div class="df-track" id="df-track">
+        <div class="df-slide"><img src="desplazamientoforzado/df_01.jpg" alt="Desplazamiento forzado 1" loading="lazy"></div>
+        <div class="df-slide"><img src="desplazamientoforzado/df_02.jpg" alt="Desplazamiento forzado 2" loading="lazy"></div>
+        <div class="df-slide"><img src="desplazamientoforzado/df_03.jpg" alt="Desplazamiento forzado 3" loading="lazy"></div>
+        <div class="df-slide"><img src="desplazamientoforzado/df_04.jpg" alt="Desplazamiento forzado 4" loading="lazy"></div>
+        <div class="df-slide"><img src="desplazamientoforzado/df_05.jpg" alt="Desplazamiento forzado 5" loading="lazy"></div>
+        <div class="df-slide"><img src="desplazamientoforzado/df_06.jpg" alt="Desplazamiento forzado 6" loading="lazy"></div>
+        <div class="df-slide"><img src="desplazamientoforzado/df_07.jpg" alt="Desplazamiento forzado 7" loading="lazy"></div>
+        <div class="df-slide"><img src="desplazamientoforzado/df_08.jpg" alt="Desplazamiento forzado 8" loading="lazy"></div>
+        <div class="df-slide"><img src="desplazamientoforzado/df_09.jpg" alt="Desplazamiento forzado 9" loading="lazy"></div>
+        <div class="df-slide"><img src="desplazamientoforzado/df_10.jpg" alt="Desplazamiento forzado 10" loading="lazy"></div>
+        <div class="df-slide"><img src="desplazamientoforzado/df_11.jpg" alt="Desplazamiento forzado 11" loading="lazy"></div>
+        <div class="df-slide"><img src="desplazamientoforzado/df_12.jpg" alt="Desplazamiento forzado 12" loading="lazy"></div>
+      </div>
+      <div class="df-controls">
+        <button class="df-btn" id="df-prev" disabled>←</button>
+        <span class="df-counter" id="df-counter">1 / 12</span>
+        <button class="df-btn" id="df-next">→</button>
+      </div>
+    </div>
+  </div>
+
+</section>
+
 <!-- ── BIO ── -->
 <section id="bio">
 <div class="about-left">
@@ -1029,6 +1163,40 @@ footer{
 </footer>
 
 <script>
+// ── DESPLAZAMIENTO FORZADO CAROUSEL ──
+(function(){
+  var current=0, total=12;
+  var track=document.getElementById('df-track');
+  var counter=document.getElementById('df-counter');
+  var prev=document.getElementById('df-prev');
+  var next=document.getElementById('df-next');
+
+  function goTo(n){
+    current=Math.max(0,Math.min(total-1,n));
+    track.style.transform='translateX(-'+current*100+'%)';
+    counter.textContent=(current+1)+' / '+total;
+    prev.disabled=current===0;
+    next.disabled=current===total-1;
+  }
+
+  prev.addEventListener('click',function(){goTo(current-1);});
+  next.addEventListener('click',function(){goTo(current+1);});
+
+  // swipe support
+  var startX=0,startY=0;
+  var carousel=document.getElementById('df-carousel');
+  carousel.addEventListener('touchstart',function(e){
+    startX=e.touches[0].clientX;startY=e.touches[0].clientY;
+  },{passive:true});
+  carousel.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-startX;
+    var dy=e.changedTouches[0].clientY-startY;
+    if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)*1.5) goTo(current+(dx<0?1:-1));
+  },{passive:true});
+
+  goTo(0);
+})();
+
 const sketches={
 caribe_noise:`
 let zoff=0,pts=[];
