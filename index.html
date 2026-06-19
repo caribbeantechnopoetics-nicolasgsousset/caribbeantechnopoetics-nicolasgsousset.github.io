@@ -802,7 +802,7 @@ footer{
           <div class="tp-hint" id="tp-hint-4">Haz click o presiona una tecla</div>
         </div>
         <div class="tp-slide-footer">
-          <p class="tp-desc">La transcripción de los diarios durante mis meses indocumentado en México encarnan mi foto de la COMAR.</p>
+          <p class="tp-desc">Retrato de la COMAR dibujado por mis diarios de indocumentado.</p>
           <div class="tp-meta">
             Razones Humanitarias<br>
             2024<br>
@@ -1339,9 +1339,9 @@ function initRazones(){
     var photoW, photoH, photoX, photoY;
 
     function calcPhoto(cw,ch){
-      photoH=Math.round(ch*0.72);          /* 72% of canvas height */
-      photoW=Math.round(photoH*(35/45));   /* 7:9 aspect */
-      photoX=Math.round((cw-photoW)/2);    /* centered */
+      photoH=Math.round(ch*0.92);          /* 92% of canvas height — fill vertically */
+      photoW=Math.round(photoH*(35/45));   /* 7:9 passport ratio */
+      photoX=Math.round((cw-photoW)/2);    /* centered horizontally */
       photoY=Math.round((ch-photoH)/2);
     }
 
@@ -1381,7 +1381,7 @@ function initRazones(){
         } else {
           c=p.color(p.random(30,80));
         }
-        drawnWords.push({txt:word,x:xp,y:yp,sz:p.random(7,18),r:p.red(c),g:p.green(c),b:p.blue(c),a:255});
+        drawnWords.push({txt:word,x:xp,y:yp,sz:p.random(5,11),r:p.red(c),g:p.green(c),b:p.blue(c),a:255});
         wordIndex++;
       }
       if(!timerStarted){ timerStarted=true; startTime=p.millis(); }
