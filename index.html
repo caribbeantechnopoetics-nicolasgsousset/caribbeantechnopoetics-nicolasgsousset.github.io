@@ -147,7 +147,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 .tp-title{
   font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
   font-weight:400;font-size:clamp(52px,7.9vw,114px);line-height:1.2;
-  letter-spacing:-3.42px;text-transform:uppercase;color:#000;
+  letter-spacing:-3.42px;text-transform:uppercase;color:var(--text);
   margin:0;
 }
 .tp-slide-num{
@@ -183,13 +183,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 .tp-desc{
   font-family:var(--garamond);
   font-size:clamp(16px,1.8vw,28px);line-height:1.4;
-  letter-spacing:-0.5px;color:#000;
+  letter-spacing:-0.5px;color:var(--text);
   margin:0;
 }
 .tp-meta{
   font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
   font-size:11.5px;line-height:16px;
-  letter-spacing:-0.46px;text-transform:uppercase;color:#000;
+  letter-spacing:-0.46px;text-transform:uppercase;color:var(--text);
   white-space:nowrap;text-align:right;
 }
 .tp-meta a{text-decoration:underline;}
@@ -759,7 +759,7 @@ footer{
 .expo-title{
   font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
   font-weight:400;font-size:clamp(52px,7.9vw,114px);line-height:1.1;
-  letter-spacing:-3.42px;text-transform:uppercase;color:#000;
+  letter-spacing:-3.42px;text-transform:uppercase;color:var(--text);
   margin:0;padding:32px 0 36px;
   /* title spans only left ~58% like Figma 7/12 cols */
   max-width:58%;
@@ -779,12 +779,12 @@ footer{
 .expo-left{display:flex;flex-direction:column;gap:28px;}
 .expo-desc{
   font-family:var(--garamond);font-size:clamp(14px,1.4vw,20px);
-  line-height:1.75;letter-spacing:-0.5px;color:#000;margin:0;
+  line-height:1.75;letter-spacing:-0.5px;color:var(--text);margin:0;
 }
 .expo-meta{
   font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
   font-size:11.5px;line-height:16px;letter-spacing:-0.46px;
-  text-transform:uppercase;color:#000;
+  text-transform:uppercase;color:var(--text);
 }
 .expo-meta strong{font-weight:700;}
 .expo-pdf-btn{
@@ -1330,16 +1330,12 @@ footer{
   var expoTotal = expoItems.length;
   var expoCur   = 0;
 
-  var mcInited = {};
   function expoGo(n){
     expoCur = Math.max(0, Math.min(expoTotal-1, n));
     expoTrack.style.transform = 'translateX(-'+expoCur*100+'%)';
     expoCount.textContent = (expoCur+1)+' / '+expoTotal;
     expoPrev.disabled = expoCur===0;
     expoNext.disabled = expoCur===expoTotal-1;
-    // lazy-init carousel for current exhibition
-    var mcId = expoCur+1;
-    if(!mcInited[mcId]){ mcInited[mcId]=true; initMediaCarousel(mcId); }
   }
   expoPrev.addEventListener('click', function(){ expoGo(expoCur-1); });
   expoNext.addEventListener('click', function(){ expoGo(expoCur+1); });
@@ -1411,8 +1407,8 @@ footer{
     });
   });
 
-  // init carousel 1 immediately (it's visible)
-  initMediaCarousel(1);
+  // init all carousels immediately
+  [1,2,3,4].forEach(function(id){ initMediaCarousel(id); });
 
 })();
 
