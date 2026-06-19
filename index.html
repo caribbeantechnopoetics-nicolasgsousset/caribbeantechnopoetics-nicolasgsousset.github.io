@@ -730,9 +730,9 @@ footer{
             Dimensiones variables
           </div>
           <div class="tp-nav">
-            <button class="tp-btn" id="tp-prev" onclick="tpGo(-1)" disabled>←</button>
+            <button class="tp-btn" id="tp-prev" data-dir="-1" onclick="tpGo(-1)" disabled>←</button>
             <span class="tp-counter" id="tp-counter">1 / 1</span>
-            <button class="tp-btn" id="tp-next" onclick="tpGo(1)" disabled>→</button>
+            <button class="tp-btn" id="tp-next" data-dir="1" onclick="tpGo(1)" disabled>→</button>
           </div>
         </div>
       </div>
@@ -757,9 +757,9 @@ footer{
             Dimensiones variables
           </div>
           <div class="tp-nav">
-            <button class="tp-btn" onclick="tpGo(-1)">←</button>
+            <button class="tp-btn" data-dir="-1" onclick="tpGo(-1)">←</button>
             <span class="tp-counter">2 / 2</span>
-            <button class="tp-btn" onclick="tpGo(1)" disabled>→</button>
+            <button class="tp-btn" data-dir="1" onclick="tpGo(1)" disabled>→</button>
           </div>
         </div>
       </div>
@@ -784,9 +784,9 @@ footer{
             Dimensiones variables
           </div>
           <div class="tp-nav">
-            <button class="tp-btn" onclick="tpGo(-1)">←</button>
+            <button class="tp-btn" data-dir="-1" onclick="tpGo(-1)">←</button>
             <span class="tp-counter">3 / 3</span>
-            <button class="tp-btn" onclick="tpGo(1)" disabled>→</button>
+            <button class="tp-btn" data-dir="1" onclick="tpGo(1)" disabled>→</button>
           </div>
         </div>
       </div>
@@ -811,9 +811,9 @@ footer{
             Dimensiones variables
           </div>
           <div class="tp-nav">
-            <button class="tp-btn" onclick="tpGo(-1)">←</button>
+            <button class="tp-btn" data-dir="-1" onclick="tpGo(-1)">←</button>
             <span class="tp-counter">4 / 4</span>
-            <button class="tp-btn" onclick="tpGo(1)" disabled>→</button>
+            <button class="tp-btn" data-dir="1" onclick="tpGo(1)" disabled>→</button>
           </div>
         </div>
       </div>
@@ -990,8 +990,8 @@ function tpGo(dir){
   /* update all counters and nav buttons inside each slide */
   document.querySelectorAll('.tp-counter').forEach(function(el){el.textContent=(tpCurrent+1)+' / '+n;});
   document.querySelectorAll('.tp-btn').forEach(function(btn){
-    var isPrev=btn.getAttribute('onclick')==='tpGo(-1)';
-    btn.disabled=isPrev?(tpCurrent===0):(tpCurrent===n-1);
+    var dir=parseInt(btn.getAttribute('data-dir'),10);
+    btn.disabled=(dir===-1)?(tpCurrent===0):(tpCurrent===n-1);
   });
 }
 tpGo(0);
@@ -1149,7 +1149,7 @@ inmanenteObs.observe(document.getElementById('tp-canvas-wrap-2'));
 // ── RESUENA CONMIGO — grid + text particles ──
 function initResuena(){
   new p5(function(p){
-    var friction=0.95, resiliency=-0.025, mousePower=0.05, blockSize=14;
+    var friction=0.92, resiliency=-0.018, mousePower=0.04, blockSize=22;
     var pts=[], rows=[], cols=[], textParticles=[], clickCount=0;
     var hintHidden=false;
     var wrap3;
@@ -1230,8 +1230,8 @@ function initResuena(){
         var pt=pts[i];
         var dx=pt.px-pt.sx, dy=pt.py-pt.sy;
         var dist=Math.sqrt(dx*dx+dy*dy);
-        pt.ax+=(-dx*dist)*resiliency;
-        pt.ay+=(-dy*dist)*resiliency;
+        pt.ax+=(dx*dist)*resiliency;
+        pt.ay+=(dy*dist)*resiliency;
         pt.vx=(pt.vx+pt.ax)*friction;
         pt.vy=(pt.vy+pt.ay)*friction;
         pt.px+=pt.vx; pt.py+=pt.vy;
@@ -1289,10 +1289,6 @@ function initRazones(){
     var startTime=0, timerStarted=false;
     var img, imgLoaded=false, wrap4, hintHidden=false;
 
-    p.preload=function(){
-      img=p.loadImage('Nico_refugio2.jpg',function(){ imgLoaded=true; },function(){ imgLoaded=false; });
-    };
-
     p.setup=function(){
       wrap4=document.getElementById('tp-canvas-wrap-4');
       var w=wrap4.offsetWidth||800;
@@ -1301,7 +1297,9 @@ function initRazones(){
       cnv.parent('tp-canvas-container-4');
       p.background(255);
       p.textAlign(p.LEFT,p.BASELINE);
-      if(imgLoaded) img.resize(w,h);
+      p.loadImage('Nico_refugio2.jpg',function(loaded){
+        img=loaded; imgLoaded=true; img.resize(w,h);
+      },function(){ imgLoaded=false; });
       new ResizeObserver(function(entries){
         var e=entries[0].contentRect;
         p.resizeCanvas(e.width,e.height);
@@ -1349,6 +1347,7 @@ function initRazones(){
         var w=drawnWords[i];
         p.fill(w.r,w.g,w.b,w.a);
         p.noStroke();
+        p.textFont('Bricolage Grotesque, Arial, sans-serif');
         p.textSize(w.sz);
         p.text(w.txt,w.x,w.y);
       }
