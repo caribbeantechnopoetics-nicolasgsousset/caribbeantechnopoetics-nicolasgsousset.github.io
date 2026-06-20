@@ -504,7 +504,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 }
 /* inner photo carousel */
 .esc-inner-carousel{ position:relative; width:100%; }
-.esc-inner-track-wrap{ overflow:hidden; border-radius:12px; background:#f0efed; }
+.esc-inner-track-wrap{ overflow:hidden; border-radius:12px; background:#f0efed; height:70vh; }
 .esc-inner-track{
   display:flex;
   transition:transform 0.4s cubic-bezier(.77,0,.18,1);
@@ -1458,8 +1458,7 @@ footer{
         <div class="esc-caption-row">
           <p class="esc-caption">
             <strong>PDF Papel Literario</strong> · El Nacional ·
-            Diciembre 21, 2025 · pp. 4–5 ·
-            Caracas, Venezuela
+            Diciembre 21, 2025 · pp. 4–5 · Caracas, Venezuela
           </p>
           <a class="esc-download-btn" href="media/papel_literario_full.pdf" download>Descargar PDF ↓</a>
         </div>
@@ -1468,58 +1467,54 @@ footer{
       <!-- 3 · Ojo Nº 19, pp. 22–23 -->
       <div class="esc-slide">
         <div class="esc-media esc-media-pdf">
-          <iframe src="media/ojo19_p22_23.pdf"></iframe>
+          <iframe src="media/ojo19_p22_23_real.pdf"></iframe>
         </div>
         <div class="esc-caption-row">
           <p class="esc-caption">
             <strong>Ojo</strong> · Número 19 · pp. 22–23 ·
-            Revista de crítica e investigación artística ·
-            Caracas, Venezuela
+            Revista de crítica e investigación artística · Caracas, Venezuela
           </p>
-          <a class="esc-download-btn" href="media/ojo19.pdf" download>Descargar PDF ↓</a>
+          <a class="esc-download-btn" href="media/ojo19_real.pdf" download>Descargar PDF ↓</a>
         </div>
       </div>
 
-      <!-- 4 · Ojo Nº 17 -->
+      <!-- 4 · Ojo Nº 17, p. 16 -->
       <div class="esc-slide">
-        <div class="esc-media esc-media-img">
-          <img src="media/ojo_17_cover.jpg" alt="Ojo 17">
+        <div class="esc-media esc-media-pdf">
+          <iframe src="media/ojo17_p16.pdf"></iframe>
         </div>
         <div class="esc-caption-row">
           <p class="esc-caption">
             <strong>Ojo</strong> · Número 17 · p. 16 ·
-            Revista de crítica e investigación artística ·
-            Caracas, Venezuela
+            Revista de crítica e investigación artística · Caracas, Venezuela
           </p>
-          <a class="esc-download-btn" href="https://drive.google.com/uc?export=download&id=1kMNG-PV9NOfa1-3tFdl-DOy98_viDsCQ">Descargar PDF ↓</a>
+          <a class="esc-download-btn" href="media/ojo17.pdf" download>Descargar PDF ↓</a>
         </div>
       </div>
 
-      <!-- 5 · Mauricio Ceppi · Backroom Caracas -->
+      <!-- 5 · Mauricio Ceppi — website embed -->
       <div class="esc-slide">
         <div class="esc-media esc-media-pdf">
-          <iframe src="media/mauricio_ceppi.pdf"></iframe>
+          <iframe src="http://backroomcaracas.com/escritura-expandida/mauricio-ceppi-pionero-del-videomapping-en-venezuela/" title="Mauricio Ceppi — Backroom Caracas"></iframe>
         </div>
         <div class="esc-caption-row">
           <p class="esc-caption">
             <strong>Mauricio Ceppi: Pionero del Videomapping en Venezuela</strong> ·
-            Backroom Caracas · Escritura Expandida ·
-            backroomcaracas.com
+            Backroom Caracas · Escritura Expandida · backroomcaracas.com
           </p>
           <a class="esc-download-btn" href="media/mauricio_ceppi.pdf" download>Descargar PDF ↓</a>
         </div>
       </div>
 
-      <!-- 6 · Tácticas de Acceso · Backroom Caracas -->
+      <!-- 6 · Tácticas de Acceso — website embed -->
       <div class="esc-slide">
         <div class="esc-media esc-media-pdf">
-          <iframe src="media/tacticas_acceso.pdf"></iframe>
+          <iframe src="http://backroomcaracas.com/escritura-expandida/tactica-de-acceso/" title="Táctica de Acceso — Backroom Caracas"></iframe>
         </div>
         <div class="esc-caption-row">
           <p class="esc-caption">
             <strong>Táctica de Acceso</strong> ·
-            Backroom Caracas · Escritura Expandida ·
-            backroomcaracas.com
+            Backroom Caracas · Escritura Expandida · backroomcaracas.com
           </p>
           <a class="esc-download-btn" href="media/tacticas_acceso.pdf" download>Descargar PDF ↓</a>
         </div>
@@ -1541,7 +1536,7 @@ footer{
           <img src="media/penetra_en_la_cascara3.jpg" alt="Penetra en la cáscara I">
         </div>
         <p class="esc-caption">
-          <strong>Penetra en la cáscara</strong> · I · Poema visual
+          <strong>Penetra en la cáscara</strong> · I · Poema visual · 1275 × 1650 px
         </p>
       </div>
 
@@ -1560,7 +1555,6 @@ footer{
         <div class="esc-inner-carousel" id="esc-ic-1">
           <div class="esc-inner-track-wrap">
             <div class="esc-inner-track" id="esc-it-1">
-              <div class="esc-inner-slide"><img src="media/propaganda_anticomunista_1.jpg" alt="Propaganda anticomunista 1"></div>
               <div class="esc-inner-slide"><img src="media/propaganda_anticomunista_3.jpg" alt="Propaganda anticomunista 3"></div>
               <div class="esc-inner-slide"><img src="media/propaganda_anticomunista_4.jpg" alt="Propaganda anticomunista 4"></div>
               <div class="esc-inner-slide"><img src="media/propaganda_anticomunista_5.jpg" alt="Propaganda anticomunista 5"></div>
@@ -1571,42 +1565,44 @@ footer{
           </div>
           <div class="esc-inner-nav">
             <button class="esc-inner-btn" data-ic="1" data-dir="-1" disabled>←</button>
-            <span class="esc-inner-counter" id="esc-ic-counter-1">1 / 7</span>
+            <span class="esc-inner-counter" id="esc-ic-counter-1">1 / 6</span>
             <button class="esc-inner-btn" data-ic="1" data-dir="1">→</button>
           </div>
         </div>
         <p class="esc-caption">
-          <strong>Propaganda Anticomunista</strong> · Serie fotográfica · 7 imágenes · Archivo visual
+          <strong>Propaganda Anticomunista</strong> · Serie fotográfica · 6 imágenes · Archivo visual
         </p>
       </div>
 
-      <!-- 11 · Post Media + Cognitive Affective [pendiente] -->
+      <!-- 11 · Post Media Communication + Cognitive Affective -->
       <div class="esc-slide">
         <div class="esc-media-duo">
-          <div class="esc-media" style="align-items:center;justify-content:center;">
-            <p style="font-family:var(--bricolage);font-size:12px;color:var(--muted);text-align:center;padding:24px;">Post Media Communication<br><span style="font-size:10px;opacity:0.5;">[imagen pendiente]</span></p>
+          <div class="esc-media esc-media-img">
+            <img src="media/post_media_communi.jpg" alt="Post Media Communication">
           </div>
-          <div class="esc-media" style="align-items:center;justify-content:center;">
-            <p style="font-family:var(--bricolage);font-size:12px;color:var(--muted);text-align:center;padding:24px;">Cognitive Affective<br><span style="font-size:10px;opacity:0.5;">[imagen pendiente]</span></p>
+          <div class="esc-media esc-media-img">
+            <img src="media/cognitive_affective.jpg" alt="Cognitive Affective">
           </div>
         </div>
         <p class="esc-caption">
-          <strong>Post Media Communication</strong> · <strong>Cognitive Affective</strong> · Imágenes de proyecto
+          <strong>Post Media Communication</strong> · <strong>Cognitive Affective</strong> ·
+          Impresión CMYK · 1275 × 1650 px · Archivo de trabajo
         </p>
       </div>
 
-      <!-- 12 · Neotropical + Gabriel García [pendiente] -->
+      <!-- 12 · Neotropical + Gabriel García Jones -->
       <div class="esc-slide">
         <div class="esc-media-duo">
-          <div class="esc-media" style="align-items:center;justify-content:center;">
-            <p style="font-family:var(--bricolage);font-size:12px;color:var(--muted);text-align:center;padding:24px;">Neotropical<br><span style="font-size:10px;opacity:0.5;">[imagen pendiente]</span></p>
+          <div class="esc-media esc-media-img">
+            <img src="media/neotropical_realmbig.jpg" alt="Neotropical">
           </div>
-          <div class="esc-media" style="align-items:center;justify-content:center;">
-            <p style="font-family:var(--bricolage);font-size:12px;color:var(--muted);text-align:center;padding:24px;">Gabriel García<br><span style="font-size:10px;opacity:0.5;">[imagen pendiente]</span></p>
+          <div class="esc-media esc-media-img">
+            <img src="media/gabriel_garcia_jones.jpg" alt="Gabriel García Jones">
           </div>
         </div>
         <p class="esc-caption">
-          <strong>Neotropical</strong> · <strong>Gabriel García</strong> · Imágenes de proyecto
+          <strong>Neotropical Realm</strong> · <strong>Gabriel García Jones</strong> ·
+          Impresión CMYK · 1157 × 1476 px · Archivo de trabajo
         </p>
       </div>
 
@@ -1615,7 +1611,6 @@ footer{
         <div class="esc-inner-carousel" id="esc-ic-2">
           <div class="esc-inner-track-wrap">
             <div class="esc-inner-track" id="esc-it-2">
-              <div class="esc-inner-slide"><img src="media/descarga_1.jpg" alt="Descarga 1"></div>
               <div class="esc-inner-slide"><img src="media/descarga_2.jpg" alt="Descarga 2"></div>
               <div class="esc-inner-slide"><img src="media/descarga_3.jpg" alt="Descarga 3"></div>
               <div class="esc-inner-slide"><img src="media/descarga_4.jpg" alt="Descarga 4"></div>
@@ -1628,12 +1623,12 @@ footer{
           </div>
           <div class="esc-inner-nav">
             <button class="esc-inner-btn" data-ic="2" data-dir="-1" disabled>←</button>
-            <span class="esc-inner-counter" id="esc-ic-counter-2">1 / 9</span>
+            <span class="esc-inner-counter" id="esc-ic-counter-2">1 / 8</span>
             <button class="esc-inner-btn" data-ic="2" data-dir="1">→</button>
           </div>
         </div>
         <p class="esc-caption">
-          <strong>Descargas</strong> · Serie · 9 imágenes · Archivo visual
+          <strong>Descargas</strong> · Serie · 8 imágenes · Archivo visual
         </p>
       </div>
 
