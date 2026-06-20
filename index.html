@@ -1055,6 +1055,93 @@ footer{
   .expo-right{gap:12px;}
   .expo-pdf-btn{width:100%;justify-content:center;}
 }
+
+/* ═══════════════════════════════════════
+   MOBILE RESPONSIVE — escrituras + cv + general
+   breakpoints: 1024px tablet, 700px mobile
+   ═══════════════════════════════════════ */
+
+@media(max-width:1024px){
+  /* escrituras */
+  .esc-slide{ padding:32px 32px; }
+  .escrituras-top{ padding:32px 32px 24px; }
+  .esc-footer{ padding:16px 32px; }
+  .esc-media-pdf{ height:65vh; }
+  .esc-media-duo .esc-media{ height:50vh; }
+}
+
+@media(max-width:700px){
+
+  /* ── NAV ── */
+  .site-nav-inner{ gap:0; flex-wrap:nowrap; overflow-x:auto; }
+  .site-nav-inner a{ white-space:nowrap; padding:0 6px; font-size:9px; letter-spacing:1.5px; }
+  .site-nav-inner .sep{ display:none; }
+
+  /* ── ESCRITURAS header ── */
+  .escrituras-top{ padding:24px 16px 20px; }
+  .escrituras-title{ font-size:clamp(28px,10vw,48px); letter-spacing:-1.5px; }
+
+  /* ── ESCRITURAS slides ── */
+  .esc-slide{ padding:20px 16px 16px; gap:14px; }
+  .esc-slide-welcome{ min-height:50vh; padding:32px 20px; }
+  .esc-welcome-title{ font-size:clamp(20px,6vw,32px); }
+
+  .esc-media-pdf{ height:55vh; }
+  .esc-media-img{ max-height:60vw; }
+
+  /* duo: stack vertically on mobile */
+  .esc-media-duo{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+  .esc-media-duo .esc-media{ height:50vw; }
+
+  /* caption row: stack */
+  .esc-caption-row{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:12px;
+  }
+  .esc-caption{ font-size:10px; line-height:1.5; }
+  .esc-download-btn{ font-size:10px; padding:9px 16px; }
+
+  /* inner carousels */
+  .esc-inner-track-wrap{ height:55vw; }
+  .esc-inner-btn{ width:36px; height:36px; font-size:13px; }
+
+  /* footer nav */
+  .esc-footer{ padding:14px 16px; }
+  .esc-nav-btn{ width:32px; height:32px; font-size:14px; }
+  .esc-section-label{ font-size:8px; letter-spacing:2px; }
+
+  /* ── CV ── */
+  #cv{ padding:48px 16px; }
+  .cv-section-label{ font-size:13px; }
+  .cv-grid{ grid-template-columns:1fr; gap:4px; }
+  .cv-grid > *:first-child{ color:var(--muted); font-size:10px; letter-spacing:2px; font-family:var(--mono); }
+  .cv-summary{ padding:16px 0; font-size:9px; }
+  .cv-details{ }
+
+  /* ── LIBROS ── */
+  #libros{ padding:48px 16px; }
+  .libros-grid{ grid-template-columns:1fr 1fr; gap:16px; }
+
+  /* ── EXPOSICIONES footer ── */
+  .expo-nav-counter{ font-size:9px; }
+
+  /* ── CONTACT ── */
+  #contact{ padding:64px 16px; }
+  .contact-title{ font-size:clamp(32px,10vw,52px); }
+  .contact-links{ flex-direction:column; gap:12px; }
+  .contact-link{ text-align:center; }
+}
+
+/* ── VERY SMALL screens (375px iPhone SE) ── */
+@media(max-width:390px){
+  .esc-media-pdf{ height:50vh; }
+  .esc-inner-track-wrap{ height:60vw; }
+  .expo-title{ font-size:clamp(28px,10vw,44px); }
+}
 </style>
 </head>
 <body>
@@ -1064,7 +1151,6 @@ footer{
 <span class="site-nav-inner">
 <a href="#tecnopoemas">tecnopoemas</a><span class="sep"> / </span>
 <a href="#exposiciones">exposiciones</a><span class="sep"> / </span>
-<a href="#bio">bio</a><span class="sep"> / </span>
 <a href="#cv">cv</a><span class="sep"> / </span>
 <a href="#escrituras">escrituras</a><span class="sep"> / </span>
 <a href="#libros">libros de artista</a>
