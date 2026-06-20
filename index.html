@@ -370,6 +370,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 }
 .cv-download:hover{color:#000;border-color:#000;}
 .cv-grid{display:grid;grid-template-columns:200px 1fr;}
+.cv-section-label{
+  grid-column:1/-1;
+  font-family:var(--mono);font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--muted);
+  padding:28px 0 8px;border-top:2px solid var(--border);margin:0;
+}
 .cv-entry{display:contents;}
 .cv-year{
   font-family:var(--mono);
@@ -1215,51 +1221,79 @@ footer{
 
 </section>
 
-<!-- ── BIO ── -->
-<section id="bio">
-<div class="about-left">
-<p class="section-label">Bio</p>
-<h2 class="section-title">Escritura<br><em>y código.</em></h2>
-<div class="about-body">
-<p>Soy Nicolás Gerardi Rousset. Investigo la relación entre escritura creativa, tecnología y diseño en el Caribe.</p>
-<p>Mi práctica explora qué sucede cuando el software se vuelve expresivo — cuando los algoritmos desarrollan voz y los sistemas desarrollan poesía.</p>
-<p>Actualmente abierto a colaboraciones, residencias y conversaciones sobre problemas interesantes.</p>
-</div>
-</div>
-<div class="about-right">
-<div class="skills-grid">
-<div class="skill-cell"><p class="skill-label">Práctica</p><p class="skill-value">Escritura creativa<br>Tecnopoesía<br>Arte digital</p></div>
-<div class="skill-cell"><p class="skill-label">Herramientas</p><p class="skill-value">p5.js<br>Processing<br>HTML / CSS</p></div>
-<div class="skill-cell"><p class="skill-label">Disciplinas</p><p class="skill-value">Literatura<br>Diseño editorial<br>Arte interactivo</p></div>
-<div class="skill-cell"><p class="skill-label">Ubicación</p><p class="skill-value">Caribe<br>Disponible<br>globalmente</p></div>
-</div>
-<a href="mailto:gerardinicols@gmail.com" class="about-cta">Escribir →</a>
-</div>
-</section>
-
 <!-- ── CV ── -->
 <section id="cv">
 <div class="cv-header">
 <div><p class="section-label">Trayectoria</p><h2 class="section-title">Curriculum <em>Vitae</em></h2></div>
-<a href="#" class="cv-download">Descargar PDF ↓</a>
+<a href="cv/gerardi_rousset_cv.pdf" target="_blank" rel="noopener" class="cv-download">Descargar PDF ↓</a>
 </div>
+
 <div class="cv-grid">
+
+<p class="cv-section-label">Empleo</p>
+
 <div class="cv-entry">
-<div class="cv-year">2023 —<br>Presente</div>
-<div class="cv-detail"><p class="cv-role">Investigador / Escritor</p><p class="cv-org">Independiente — Caribe</p><p class="cv-note">Investigación sobre escritura creativa, tecnología y diseño en el contexto caribeño. Publicaciones, instalaciones y escrituras experimentales.</p></div>
+<div class="cv-year">2024 —<br>2029</div>
+<div class="cv-detail"><p class="cv-role">Teaching Assistant</p><p class="cv-org">University of Miami — Miami, Florida</p></div>
 </div>
 <div class="cv-entry">
-<div class="cv-year">2021 —<br>2023</div>
-<div class="cv-detail"><p class="cv-role">Diseñador Editorial</p><p class="cv-org">Proyectos editoriales</p><p class="cv-note">Diseño de libros de artista y publicaciones experimentales. Exploración de la materialidad del texto.</p></div>
+<div class="cv-year">2023 —<br>2024</div>
+<div class="cv-detail"><p class="cv-role">Research Assistant &amp; Social Media Manager</p><p class="cv-org">University of Iowa — Iowa City, Iowa</p></div>
 </div>
 <div class="cv-entry">
-<div class="cv-year">2019 —<br>2021</div>
-<div class="cv-detail"><p class="cv-role">Formación académica</p><p class="cv-org">Universidad</p><p class="cv-note">Estudios en literatura, diseño y tecnología. Tesis sobre poética digital y escritura computacional.</p></div>
+<div class="cv-year">2022 —<br>2023</div>
+<div class="cv-detail"><p class="cv-role">Spanish Teaching Assistant</p><p class="cv-org">University of Iowa — Iowa City, Iowa</p></div>
 </div>
 <div class="cv-entry">
-<div class="cv-year">2020</div>
-<div class="cv-detail"><p class="cv-role">Residencia artística</p><p class="cv-org">Festival de Arte Digital</p><p class="cv-note">Instalación interactiva exhibida en festival regional. Exploración de tecnopoética caribeña.</p></div>
+<div class="cv-year">2014 —<br>2018</div>
+<div class="cv-detail"><p class="cv-role">Coordinator &amp; Graphic Designer, Art Department</p><p class="cv-org">British Council — Caracas, Venezuela</p></div>
 </div>
+
+<p class="cv-section-label">Becas y Subvenciones</p>
+
+<div class="cv-entry">
+<div class="cv-year">2026</div>
+<div class="cv-detail"><p class="cv-role">Digital Humanities Summer Scholarship</p><p class="cv-org">University of Miami</p><p class="cv-note">Desarrollo del primer podcast sobre Tecnopoética en el Caribe.</p></div>
+</div>
+<div class="cv-entry">
+<div class="cv-year">2025</div>
+<div class="cv-detail"><p class="cv-role">Artpace Residency Grant</p><p class="cv-org">Artpace — San Antonio, Texas</p><p class="cv-note">Comisión de medios interactivos para la instalación Hydra de Violette Bule.</p></div>
+</div>
+<div class="cv-entry">
+<div class="cv-year">2023</div>
+<div class="cv-detail"><p class="cv-role">Ruth Davis Summer Fellowship</p><p class="cv-org">University of Iowa — Iowa City</p><p class="cv-note">Para el proyecto Prácticas Migratorias, obra multimedia interactiva.</p></div>
+</div>
+<div class="cv-entry">
+<div class="cv-year">2022</div>
+<div class="cv-detail"><p class="cv-role">Letterpress Scholarship</p><p class="cv-org">La Ceiba Gráfica — Veracruz, México</p><p class="cv-note">Residencia intensiva de dos semanas en artes gráficas e impresión artesanal.</p></div>
+</div>
+
+<p class="cv-section-label">Premios</p>
+
+<div class="cv-entry">
+<div class="cv-year">2025</div>
+<div class="cv-detail"><p class="cv-role">Best Graduate Student Data Visualization — C.O.M.A.R.</p><p class="cv-org">Annual Interactive Media Showcase, University of Miami</p></div>
+</div>
+
+<p class="cv-section-label">Conferencias</p>
+
+<div class="cv-entry">
+<div class="cv-year">2025</div>
+<div class="cv-detail"><p class="cv-role">Caribbean Techno-Poetics in the 1990s: Kamau Brathwaite, Yucef Merhi, and Eduardo Kac</p><p class="cv-org">The Caribbean Digital XII — Northeastern University, Diciembre</p></div>
+</div>
+<div class="cv-entry">
+<div class="cv-year">2025</div>
+<div class="cv-detail"><p class="cv-role">Techno-Poetics in the Caribbean: The Sycorax Community</p><p class="cv-org">43rd Annual West Indian Literature Conference — University of Miami, Agosto</p></div>
+</div>
+<div class="cv-entry">
+<div class="cv-year">2025</div>
+<div class="cv-detail"><p class="cv-role">Hostile Technologies: Digital Authoritarianism and the Disabling of Identity</p><p class="cv-org">Dept. of Modern Languages and Literatures — University of Miami, Febrero</p></div>
+</div>
+<div class="cv-entry">
+<div class="cv-year">2022</div>
+<div class="cv-detail"><p class="cv-role">CaribePop Manifest</p><p class="cv-org">Fotofocus Biennial — University of Cincinnati &amp; Northern Kentucky University, Octubre</p></div>
+</div>
+
 </div>
 </section>
 
