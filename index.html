@@ -590,6 +590,45 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   letter-spacing:2px;color:var(--muted);
   min-width:40px;text-align:center;
 }
+/* welcome slide */
+.esc-slide-welcome{
+  min-height:60vh;
+  align-items:center;
+  justify-content:center;
+}
+.esc-welcome-inner{
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;gap:20px;max-width:600px;
+}
+.esc-welcome-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--muted);margin:0;
+}
+.esc-welcome-title{
+  font-family:var(--garamond);font-style:italic;
+  font-size:clamp(24px,3.5vw,48px);line-height:1.3;
+  color:var(--text);margin:0;font-weight:400;
+}
+.esc-welcome-sub{
+  font-family:var(--bricolage);font-size:13px;
+  letter-spacing:1px;color:var(--muted);margin:0;
+  text-transform:uppercase;
+}
+/* caption row with download */
+.esc-caption-row{
+  display:flex;align-items:center;
+  justify-content:space-between;gap:20px;flex-wrap:wrap;
+}
+.esc-download-btn{
+  flex-shrink:0;
+  display:inline-flex;align-items:center;
+  background:#000;color:#fff;
+  font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
+  font-weight:800;font-size:11px;letter-spacing:-0.3px;text-transform:uppercase;
+  text-decoration:none;border-radius:40px;padding:10px 20px;
+  transition:background 0.15s,color 0.15s;
+}
+.esc-download-btn:hover{background:#fff;color:#000;box-shadow:inset 0 0 0 1px #000;}
 
 /* ── LIBROS ── */
 #libros{
@@ -1402,12 +1441,24 @@ footer{
   <div class="esc-viewport">
     <div class="esc-track" id="esc-track">
 
-      <!-- Slide 1: Papel Literario PDF -->
+      <!-- Slide 1: Welcome -->
+      <div class="esc-slide esc-slide-welcome">
+        <div class="esc-welcome-inner">
+          <p class="esc-welcome-label">Archivo</p>
+          <h3 class="esc-welcome-title">Un cosmos de textos publicados,<br>experimentos y grafías</h3>
+          <p class="esc-welcome-sub">Nicolás Gerardi Rousset</p>
+        </div>
+      </div>
+
+      <!-- Slide 2: Papel Literario PDF (Drive embed) -->
       <div class="esc-slide">
         <div class="esc-media esc-media-pdf">
-          <iframe src="media/papel_literario_2025.png" title="PDF Papel Literario 2025"></iframe>
+          <iframe src="https://drive.google.com/file/d/1SVOQQhpqzJgkdSP6OAvX5j4hUwdAkpYs/preview" title="PDF Papel Literario 2025, Diciembre 21" allow="autoplay"></iframe>
         </div>
-        <p class="esc-caption"><strong>Papel Literario</strong> — Diciembre 2025 · Publicación impresa y digital</p>
+        <div class="esc-caption-row">
+          <p class="esc-caption"><strong>PDF Papel Literario 2025</strong> — Diciembre 21 · Publicación impresa y digital</p>
+          <a class="esc-download-btn" href="https://drive.google.com/uc?export=download&id=1SVOQQhpqzJgkdSP6OAvX5j4hUwdAkpYs" download>Descargar PDF ↓</a>
+        </div>
       </div>
 
       <!-- Slide 2: Portada PSD -->
@@ -1547,7 +1598,7 @@ footer{
     <p class="esc-section-label">Escrituras</p>
     <div class="esc-nav">
       <button class="esc-nav-btn" id="esc-prev" disabled>←</button>
-      <span class="esc-nav-counter" id="esc-counter">1 / 12</span>
+      <span class="esc-nav-counter" id="esc-counter">1 / 13</span>
       <button class="esc-nav-btn" id="esc-next">→</button>
     </div>
   </div>
