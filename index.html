@@ -767,10 +767,11 @@ footer{
 /* each exhibition: title row full-width, then narrow-left + wide-right */
 .expo-item{
   flex:0 0 100%;width:100%;
-  padding:0 48px 28px;
+  padding:0 48px 36px;
   display:flex;
   flex-direction:column;
   box-sizing:border-box;
+  min-height:calc(100vh - 130px);
 }
 
 /* big title row — Figma: 114px, spans ~7/12 cols */
@@ -783,21 +784,26 @@ footer{
   max-width:58%;
 }
 
-/* content row below the title */
+/* content row below the title — fills remaining slide height */
 .expo-content{
   display:grid;
-  /* Figma: description col-1 (narrow ~30%), carousel cols 6-12 (~54%) */
   grid-template-columns:32fr 68fr;
   gap:0 60px;
   padding-top:40px;
-  align-items:start;
+  align-items:stretch;
+  flex:1;
 }
 
-/* left: narrow description + meta + button */
-.expo-left{display:flex;flex-direction:column;gap:28px;}
+/* left: description + meta pushed to bottom (Figma rows 4-7), top is empty */
+.expo-left{
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  gap:20px;
+  padding-bottom:4px;
+}
 .expo-desc{
-  font-family:var(--garamond);font-size:clamp(14px,1.4vw,20px);
-  line-height:1.75;letter-spacing:-0.5px;color:var(--text);margin:0;
+  font-family:var(--garamond);font-size:clamp(13px,1.15vw,18px);
+  line-height:1.65;letter-spacing:-0.3px;color:var(--text);margin:0;
 }
 .expo-meta{
   font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
@@ -817,8 +823,11 @@ footer{
 }
 .expo-pdf-btn:hover{background:#fff;color:#000;box-shadow:inset 0 0 0 1px #000;}
 
-/* right — media carousel */
-.expo-right{display:flex;align-items:flex-start;justify-content:stretch;}
+/* right — media carousel + PDF button below */
+.expo-right{
+  display:flex;flex-direction:column;
+  align-items:flex-start;gap:16px;
+}
 .media-carousel{
   position:relative;width:100%;
   border:1px solid #000;border-radius:60px;overflow:hidden;
@@ -887,11 +896,13 @@ footer{
   }
   .expo-content{
     grid-template-columns:1fr;
-    gap:28px;
-    padding-top:24px;
+    gap:24px;
+    padding-top:20px;
+    flex:none;
   }
+  .expo-left{gap:16px;justify-content:flex-start;}
   .media-carousel{aspect-ratio:4/3;border-radius:30px;}
-  .expo-left{gap:20px;}
+  .expo-right{gap:12px;}
   .expo-pdf-btn{width:100%;justify-content:center;}
 }
 </style>
@@ -1129,7 +1140,6 @@ footer{
           <strong>676 NW Miami, FL</strong><br>
           33127
         </div>
-        <a class="expo-pdf-btn" href="desplazamientoforzado/catalogo.pdf" target="_blank" rel="noopener">PDF — Catálogo</a>
       </div>
       <div class="expo-right">
         <div class="media-carousel" id="mc-1">
@@ -1154,6 +1164,7 @@ footer{
             <button class="media-btn" data-mc="1" data-dir="1">→</button>
           </div>
         </div>
+        <a class="expo-pdf-btn" href="desplazamientoforzado/catalogo.pdf" target="_blank" rel="noopener">PDF — Catálogo</a>
       </div>
       </div><!-- /expo-content -->
     </div>
@@ -1169,7 +1180,6 @@ footer{
           Public Space One<br>
           <strong>Iowa City</strong>
         </div>
-        <a class="expo-pdf-btn" href="riomenor/catalogo.pdf" target="_blank" rel="noopener">PDF — Catálogo</a>
       </div>
       <div class="expo-right">
         <div class="media-carousel" id="mc-2">
@@ -1183,13 +1193,14 @@ footer{
             <button class="media-btn" data-mc="2" data-dir="1">→</button>
           </div>
         </div>
+        <a class="expo-pdf-btn" href="riomenor/catalogo.pdf" target="_blank" rel="noopener">PDF — Catálogo</a>
       </div>
       </div><!-- /expo-content -->
     </div>
 
     <!-- ── EXPOSICIÓN 3: Hydra ── -->
     <div class="expo-item">
-      <h2 class="expo-title">Asistencia Técnica<br>e Interactivos<br>— Hydra</h2>
+      <h2 class="expo-title">Interactive<br>Media Hydra</h2>
       <div class="expo-content">
       <div class="expo-left">
         <p class="expo-desc">Diez días en la residencia de arte Art Pace para realizar el video mapping e interacción de la pieza Hydra de la artista Violette Bule. La pieza aborda el tema del lucro a través de los sistemas de cárceles privadas en Estados Unidos.</p>
@@ -1199,16 +1210,16 @@ footer{
           Art Pace<br>
           <strong>San Antonio, Texas</strong>
         </div>
-        <a class="expo-pdf-btn" href="hydra/catalogo.pdf" target="_blank" rel="noopener">PDF — Catálogo</a>
       </div>
       <div class="expo-right">
         <div class="media-carousel" id="mc-3">
           <div class="media-track" id="mt-3">
             <div class="media-slide media-iframe">
-              <iframe src="https://player.vimeo.com/video/1187372380?autoplay=0&loop=1&muted=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+              <iframe src="https://player.vimeo.com/video/1187372380?badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
             </div>
           </div>
         </div>
+        <a class="expo-pdf-btn" href="hydra/catalogo.pdf" target="_blank" rel="noopener">PDF — Catálogo</a>
       </div>
       </div><!-- /expo-content -->
     </div>
@@ -1237,7 +1248,7 @@ footer{
 
 <div class="cv-accordion">
 
-<details class="cv-details" open>
+<details class="cv-details">
 <summary class="cv-summary">Empleo</summary>
 <div class="cv-grid">
 <div class="cv-entry"><div class="cv-year">2024 —<br>2029</div><div class="cv-detail"><p class="cv-role">Teaching Assistant</p><p class="cv-org">University of Miami — Miami, Florida</p></div></div>
