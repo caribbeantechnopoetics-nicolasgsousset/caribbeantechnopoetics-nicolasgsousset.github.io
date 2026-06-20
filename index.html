@@ -421,65 +421,175 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 
 /* ── ESCRITURAS ── */
 #escrituras{
-  padding:120px 60px;
   border-top:3px solid var(--border);
+  position:relative;
+  overflow:hidden;
+}
+.escrituras-top{
+  padding:40px 48px 32px;
   border-bottom:1px solid var(--border-light);
 }
-.escrituras-header{
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  margin-bottom:64px;
-}
-.escrituras-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:1px;
-  background:var(--border-light);
-  border:1px solid var(--border-light);
-}
-.escritura-card{
-  background:var(--bg);
-  padding:40px 32px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-.escritura-year{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--muted);}
-.escritura-title{
+.escrituras-title{
   font-family:var(--bricolage);
-  font-size:20px;
-  font-weight:700;
-  letter-spacing:-0.5px;
-  line-height:1.2;
-  color:var(--text-dark);
+  font-variation-settings:"opsz" 14,"wdth" 100;
+  font-weight:800;
+  font-size:clamp(36px,5vw,72px);
+  letter-spacing:-2px;
+  text-transform:uppercase;
+  color:var(--text);
+  margin:0 0 8px;
+  line-height:1;
 }
-.escritura-pub{
+.escrituras-subtitle{
   font-family:var(--garamond);
   font-style:italic;
-  font-size:15px;
-  color:var(--text);
-}
-.escritura-desc{
-  font-family:var(--garamond);
-  font-size:15px;
+  font-size:clamp(14px,1.2vw,18px);
   color:var(--muted);
-  line-height:1.6;
-  flex:1;
+  margin:0;
 }
-.escritura-link{
+/* slideshow viewport */
+.esc-viewport{
+  overflow:hidden;
+  position:relative;
+}
+.esc-track{
+  display:flex;
+  transition:transform 0.55s cubic-bezier(.77,0,.18,1);
+  will-change:transform;
+}
+.esc-slide{
+  flex:0 0 100%;
+  width:100%;
+  padding:40px 48px;
+  box-sizing:border-box;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+/* media frame */
+.esc-media{
+  width:100%;
+  background:#f0efed;
+  border-radius:12px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.esc-media img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+.esc-media iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+}
+/* media that is pdf gets taller frame */
+.esc-media-pdf{ height:75vh; }
+/* media that is an image */
+.esc-media-img{ max-height:80vh; }
+/* two-up image grid */
+.esc-media-duo{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  width:100%;
+}
+.esc-media-duo .esc-media{
+  height:65vh;
+}
+/* inner photo carousel */
+.esc-inner-carousel{ position:relative; width:100%; }
+.esc-inner-track-wrap{ overflow:hidden; border-radius:12px; background:#f0efed; }
+.esc-inner-track{
+  display:flex;
+  transition:transform 0.4s cubic-bezier(.77,0,.18,1);
+}
+.esc-inner-slide{
+  flex:0 0 100%;
+  width:100%;
+  max-height:75vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#f0efed;
+}
+.esc-inner-slide img{
+  width:100%;
+  height:100%;
+  max-height:75vh;
+  object-fit:contain;
+  display:block;
+}
+.esc-inner-nav{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-top:10px;
+}
+.esc-inner-btn{
+  background:none;
+  border:1px solid var(--border-light);
+  border-radius:50%;
+  width:32px;height:32px;
+  font-size:14px;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text);
+  transition:border-color 0.15s;
+}
+.esc-inner-btn:hover{border-color:#000;}
+.esc-inner-counter{
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:2px;
+  color:var(--muted);
+}
+/* caption */
+.esc-caption{
+  font-family:var(--bricolage);
+  font-variation-settings:"opsz" 14,"wdth" 100;
+  font-size:11.5px;
+  letter-spacing:-0.3px;
+  color:var(--text);
+  line-height:1.5;
+}
+.esc-caption strong{ font-weight:700; text-transform:uppercase; }
+/* section footer */
+.esc-footer{
+  padding:20px 48px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-top:1px solid var(--border-light);
+}
+.esc-section-label{
   font-family:var(--mono);
   font-size:10px;
-  letter-spacing:2px;
+  letter-spacing:3px;
   text-transform:uppercase;
-  color:var(--text-dark);
-  text-decoration:none;
-  border-bottom:1px solid var(--border-light);
-  padding-bottom:2px;
-  align-self:flex-start;
-  transition:border-color 0.2s;
+  color:var(--muted);
+  margin:0;
 }
-.escritura-link:hover{border-color:#000;}
+.esc-nav{ display:flex; align-items:center; gap:12px; }
+.esc-nav-btn{
+  background:none;border:1px solid var(--border-light);
+  border-radius:50%;width:36px;height:36px;
+  font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text);transition:border-color 0.15s;
+}
+.esc-nav-btn:hover{border-color:#000;}
+.esc-nav-btn:disabled{opacity:0.3;cursor:default;}
+.esc-nav-counter{
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:2px;color:var(--muted);
+  min-width:40px;text-align:center;
+}
 
 /* ── LIBROS ── */
 #libros{
@@ -1284,32 +1394,163 @@ footer{
 
 <!-- ── ESCRITURAS ── -->
 <section id="escrituras">
-<div class="escrituras-header">
-<div><p class="section-label">Publicaciones</p><h2 class="section-title">Escrituras</h2></div>
-</div>
-<div class="escrituras-grid">
-<div class="escritura-card">
-<span class="escritura-year">2024</span>
-<h3 class="escritura-title">Tecnopoemas del trópico</h3>
-<p class="escritura-pub">Revista de Literatura Digital</p>
-<p class="escritura-desc">Serie de poemas que exploran la relación entre código y lengua en el espacio caribeño.</p>
-<a href="#" class="escritura-link">Leer →</a>
-</div>
-<div class="escritura-card">
-<span class="escritura-year">2023</span>
-<h3 class="escritura-title">Diseño y escritura creativa</h3>
-<p class="escritura-pub">Ensayo crítico</p>
-<p class="escritura-desc">Reflexión sobre los puntos de contacto entre práctica de diseño y escritura literaria.</p>
-<a href="#" class="escritura-link">Leer →</a>
-</div>
-<div class="escritura-card">
-<span class="escritura-year">2022</span>
-<h3 class="escritura-title">Inamencia</h3>
-<p class="escritura-pub">Poema-objeto</p>
-<p class="escritura-desc">Poema sobre la permanencia de lo que no permanece. Publicado como objeto editorial.</p>
-<a href="#" class="escritura-link">Leer →</a>
-</div>
-</div>
+  <div class="escrituras-top">
+    <h2 class="escrituras-title">Escrituras</h2>
+    <p class="escrituras-subtitle">Un cosmos de textos publicados, experimentos y grafías</p>
+  </div>
+
+  <div class="esc-viewport">
+    <div class="esc-track" id="esc-track">
+
+      <!-- Slide 1: Papel Literario PDF -->
+      <div class="esc-slide">
+        <div class="esc-media esc-media-pdf">
+          <iframe src="media/papel_literario_2025.png" title="PDF Papel Literario 2025"></iframe>
+        </div>
+        <p class="esc-caption"><strong>Papel Literario</strong> — Diciembre 2025 · Publicación impresa y digital</p>
+      </div>
+
+      <!-- Slide 2: Portada PSD -->
+      <div class="esc-slide">
+        <div class="esc-media esc-media-img">
+          <img src="media/portadapsd.png" alt="Portada PSD">
+        </div>
+        <p class="esc-caption"><strong>Portada PSD</strong> — Diseño editorial · Archivo de trabajo</p>
+      </div>
+
+      <!-- Slide 3: Penetra en la cáscara — PDF -->
+      <div class="esc-slide">
+        <div class="esc-media esc-media-pdf">
+          <iframe src="media/penetra_en_la_cascara.pdf" title="Penetra en la cáscara"></iframe>
+        </div>
+        <p class="esc-caption"><strong>Penetra en la cáscara</strong> — Texto / documento · I</p>
+      </div>
+
+      <!-- Slide 4: Penetra en la cáscara 3 -->
+      <div class="esc-slide">
+        <div class="esc-media esc-media-img">
+          <img src="media/penetra_en_la_cascara3.jpg" alt="Penetra en la cáscara 3">
+        </div>
+        <p class="esc-caption"><strong>Penetra en la cáscara</strong> — II</p>
+      </div>
+
+      <!-- Slide 5: Penetra en la cáscara 4 -->
+      <div class="esc-slide">
+        <div class="esc-media esc-media-img">
+          <img src="media/penetra_en_la_cascara4.jpg" alt="Penetra en la cáscara 4">
+        </div>
+        <p class="esc-caption"><strong>Penetra en la cáscara</strong> — III</p>
+      </div>
+
+      <!-- Slide 6: Mauricio Ceppi / Tácticas de Acceso (link pending) -->
+      <div class="esc-slide">
+        <div class="esc-media esc-media-pdf" style="align-items:center;justify-content:center;flex-direction:column;gap:24px;">
+          <p style="font-family:var(--bricolage);font-size:14px;color:var(--muted);text-align:center;padding:40px;">Enlace al documento de Mauricio Ceppi<br><em>Tácticas de Acceso</em><br><br><span style="font-size:11px;opacity:0.6;">[pendiente — proporcionar URL]</span></p>
+        </div>
+        <p class="esc-caption"><strong>Documento Mauricio Ceppi</strong> — Tácticas de Acceso · Texto colaborativo</p>
+      </div>
+
+      <!-- Slide 7: Ojo 19 PDF -->
+      <div class="esc-slide">
+        <div class="esc-media esc-media-pdf">
+          <iframe src="media/ojo19.pdf" title="Ojo 19"></iframe>
+        </div>
+        <p class="esc-caption"><strong>Ojo</strong> · Número 19 — Revista · Publicación impresa</p>
+      </div>
+
+      <!-- Slide 8: Ojo 17 -->
+      <div class="esc-slide">
+        <div class="esc-media esc-media-img">
+          <img src="media/ojo_17_cover.jpg" alt="Ojo 17">
+        </div>
+        <p class="esc-caption"><strong>Ojo</strong> · Número 17 — Revista · Publicación impresa</p>
+      </div>
+
+      <!-- Slide 9: Propaganda anticomunista — photo carousel -->
+      <div class="esc-slide">
+        <div class="esc-inner-carousel" id="esc-ic-1">
+          <div class="esc-inner-track-wrap">
+            <div class="esc-inner-track" id="esc-it-1">
+              <div class="esc-inner-slide"><img src="media/propaganda_anticomunista_1.jpg" alt="Propaganda anticomunista 1"></div>
+              <div class="esc-inner-slide"><img src="media/propaganda_anticomunista_3.jpg" alt="Propaganda anticomunista 3"></div>
+              <div class="esc-inner-slide"><img src="media/propaganda_anticomunista_4.jpg" alt="Propaganda anticomunista 4"></div>
+              <div class="esc-inner-slide"><img src="media/propaganda_anticomunista_5.jpg" alt="Propaganda anticomunista 5"></div>
+              <div class="esc-inner-slide"><img src="media/propaganda_anticomunista_7.jpg" alt="Propaganda anticomunista 7"></div>
+              <div class="esc-inner-slide"><img src="media/propaganda_anticomunista_10.jpg" alt="Propaganda anticomunista 10"></div>
+              <div class="esc-inner-slide"><img src="media/propaganda_anticomunista_genocidas.jpg" alt="Propaganda anticomunista genocidas"></div>
+            </div>
+          </div>
+          <div class="esc-inner-nav">
+            <button class="esc-inner-btn" data-ic="1" data-dir="-1" disabled>←</button>
+            <span class="esc-inner-counter" id="esc-ic-counter-1">1 / 7</span>
+            <button class="esc-inner-btn" data-ic="1" data-dir="1">→</button>
+          </div>
+        </div>
+        <p class="esc-caption"><strong>Propaganda Anticomunista</strong> — Serie fotográfica · Archivo visual</p>
+      </div>
+
+      <!-- Slide 10: Post Media Communication + Cognitive Affective (images pending) -->
+      <div class="esc-slide">
+        <div class="esc-media-duo">
+          <div class="esc-media" style="align-items:center;justify-content:center;">
+            <p style="font-family:var(--bricolage);font-size:12px;color:var(--muted);text-align:center;padding:24px;">Post Media Communication<br><span style="font-size:10px;opacity:0.5;">[imagen pendiente]</span></p>
+          </div>
+          <div class="esc-media" style="align-items:center;justify-content:center;">
+            <p style="font-family:var(--bricolage);font-size:12px;color:var(--muted);text-align:center;padding:24px;">Cognitive Affective<br><span style="font-size:10px;opacity:0.5;">[imagen pendiente]</span></p>
+          </div>
+        </div>
+        <p class="esc-caption"><strong>Post Media Communication</strong> · <strong>Cognitive Affective</strong> — Imágenes de proyecto</p>
+      </div>
+
+      <!-- Slide 11: Neotropical + Gabriel García (images pending) -->
+      <div class="esc-slide">
+        <div class="esc-media-duo">
+          <div class="esc-media" style="align-items:center;justify-content:center;">
+            <p style="font-family:var(--bricolage);font-size:12px;color:var(--muted);text-align:center;padding:24px;">Neotropical<br><span style="font-size:10px;opacity:0.5;">[imagen pendiente]</span></p>
+          </div>
+          <div class="esc-media" style="align-items:center;justify-content:center;">
+            <p style="font-family:var(--bricolage);font-size:12px;color:var(--muted);text-align:center;padding:24px;">Gabriel García<br><span style="font-size:10px;opacity:0.5;">[imagen pendiente]</span></p>
+          </div>
+        </div>
+        <p class="esc-caption"><strong>Neotropical</strong> · <strong>Gabriel García</strong> — Imágenes de proyecto</p>
+      </div>
+
+      <!-- Slide 12: Descargas — photo carousel -->
+      <div class="esc-slide">
+        <div class="esc-inner-carousel" id="esc-ic-2">
+          <div class="esc-inner-track-wrap">
+            <div class="esc-inner-track" id="esc-it-2">
+              <div class="esc-inner-slide"><img src="media/descarga_1.jpg" alt="Descarga 1"></div>
+              <div class="esc-inner-slide"><img src="media/descarga_2.jpg" alt="Descarga 2"></div>
+              <div class="esc-inner-slide"><img src="media/descarga_3.jpg" alt="Descarga 3"></div>
+              <div class="esc-inner-slide"><img src="media/descarga_4.jpg" alt="Descarga 4"></div>
+              <div class="esc-inner-slide"><img src="media/descarga_5.jpg" alt="Descarga 5"></div>
+              <div class="esc-inner-slide"><img src="media/descarga_6.jpg" alt="Descarga 6"></div>
+              <div class="esc-inner-slide"><img src="media/descarga_7.jpg" alt="Descarga 7"></div>
+              <div class="esc-inner-slide"><img src="media/descarga_8.jpg" alt="Descarga 8"></div>
+              <div class="esc-inner-slide"><img src="media/descarga_9.jpg" alt="Descarga 9"></div>
+            </div>
+          </div>
+          <div class="esc-inner-nav">
+            <button class="esc-inner-btn" data-ic="2" data-dir="-1" disabled>←</button>
+            <span class="esc-inner-counter" id="esc-ic-counter-2">1 / 9</span>
+            <button class="esc-inner-btn" data-ic="2" data-dir="1">→</button>
+          </div>
+        </div>
+        <p class="esc-caption"><strong>Descargas</strong> — Serie · Archivo de imágenes</p>
+      </div>
+
+    </div><!-- /esc-track -->
+  </div><!-- /esc-viewport -->
+
+  <div class="esc-footer">
+    <p class="esc-section-label">Escrituras</p>
+    <div class="esc-nav">
+      <button class="esc-nav-btn" id="esc-prev" disabled>←</button>
+      <span class="esc-nav-counter" id="esc-counter">1 / 12</span>
+      <button class="esc-nav-btn" id="esc-next">→</button>
+    </div>
+  </div>
 </section>
 
 <!-- ── LIBROS ── -->
@@ -1438,6 +1679,63 @@ try{(function(){
   [1,2,3,4].forEach(function(id){ initMediaCarousel(id); });
 
 })()}catch(e){console.error('expo nav error:',e);}
+
+/* ── ESCRITURAS slideshow ── */
+try{(function(){
+  var track = document.getElementById('esc-track');
+  var prev  = document.getElementById('esc-prev');
+  var next  = document.getElementById('esc-next');
+  var counter = document.getElementById('esc-counter');
+  var slides = track ? track.querySelectorAll('.esc-slide') : [];
+  var total  = slides.length;
+  var cur    = 0;
+
+  function escGo(n){
+    cur = Math.max(0, Math.min(total-1, n));
+    track.style.transform = 'translateX(-'+cur*100+'%)';
+    counter.textContent = (cur+1)+' / '+total;
+    prev.disabled = cur===0;
+    next.disabled = cur===total-1;
+  }
+
+  if(prev && next){
+    prev.addEventListener('click', function(){ escGo(cur-1); });
+    next.addEventListener('click', function(){ escGo(cur+1); });
+  }
+
+  /* swipe support */
+  var sx=0;
+  if(track){
+    track.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;},{passive:true});
+    track.addEventListener('touchend',function(e){
+      var dx=e.changedTouches[0].clientX-sx;
+      if(Math.abs(dx)>40){ escGo(dx<0?cur+1:cur-1); }
+    },{passive:true});
+  }
+
+  /* inner photo carousels */
+  var icState = {};
+  document.querySelectorAll('.esc-inner-btn').forEach(function(btn){
+    var id  = btn.getAttribute('data-ic');
+    var dir = parseInt(btn.getAttribute('data-dir'));
+    btn.addEventListener('click', function(){
+      if(!icState[id]) icState[id]=0;
+      var t = document.getElementById('esc-it-'+id);
+      var imgs = t ? t.querySelectorAll('.esc-inner-slide') : [];
+      var n = Math.max(0, Math.min(imgs.length-1, icState[id]+dir));
+      icState[id] = n;
+      t.style.transform = 'translateX(-'+n*100+'%)';
+      document.getElementById('esc-ic-counter-'+id).textContent = (n+1)+' / '+imgs.length;
+      /* toggle buttons */
+      var btns = document.querySelectorAll('.esc-inner-btn[data-ic="'+id+'"]');
+      btns.forEach(function(b){
+        var d = parseInt(b.getAttribute('data-dir'));
+        b.disabled = (d===-1 && n===0)||(d===1 && n===imgs.length-1);
+      });
+    });
+  });
+
+})()}catch(e){console.error('escrituras nav error:',e);}
 
 const sketches={
 caribe_noise:`
