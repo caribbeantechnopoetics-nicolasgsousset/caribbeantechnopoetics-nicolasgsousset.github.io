@@ -669,59 +669,124 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   border-bottom:1px solid var(--border-light);
 }
 .libros-header-bar .section-label{margin-bottom:8px;}
-.libros-header-bar .esc-welcome-title{margin-top:12px;text-align:left;font-size:clamp(18px,2.5vw,32px);}
 .libros-slideshow{overflow:hidden;position:relative;}
 .libros-track{display:flex;transition:transform 0.6s cubic-bezier(.77,0,.18,1);}
+
+/* Welcome slide */
 .libro-slide{
   flex:0 0 100%;width:100%;
+  box-sizing:border-box;
+  padding:40px 48px 32px;
+}
+.libro-welcome-slide{
+  min-height:calc(100vh - 180px);
   display:flex;flex-direction:column;
-  padding:28px 48px 24px;
-  box-sizing:border-box;gap:20px;
-  min-height:75vh;
+  align-items:center;justify-content:center;
+  gap:20px;text-align:center;
 }
-.libro-bento{
-  flex:1;display:grid;
-  grid-template-columns:180px 1fr 180px;
-  grid-template-rows:1fr 1fr;
-  gap:12px;min-height:0;
+.libro-welcome-title{
+  font-family:var(--garamond);font-style:italic;font-weight:400;
+  font-size:clamp(28px,4vw,52px);line-height:1.3;
+  color:var(--text);margin:0;letter-spacing:-0.5px;
 }
-.libro-main{
-  grid-column:2;grid-row:1/3;
-  border:1px solid #000;border-radius:20px;
-  overflow:hidden;position:relative;display:flex;
-}
-.libro-frame{
-  border:1px solid #000;border-radius:20px;
-  overflow:hidden;background:#f0efed;
-  display:flex;align-items:center;justify-content:center;
-}
-.libro-frame video,.libro-frame img{width:100%;height:100%;object-fit:cover;display:block;}
-.libro-wide .libro-bento{grid-template-columns:1fr;}
-.libro-wide .libro-main{grid-column:1;}
-.libro-info{
-  display:flex;align-items:flex-end;
-  justify-content:space-between;gap:32px;flex-wrap:wrap;
-}
-.libro-title-big{
-  font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
-  font-weight:800;font-size:clamp(28px,5.5vw,72px);
-  text-transform:uppercase;letter-spacing:-2px;
-  color:var(--text);line-height:0.9;margin:0 0 6px;
-}
-.libro-subtitle-tag{
-  font-family:var(--mono);font-size:10px;
-  letter-spacing:3px;text-transform:uppercase;
+.libro-welcome-sub{
+  font-family:var(--bricolage);font-size:12px;
+  letter-spacing:2px;text-transform:uppercase;
   color:var(--muted);margin:0;
 }
-.libro-info-right{
-  display:flex;flex-direction:column;align-items:flex-end;gap:10px;
-  max-width:420px;
+
+/* Book slide: left col + right main */
+.libro-book-slide{
+  display:grid;
+  grid-template-columns:200px 1fr;
+  grid-template-rows:auto 1fr auto;
+  gap:18px;
+  min-height:calc(100vh - 180px);
 }
-.libro-desc-text{
+/* LEFT: GIF frame top */
+.libro-gif-frame{
+  grid-column:1;grid-row:1;
+  height:260px;
+  border:1px solid var(--border);
+  border-radius:24px;
+  overflow:hidden;
+  background:#f0efed;
+  display:flex;align-items:center;justify-content:center;
+}
+.libro-gif-frame img{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+/* LEFT: text below gif */
+.libro-text-left{
+  grid-column:1;grid-row:2/4;
+  display:flex;flex-direction:column;
+  justify-content:flex-end;gap:16px;
+  padding-bottom:4px;
+}
+.libro-desc-left{
   font-family:var(--garamond);font-style:italic;
-  font-size:clamp(13px,1.1vw,16px);line-height:1.5;
-  color:var(--text);margin:0;text-align:right;
+  font-size:clamp(12px,1vw,15px);line-height:1.6;
+  color:var(--text);margin:0;
 }
+.libro-meta-left{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--muted);margin:0;line-height:1.8;
+}
+/* RIGHT: main carousel */
+.libro-carousel-wrap{
+  grid-column:2;grid-row:1/3;
+  border:1px solid var(--border);
+  border-radius:24px;
+  overflow:hidden;
+  position:relative;
+  background:#f0efed;
+  /* square-ish: let height be governed by available grid space */
+  min-height:0;
+}
+.libro-carousel-track{
+  display:flex;height:100%;
+  transition:transform 0.45s cubic-bezier(.77,0,.18,1);
+}
+.libro-carousel-slide{
+  flex:0 0 100%;width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  background:#f0efed;
+}
+.libro-carousel-slide img{
+  width:100%;height:100%;
+  object-fit:contain;display:block;
+}
+/* RIGHT bottom: thumbnails + title + download */
+.libro-bottom-right{
+  grid-column:2;grid-row:3;
+  display:flex;align-items:flex-end;
+  justify-content:space-between;gap:24px;
+}
+.libro-left-bottom{
+  display:flex;flex-direction:column;gap:10px;
+  flex:1;
+}
+.libro-thumbs{
+  display:flex;gap:6px;flex-wrap:wrap;
+}
+.libro-thumb{
+  width:52px;height:52px;
+  border-radius:8px;overflow:hidden;
+  border:2px solid var(--border-light);
+  cursor:pointer;transition:border-color 0.2s;
+  background:#f0efed;flex-shrink:0;
+}
+.libro-thumb.lb-active{ border-color:#000; }
+.libro-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.libro-title-big{
+  font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
+  font-weight:800;font-size:clamp(32px,5.5vw,72px);
+  text-transform:uppercase;letter-spacing:-2.5px;
+  color:var(--text);line-height:0.9;margin:0;
+  flex-shrink:0;text-align:right;
+}
+/* Nav footer */
 .libros-footer{
   padding:20px 48px 24px;display:flex;
   align-items:center;justify-content:space-between;
@@ -740,6 +805,27 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   font-family:var(--mono);font-size:10px;letter-spacing:2px;
   text-transform:uppercase;color:var(--muted);
   min-width:36px;text-align:center;
+}
+/* Mobile */
+@media(max-width:700px){
+  .libro-book-slide{
+    grid-template-columns:1fr;
+    grid-template-rows:240px auto auto auto;
+    min-height:auto;
+    gap:12px;
+    padding:16px 16px 12px;
+  }
+  .libro-gif-frame{grid-column:1;grid-row:1;height:200px;border-radius:16px;}
+  .libro-text-left{grid-column:1;grid-row:4;padding-bottom:0;justify-content:flex-start;}
+  .libro-carousel-wrap{grid-column:1;grid-row:2;height:55vw;}
+  .libro-bottom-right{grid-column:1;grid-row:3;flex-direction:column;align-items:flex-start;gap:8px;}
+  .libro-title-big{font-size:clamp(24px,8vw,40px);text-align:left;}
+  .libros-footer{padding:12px 16px 16px;}
+  .libros-header-bar{padding:20px 16px 16px;}
+  .libro-slide{padding:16px 16px 12px;}
+}
+@media(max-width:390px){
+  .libro-title-big{font-size:clamp(20px,7vw,32px);}
 }
 
 /* ── CONTACT ── */
@@ -1194,17 +1280,6 @@ footer{
   .cv-grid > *:first-child{ color:var(--muted); font-size:10px; letter-spacing:2px; font-family:var(--mono); }
   .cv-summary{ padding:16px 0; font-size:9px; }
   .cv-details{ }
-
-  /* ── LIBROS ── */
-  .libros-header-bar{ padding:24px 20px 20px; }
-  .libro-slide{ padding:16px 16px 16px; gap:12px; min-height:auto; }
-  .libro-bento{ grid-template-columns:100px 1fr 100px; gap:8px; min-height:55vh; }
-  .libro-wide .libro-bento{ grid-template-columns:1fr; }
-  .libro-title-big{ font-size:clamp(22px,7vw,40px); }
-  .libro-info{ flex-direction:column; align-items:flex-start; gap:12px; }
-  .libro-info-right{ align-items:flex-start; max-width:100%; }
-  .libro-desc-text{ text-align:left; }
-  .libros-footer{ padding:16px 16px 20px; }
 
   /* ── EXPOSICIONES footer ── */
   .expo-nav-counter{ font-size:9px; }
@@ -1851,302 +1926,286 @@ footer{
 <div class="libros-header-bar">
   <p class="section-label">Objetos editoriales</p>
   <h2 class="section-title">Libros de <em>Artista</em></h2>
-  <p class="esc-welcome-title">Libros y publicaciones hechas<br>con los dígitos de mis manos</p>
 </div>
 
 <div class="libros-slideshow">
 <div class="libros-track" id="libros-track">
 
-  <!-- 1. El Nuevo Mundo Desconocido -->
-  <div class="libro-slide libro-wide">
-    <div class="libro-bento">
-      <div class="libro-main">
-        <div class="media-carousel" style="width:100%;position:relative;">
-          <div class="media-track" id="mt-lb1">
-            <div class="media-slide"><img src="media/libros/el_nuevo_mundo/img1.jpg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/el_nuevo_mundo/img2.jpg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/el_nuevo_mundo/img3.jpg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/el_nuevo_mundo/img4.jpg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/el_nuevo_mundo/img5.png" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/el_nuevo_mundo/img6.jpg" alt="" loading="lazy"></div>
-          </div>
-          <div class="media-controls">
-            <button class="media-btn" data-mc="lb1" data-dir="-1" disabled>←</button>
-            <span class="media-counter" id="mc-counter-lb1">1 / 6</span>
-            <button class="media-btn" data-mc="lb1" data-dir="1">→</button>
-          </div>
-        </div>
+  <!-- SLIDE 0: Welcome -->
+  <div class="libro-slide libro-welcome-slide">
+    <p class="esc-welcome-label">Libros · Publicaciones · Fanzines</p>
+    <h2 class="libro-welcome-title">Libros y publicaciones hechas<br>con los dígitos de mis manos</h2>
+    <p class="libro-welcome-sub">Nicolás Gerardi Rousset · 9 publicaciones</p>
+  </div>
+
+  <!-- SLIDE 1: El Nuevo Mundo Desconocido -->
+  <div class="libro-slide libro-book-slide">
+    <div class="libro-gif-frame">
+      <img src="media/libros/el_nuevo_mundo/img1.jpg" alt="">
+    </div>
+    <div class="libro-text-left">
+      <p class="libro-desc-left">Libro-objeto sobre el territorio latinoamericano imaginado y sus zonas de sombra. Diseño editorial experimental y poesía visual.</p>
+      <p class="libro-meta-left">Libro de artista<br>2019<br>Caracas · Venezuela</p>
+    </div>
+    <div class="libro-carousel-wrap">
+      <div class="libro-carousel-track" id="lbt-1">
+        <div class="libro-carousel-slide"><img src="media/libros/el_nuevo_mundo/img1.jpg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/el_nuevo_mundo/img2.jpg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/el_nuevo_mundo/img3.jpg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/el_nuevo_mundo/img4.jpg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/el_nuevo_mundo/img5.png" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/el_nuevo_mundo/img6.jpg" alt="" loading="lazy"></div>
       </div>
     </div>
-    <div class="libro-info">
-      <div>
-        <h2 class="libro-title-big">El Nuevo Mundo<br>Desconocido</h2>
-        <p class="libro-subtitle-tag">Libro de artista · 2019</p>
-      </div>
-      <div class="libro-info-right">
-        <p class="libro-desc-text">Libro-objeto sobre el territorio latinoamericano imaginado y sus zonas de sombra. Diseño editorial experimental.</p>
+    <div class="libro-bottom-right">
+      <div class="libro-left-bottom">
+        <div class="libro-thumbs" id="lbthumbs-1">
+          <div class="libro-thumb lb-active" data-lb="1" data-i="0"><img src="media/libros/el_nuevo_mundo/img1.jpg" alt=""></div>
+          <div class="libro-thumb" data-lb="1" data-i="1"><img src="media/libros/el_nuevo_mundo/img2.jpg" alt=""></div>
+          <div class="libro-thumb" data-lb="1" data-i="2"><img src="media/libros/el_nuevo_mundo/img3.jpg" alt=""></div>
+          <div class="libro-thumb" data-lb="1" data-i="3"><img src="media/libros/el_nuevo_mundo/img4.jpg" alt=""></div>
+          <div class="libro-thumb" data-lb="1" data-i="4"><img src="media/libros/el_nuevo_mundo/img5.png" alt=""></div>
+          <div class="libro-thumb" data-lb="1" data-i="5"><img src="media/libros/el_nuevo_mundo/img6.jpg" alt=""></div>
+        </div>
         <a class="esc-download-btn" href="https://drive.google.com/file/d/1IgLK9zCP8CEG0a7U6aY3hAeeRpq-1VSn/view" target="_blank" rel="noopener">Ver PDF ↗</a>
       </div>
+      <h2 class="libro-title-big">El Nuevo<br>Mundo<br>Desconocido</h2>
     </div>
   </div>
 
-  <!-- 2. Viaggio a Tulum -->
-  <div class="libro-slide">
-    <div class="libro-bento">
-      <div class="libro-frame" style="grid-column:1;grid-row:1;">
-        <video src="media/libros/viaggio_a_tulum/video1.mov" muted autoplay loop playsinline></video>
-      </div>
-      <div class="libro-frame" style="grid-column:1;grid-row:2;">
-        <video src="media/libros/viaggio_a_tulum/video2.mov" muted autoplay loop playsinline></video>
-      </div>
-      <div class="libro-main">
-        <div class="media-carousel" style="width:100%;position:relative;">
-          <div class="media-track" id="mt-lb2">
-            <div class="media-slide"><img src="media/libros/viaggio_a_tulum/img1.jpeg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/viaggio_a_tulum/img2.jpeg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/viaggio_a_tulum/portafolio.jpg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/viaggio_a_tulum/dsc7941.jpeg" alt="" loading="lazy"></div>
-          </div>
-          <div class="media-controls">
-            <button class="media-btn" data-mc="lb2" data-dir="-1" disabled>←</button>
-            <span class="media-counter" id="mc-counter-lb2">1 / 4</span>
-            <button class="media-btn" data-mc="lb2" data-dir="1">→</button>
-          </div>
-        </div>
-      </div>
-      <div class="libro-frame" style="grid-column:3;grid-row:1/3;">
-        <img src="media/libros/viaggio_a_tulum/portafolio.jpg" alt="" loading="lazy">
+  <!-- SLIDE 2: Viaggio a Tulum -->
+  <div class="libro-slide libro-book-slide">
+    <div class="libro-gif-frame">
+      <img src="media/libros/viaggio_a_tulum/img1.jpeg" alt="">
+    </div>
+    <div class="libro-text-left">
+      <p class="libro-desc-left">Registro fotográfico y editorial de un viaje a las ruinas de Tulum. Entre la imagen de archivo y la escritura de viaje.</p>
+      <p class="libro-meta-left">Libro de artista<br>2019<br>Tulum · México</p>
+    </div>
+    <div class="libro-carousel-wrap">
+      <div class="libro-carousel-track" id="lbt-2">
+        <div class="libro-carousel-slide"><img src="media/libros/viaggio_a_tulum/img1.jpeg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/viaggio_a_tulum/img2.jpeg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/viaggio_a_tulum/portafolio.jpg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/viaggio_a_tulum/dsc7941.jpeg" alt="" loading="lazy"></div>
       </div>
     </div>
-    <div class="libro-info">
-      <div>
-        <h2 class="libro-title-big">Viaggio<br>a Tulum</h2>
-        <p class="libro-subtitle-tag">Libro de artista · 2019</p>
-      </div>
-      <div class="libro-info-right">
-        <p class="libro-desc-text">Registro fotográfico y editorial de un viaje a las ruinas de Tulum. Entre la imagen de archivo y la escritura de viaje.</p>
+    <div class="libro-bottom-right">
+      <div class="libro-left-bottom">
+        <div class="libro-thumbs" id="lbthumbs-2">
+          <div class="libro-thumb lb-active" data-lb="2" data-i="0"><img src="media/libros/viaggio_a_tulum/img1.jpeg" alt=""></div>
+          <div class="libro-thumb" data-lb="2" data-i="1"><img src="media/libros/viaggio_a_tulum/img2.jpeg" alt=""></div>
+          <div class="libro-thumb" data-lb="2" data-i="2"><img src="media/libros/viaggio_a_tulum/portafolio.jpg" alt=""></div>
+          <div class="libro-thumb" data-lb="2" data-i="3"><img src="media/libros/viaggio_a_tulum/dsc7941.jpeg" alt=""></div>
+        </div>
         <a class="esc-download-btn" href="https://drive.google.com/file/d/1V54NLdt-EOjKZsUugQ2Sn7TCZ87Ns9lT/view" target="_blank" rel="noopener">Ver PDF ↗</a>
       </div>
+      <h2 class="libro-title-big">Viaggio<br>a Tulum</h2>
     </div>
   </div>
 
-  <!-- 3. Le Kino Tooj / Fili Tah Balam -->
-  <div class="libro-slide">
-    <div class="libro-bento">
-      <div class="libro-frame" style="grid-column:1;grid-row:1;">
-        <video src="media/libros/Le_Kino_Tooj/video1.mov" muted autoplay loop playsinline></video>
-      </div>
-      <div class="libro-frame" style="grid-column:1;grid-row:2;">
-        <video src="media/libros/Le_Kino_Tooj/video2.mov" muted autoplay loop playsinline></video>
-      </div>
-      <div class="libro-main">
-        <div class="media-carousel" style="width:100%;position:relative;">
-          <div class="media-track" id="mt-lb3">
-            <div class="media-slide"><img src="media/libros/Le_Kino_Tooj/cover.jpeg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/Le_Kino_Tooj/le_kino_2.jpg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/Le_Kino_Tooj/le_kino_3.jpg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/Le_Kino_Tooj/le_kino_4.jpg" alt="" loading="lazy"></div>
-          </div>
-          <div class="media-controls">
-            <button class="media-btn" data-mc="lb3" data-dir="-1" disabled>←</button>
-            <span class="media-counter" id="mc-counter-lb3">1 / 4</span>
-            <button class="media-btn" data-mc="lb3" data-dir="1">→</button>
-          </div>
-        </div>
-      </div>
-      <div class="libro-frame" style="grid-column:3;grid-row:1/3;">
-        <img src="media/libros/Le_Kino_Tooj/le_kino_2.jpg" alt="" loading="lazy">
+  <!-- SLIDE 3: Le Kino Tooj -->
+  <div class="libro-slide libro-book-slide">
+    <div class="libro-gif-frame">
+      <img src="media/libros/Le_Kino_Tooj/archive.gif" alt="">
+    </div>
+    <div class="libro-text-left">
+      <p class="libro-desc-left">Libro de artista en colaboración con la selva maya. Poemas en lengua maya-tzotzil, imágenes de archivo ritual y diseño editorial orgánico.</p>
+      <p class="libro-meta-left">Fili Tah Balam<br>2022<br>Chiapas · México</p>
+    </div>
+    <div class="libro-carousel-wrap">
+      <div class="libro-carousel-track" id="lbt-3">
+        <div class="libro-carousel-slide"><img src="media/libros/Le_Kino_Tooj/cover.jpeg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/Le_Kino_Tooj/le_kino_2.jpg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/Le_Kino_Tooj/le_kino_3.jpg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/Le_Kino_Tooj/le_kino_4.jpg" alt="" loading="lazy"></div>
       </div>
     </div>
-    <div class="libro-info">
-      <div>
-        <h2 class="libro-title-big">Le Kino<br>Tooj</h2>
-        <p class="libro-subtitle-tag">Fili Tah Balam · 2022</p>
-      </div>
-      <div class="libro-info-right">
-        <p class="libro-desc-text">Libro de artista en colaboración con la selva maya. Poemas en tzotzil, imágenes de archivo ritual y diseño editorial orgánico.</p>
+    <div class="libro-bottom-right">
+      <div class="libro-left-bottom">
+        <div class="libro-thumbs" id="lbthumbs-3">
+          <div class="libro-thumb lb-active" data-lb="3" data-i="0"><img src="media/libros/Le_Kino_Tooj/cover.jpeg" alt=""></div>
+          <div class="libro-thumb" data-lb="3" data-i="1"><img src="media/libros/Le_Kino_Tooj/le_kino_2.jpg" alt=""></div>
+          <div class="libro-thumb" data-lb="3" data-i="2"><img src="media/libros/Le_Kino_Tooj/le_kino_3.jpg" alt=""></div>
+          <div class="libro-thumb" data-lb="3" data-i="3"><img src="media/libros/Le_Kino_Tooj/le_kino_4.jpg" alt=""></div>
+        </div>
         <a class="esc-download-btn" href="media/libros/Le_Kino_Tooj/Fili_Tah_Balam.pdf" download>Descargar PDF ↓</a>
       </div>
+      <h2 class="libro-title-big">Le Kino<br>Tooj</h2>
     </div>
   </div>
 
-  <!-- 4. Uy Uy Uy Ur Ur Ur -->
-  <div class="libro-slide libro-wide">
-    <div class="libro-bento">
-      <div class="libro-main">
-        <div class="media-carousel" style="width:100%;position:relative;">
-          <div class="media-track" id="mt-lb4">
-            <div class="media-slide"><img src="media/libros/uy_ur/cover1.jpeg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/uy_ur/cover2.jpeg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/uy_ur/uy_ur_2.jpg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/uy_ur/uy_ur_4.jpg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/uy_ur/uy_ur_5.jpg" alt="" loading="lazy"></div>
-          </div>
-          <div class="media-controls">
-            <button class="media-btn" data-mc="lb4" data-dir="-1" disabled>←</button>
-            <span class="media-counter" id="mc-counter-lb4">1 / 5</span>
-            <button class="media-btn" data-mc="lb4" data-dir="1">→</button>
-          </div>
-        </div>
+  <!-- SLIDE 4: Uy Uy Uy Ur Ur Ur -->
+  <div class="libro-slide libro-book-slide">
+    <div class="libro-gif-frame">
+      <img src="media/libros/uy_ur/archive.gif" alt="">
+    </div>
+    <div class="libro-text-left">
+      <p class="libro-desc-left">Serie de fotografías e intervenciones sobre el cuerpo, el sonido y el territorio. Edición de artista en fotografía y diseño.</p>
+      <p class="libro-meta-left">Libro de artista<br>2020<br>Caracas · Venezuela</p>
+    </div>
+    <div class="libro-carousel-wrap">
+      <div class="libro-carousel-track" id="lbt-4">
+        <div class="libro-carousel-slide"><img src="media/libros/uy_ur/cover1.jpeg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/uy_ur/cover2.jpeg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/uy_ur/uy_ur_2.jpg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/uy_ur/uy_ur_4.jpg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/uy_ur/uy_ur_5.jpg" alt="" loading="lazy"></div>
       </div>
     </div>
-    <div class="libro-info">
-      <div>
-        <h2 class="libro-title-big">Uy,Uy,Uy,<br>Ur,Ur,Ur</h2>
-        <p class="libro-subtitle-tag">Libro de artista · 2020</p>
-      </div>
-      <div class="libro-info-right">
-        <p class="libro-desc-text">Serie de fotografías e intervenciones sobre el cuerpo, el sonido y el territorio. Edición de artista.</p>
+    <div class="libro-bottom-right">
+      <div class="libro-left-bottom">
+        <div class="libro-thumbs" id="lbthumbs-4">
+          <div class="libro-thumb lb-active" data-lb="4" data-i="0"><img src="media/libros/uy_ur/cover1.jpeg" alt=""></div>
+          <div class="libro-thumb" data-lb="4" data-i="1"><img src="media/libros/uy_ur/cover2.jpeg" alt=""></div>
+          <div class="libro-thumb" data-lb="4" data-i="2"><img src="media/libros/uy_ur/uy_ur_2.jpg" alt=""></div>
+          <div class="libro-thumb" data-lb="4" data-i="3"><img src="media/libros/uy_ur/uy_ur_4.jpg" alt=""></div>
+          <div class="libro-thumb" data-lb="4" data-i="4"><img src="media/libros/uy_ur/uy_ur_5.jpg" alt=""></div>
+        </div>
         <a class="esc-download-btn" href="media/libros/uy_ur/UyUyUy_UrUrUr.pdf" download>Descargar PDF ↓</a>
       </div>
+      <h2 class="libro-title-big">Uy,Uy,Uy,<br>Ur,Ur,Ur</h2>
     </div>
   </div>
 
-  <!-- 5. Panopticon Flower -->
-  <div class="libro-slide">
-    <div class="libro-bento">
-      <div class="libro-frame" style="grid-column:1;grid-row:1;">
-        <video src="media/libros/Panopticon_Flower/video1.mov" muted autoplay loop playsinline></video>
-      </div>
-      <div class="libro-frame" style="grid-column:1;grid-row:2;">
-        <video src="media/libros/Panopticon_Flower/video2.mov" muted autoplay loop playsinline></video>
-      </div>
-      <div class="libro-main">
-        <div class="media-carousel" style="width:100%;position:relative;">
-          <div class="media-track" id="mt-lb5">
-            <div class="media-slide"><img src="media/libros/Panopticon_Flower/img1.jpg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/Panopticon_Flower/img2.jpg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/Panopticon_Flower/img3.jpg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/Panopticon_Flower/img4.jpg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/Panopticon_Flower/img5.jpg" alt="" loading="lazy"></div>
-          </div>
-          <div class="media-controls">
-            <button class="media-btn" data-mc="lb5" data-dir="-1" disabled>←</button>
-            <span class="media-counter" id="mc-counter-lb5">1 / 5</span>
-            <button class="media-btn" data-mc="lb5" data-dir="1">→</button>
-          </div>
-        </div>
-      </div>
-      <div class="libro-frame" style="grid-column:3;grid-row:1/3;">
-        <img src="media/libros/Panopticon_Flower/img3.jpg" alt="" loading="lazy">
+  <!-- SLIDE 5: Panopticon Flower -->
+  <div class="libro-slide libro-book-slide">
+    <div class="libro-gif-frame">
+      <img src="media/libros/Panopticon_Flower/img1.jpg" alt="">
+    </div>
+    <div class="libro-text-left">
+      <p class="libro-desc-left">Serie fotográfica y de video sobre la vigilancia, el cuerpo y el espacio público contemporáneo. Edición limitada.</p>
+      <p class="libro-meta-left">Libro de artista<br>2025<br>Miami · Florida</p>
+    </div>
+    <div class="libro-carousel-wrap">
+      <div class="libro-carousel-track" id="lbt-5">
+        <div class="libro-carousel-slide"><img src="media/libros/Panopticon_Flower/img1.jpg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/Panopticon_Flower/img2.jpg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/Panopticon_Flower/img3.jpg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/Panopticon_Flower/img4.jpg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/Panopticon_Flower/img5.jpg" alt="" loading="lazy"></div>
       </div>
     </div>
-    <div class="libro-info">
-      <div>
-        <h2 class="libro-title-big">Panopticon<br>Flower</h2>
-        <p class="libro-subtitle-tag">Libro de artista · 2025</p>
+    <div class="libro-bottom-right">
+      <div class="libro-left-bottom">
+        <div class="libro-thumbs" id="lbthumbs-5">
+          <div class="libro-thumb lb-active" data-lb="5" data-i="0"><img src="media/libros/Panopticon_Flower/img1.jpg" alt=""></div>
+          <div class="libro-thumb" data-lb="5" data-i="1"><img src="media/libros/Panopticon_Flower/img2.jpg" alt=""></div>
+          <div class="libro-thumb" data-lb="5" data-i="2"><img src="media/libros/Panopticon_Flower/img3.jpg" alt=""></div>
+          <div class="libro-thumb" data-lb="5" data-i="3"><img src="media/libros/Panopticon_Flower/img4.jpg" alt=""></div>
+          <div class="libro-thumb" data-lb="5" data-i="4"><img src="media/libros/Panopticon_Flower/img5.jpg" alt=""></div>
+        </div>
       </div>
-      <div class="libro-info-right">
-        <p class="libro-desc-text">Serie fotográfica y de video sobre la vigilancia y el cuerpo en el espacio público contemporáneo.</p>
-      </div>
+      <h2 class="libro-title-big">Panopticon<br>Flower</h2>
     </div>
   </div>
 
-  <!-- 6. Poema Processo -->
-  <div class="libro-slide libro-wide">
-    <div class="libro-bento">
-      <div class="libro-main">
-        <div class="media-carousel" style="width:100%;position:relative;">
-          <div class="media-track" id="mt-lb6">
-            <div class="media-slide"><img src="media/libros/poema_processo/cover.jpg" alt="" loading="lazy"></div>
-          </div>
-          <div class="media-controls" style="display:none;"></div>
-        </div>
+  <!-- SLIDE 6: Poema Processo -->
+  <div class="libro-slide libro-book-slide">
+    <div class="libro-gif-frame">
+      <img src="media/libros/poema_processo/archive.gif" alt="">
+    </div>
+    <div class="libro-text-left">
+      <p class="libro-desc-left">Poema generativo en proceso, publicado por entregas a través de Amazon. Un libro que se escribe en tiempo real, 429 páginas.</p>
+      <p class="libro-meta-left">Libro de artista<br>Amazon · 2024<br>Miami · Florida</p>
+    </div>
+    <div class="libro-carousel-wrap">
+      <div class="libro-carousel-track" id="lbt-6">
+        <div class="libro-carousel-slide"><img src="media/libros/poema_processo/cover.jpg" alt="" loading="lazy"></div>
       </div>
     </div>
-    <div class="libro-info">
-      <div>
-        <h2 class="libro-title-big">Poema<br>Processo</h2>
-        <p class="libro-subtitle-tag">Libro de artista · Amazon · 2024</p>
-      </div>
-      <div class="libro-info-right">
-        <p class="libro-desc-text">Poema generativo en proceso, publicado por entregas a través de Amazon. Un libro que se escribe en tiempo real.</p>
+    <div class="libro-bottom-right">
+      <div class="libro-left-bottom">
+        <div class="libro-thumbs" id="lbthumbs-6">
+          <div class="libro-thumb lb-active" data-lb="6" data-i="0"><img src="media/libros/poema_processo/cover.jpg" alt=""></div>
+        </div>
         <a class="esc-download-btn" href="media/libros/poema_processo/Poema_Proceso_Proemio.pdf" download>Proemio PDF ↓</a>
       </div>
+      <h2 class="libro-title-big">Poema<br>Processo</h2>
     </div>
   </div>
 
-  <!-- 7. Casi Todo -->
-  <div class="libro-slide libro-wide">
-    <div class="libro-bento">
-      <div class="libro-main">
-        <div class="media-carousel" style="width:100%;position:relative;">
-          <div class="media-track" id="mt-lb7">
-            <div class="media-slide"><img src="media/libros/Casi_Todo/cover.jpg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/Casi_Todo/flyer_opt.jpg" alt="" loading="lazy"></div>
-          </div>
-          <div class="media-controls">
-            <button class="media-btn" data-mc="lb7" data-dir="-1" disabled>←</button>
-            <span class="media-counter" id="mc-counter-lb7">1 / 2</span>
-            <button class="media-btn" data-mc="lb7" data-dir="1">→</button>
-          </div>
-        </div>
+  <!-- SLIDE 7: Casi Todo -->
+  <div class="libro-slide libro-book-slide">
+    <div class="libro-gif-frame">
+      <img src="media/libros/Casi_Todo/archive.gif" alt="">
+    </div>
+    <div class="libro-text-left">
+      <p class="libro-desc-left">Fanzine de poesía, imagen y collage. Una publicación de circulación libre sobre casi todo lo que importa. 82 páginas.</p>
+      <p class="libro-meta-left">Fanzine<br>2024<br>Miami · Florida</p>
+    </div>
+    <div class="libro-carousel-wrap">
+      <div class="libro-carousel-track" id="lbt-7">
+        <div class="libro-carousel-slide"><img src="media/libros/Casi_Todo/cover.jpg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/Casi_Todo/flyer_opt.jpg" alt="" loading="lazy"></div>
       </div>
     </div>
-    <div class="libro-info">
-      <div>
-        <h2 class="libro-title-big">Casi<br>Todo</h2>
-        <p class="libro-subtitle-tag">Fanzine · 2024</p>
-      </div>
-      <div class="libro-info-right">
-        <p class="libro-desc-text">Fanzine de poesía, imagen y collage. Una publicación de circulación libre sobre casi todo lo que importa.</p>
+    <div class="libro-bottom-right">
+      <div class="libro-left-bottom">
+        <div class="libro-thumbs" id="lbthumbs-7">
+          <div class="libro-thumb lb-active" data-lb="7" data-i="0"><img src="media/libros/Casi_Todo/cover.jpg" alt=""></div>
+          <div class="libro-thumb" data-lb="7" data-i="1"><img src="media/libros/Casi_Todo/flyer_opt.jpg" alt=""></div>
+        </div>
         <a class="esc-download-btn" href="media/libros/Casi_Todo/Casi_Todo_Fanzine.pdf" download>Descargar PDF ↓</a>
       </div>
+      <h2 class="libro-title-big">Casi<br>Todo</h2>
     </div>
   </div>
 
-  <!-- 8. Prácticas Migratorias -->
-  <div class="libro-slide libro-wide">
-    <div class="libro-bento">
-      <div class="libro-main">
-        <div class="media-carousel" style="width:100%;position:relative;">
-          <div class="media-track" id="mt-lb8">
-            <div class="media-slide"><img src="media/libros/practicas_migratorias/img1.jpg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/practicas_migratorias/img2.jpg" alt="" loading="lazy"></div>
-            <div class="media-slide"><img src="media/libros/practicas_migratorias/img3.jpg" alt="" loading="lazy"></div>
-          </div>
-          <div class="media-controls">
-            <button class="media-btn" data-mc="lb8" data-dir="-1" disabled>←</button>
-            <span class="media-counter" id="mc-counter-lb8">1 / 3</span>
-            <button class="media-btn" data-mc="lb8" data-dir="1">→</button>
-          </div>
-        </div>
+  <!-- SLIDE 8: Prácticas Migratorias -->
+  <div class="libro-slide libro-book-slide">
+    <div class="libro-gif-frame">
+      <img src="media/libros/practicas_migratorias/archive.gif" alt="">
+    </div>
+    <div class="libro-text-left">
+      <p class="libro-desc-left">Documento fotográfico y poético sobre los rituales cotidianos de la migración. Registro íntimo del desplazamiento. 126 páginas.</p>
+      <p class="libro-meta-left">Libro de artista<br>2025<br>Miami · Florida</p>
+    </div>
+    <div class="libro-carousel-wrap">
+      <div class="libro-carousel-track" id="lbt-8">
+        <div class="libro-carousel-slide"><img src="media/libros/practicas_migratorias/img1.jpg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/practicas_migratorias/img2.jpg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/practicas_migratorias/img3.jpg" alt="" loading="lazy"></div>
       </div>
     </div>
-    <div class="libro-info">
-      <div>
-        <h2 class="libro-title-big">Prácticas<br>Migratorias</h2>
-        <p class="libro-subtitle-tag">Libro de artista · 2025</p>
-      </div>
-      <div class="libro-info-right">
-        <p class="libro-desc-text">Documento fotográfico y poético sobre los rituales cotidianos de la migración. Registro íntimo del desplazamiento.</p>
+    <div class="libro-bottom-right">
+      <div class="libro-left-bottom">
+        <div class="libro-thumbs" id="lbthumbs-8">
+          <div class="libro-thumb lb-active" data-lb="8" data-i="0"><img src="media/libros/practicas_migratorias/img1.jpg" alt=""></div>
+          <div class="libro-thumb" data-lb="8" data-i="1"><img src="media/libros/practicas_migratorias/img2.jpg" alt=""></div>
+          <div class="libro-thumb" data-lb="8" data-i="2"><img src="media/libros/practicas_migratorias/img3.jpg" alt=""></div>
+        </div>
         <a class="esc-download-btn" href="media/libros/practicas_migratorias/Practicas_migratorias.pdf" download>Descargar PDF ↓</a>
       </div>
+      <h2 class="libro-title-big">Prácticas<br>Migratorias</h2>
     </div>
   </div>
 
-  <!-- 9. Adverso Zine -->
-  <div class="libro-slide libro-wide">
-    <div class="libro-bento">
-      <div class="libro-main">
-        <div class="media-carousel" style="width:100%;position:relative;">
-          <div class="media-track" id="mt-lb9">
-            <div class="media-slide"><img src="media/libros/adverso_zine/cover.jpg" alt="" loading="lazy"></div>
-          </div>
-          <div class="media-controls" style="display:none;"></div>
-        </div>
+  <!-- SLIDE 9: Adverso Zine -->
+  <div class="libro-slide libro-book-slide">
+    <div class="libro-gif-frame">
+      <img src="media/libros/adverso_zine/archive.gif" alt="">
+    </div>
+    <div class="libro-text-left">
+      <p class="libro-desc-left">Publicación independiente sobre Venezuela, el archivo y la resistencia cultural. 8 páginas. Disponible en inglés y español.</p>
+      <p class="libro-meta-left">Zine<br>2025<br>Miami · Florida</p>
+    </div>
+    <div class="libro-carousel-wrap">
+      <div class="libro-carousel-track" id="lbt-9">
+        <div class="libro-carousel-slide"><img src="media/libros/adverso_zine/cover.jpg" alt="" loading="lazy"></div>
       </div>
     </div>
-    <div class="libro-info">
-      <div>
-        <h2 class="libro-title-big">Adverso<br>Zine</h2>
-        <p class="libro-subtitle-tag">Zine · Venezuela · 2025</p>
+    <div class="libro-bottom-right">
+      <div class="libro-left-bottom">
+        <div class="libro-thumbs" id="lbthumbs-9">
+          <div class="libro-thumb lb-active" data-lb="9" data-i="0"><img src="media/libros/adverso_zine/cover.jpg" alt=""></div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <a class="esc-download-btn" href="media/libros/adverso_zine/Zine_Venezuela.pdf" download>ES ↓</a>
+          <a class="esc-download-btn" href="media/libros/adverso_zine/Zine_Venezuela_ENG.pdf" download>EN ↓</a>
+        </div>
       </div>
-      <div class="libro-info-right">
-        <p class="libro-desc-text">Publicación independiente sobre Venezuela, el archivo y la resistencia cultural. Disponible en inglés y español.</p>
-        <a class="esc-download-btn" href="media/libros/adverso_zine/Zine_Venezuela.pdf" download>ES ↓</a>
-        <a class="esc-download-btn" href="media/libros/adverso_zine/Zine_Venezuela_ENG.pdf" download style="margin-left:8px;">EN ↓</a>
-      </div>
+      <h2 class="libro-title-big">Adverso<br>Zine</h2>
     </div>
   </div>
 
@@ -2157,7 +2216,7 @@ footer{
   <p class="expo-section-label">Libros de Artista · 9 publicaciones</p>
   <div class="libros-nav">
     <button class="libros-nav-btn" id="libros-prev" disabled>←</button>
-    <span class="libros-nav-counter" id="libros-counter">1 / 9</span>
+    <span class="libros-nav-counter" id="libros-counter">1 / 10</span>
     <button class="libros-nav-btn" id="libros-next">→</button>
   </div>
 </div>
@@ -2306,6 +2365,32 @@ try{(function(){
 
   librosGo(0);
 })()}catch(e){console.error('libros nav error:',e);}
+
+/* ── LIBRO inner carousels (thumbnail nav) ── */
+try{(function(){
+  document.querySelectorAll('.libro-carousel-track').forEach(function(track){
+    var id = track.id.replace('lbt-','');
+    var slides = track.querySelectorAll('.libro-carousel-slide');
+    var total = slides.length;
+    var cur = 0;
+
+    function goTo(n){
+      cur = Math.max(0,Math.min(total-1,n));
+      track.style.transform = 'translateX(-'+cur*100+'%)';
+      // update thumbs
+      document.querySelectorAll('.libro-thumb[data-lb="'+id+'"]').forEach(function(th,i){
+        th.classList.toggle('lb-active', i===cur);
+      });
+    }
+
+    // Thumb clicks
+    document.querySelectorAll('.libro-thumb[data-lb="'+id+'"]').forEach(function(th){
+      th.addEventListener('click',function(){ goTo(parseInt(th.getAttribute('data-i'))); });
+    });
+
+    goTo(0);
+  });
+})()}catch(e){console.error('libro inner carousel error:',e);}
 
 /* ── ESCRITURAS slideshow ── */
 try{(function(){
