@@ -699,9 +699,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 .libro-book-slide{
   display:grid;
   grid-template-columns:200px 1fr;
-  grid-template-rows:auto 1fr auto;
+  grid-template-rows:260px 1fr auto;
   gap:18px;
-  min-height:calc(100vh - 180px);
+  height:calc(100vh - 180px);
+  max-height:820px;
+  min-height:480px;
 }
 /* LEFT: GIF frame top */
 .libro-gif-frame{
