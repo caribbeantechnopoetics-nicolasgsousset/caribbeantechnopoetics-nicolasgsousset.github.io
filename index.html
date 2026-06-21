@@ -676,10 +676,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 .libro-slide{
   flex:0 0 100%;width:100%;
   box-sizing:border-box;
-  padding:40px 48px 32px;
 }
 .libro-welcome-slide{
-  min-height:calc(100vh - 180px);
+  min-height:calc(100vh - 130px);
+  padding:40px 48px 32px;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
   gap:20px;text-align:center;
@@ -699,26 +699,30 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 .libro-book-slide{
   display:grid;
   grid-template-columns:200px 1fr;
-  grid-template-rows:260px 1fr auto;
-  gap:18px;
-  height:calc(100vh - 180px);
-  max-height:820px;
-  min-height:480px;
+  grid-template-rows:auto 1fr auto;
+  gap:18px 24px;
+  height:calc(100vh - 130px);
+  max-height:840px;
+  min-height:520px;
+  padding:40px 48px 28px;
+  box-sizing:border-box;
 }
-/* LEFT: GIF frame top */
+/* LEFT: GIF frame — portrait 5:6 ratio */
 .libro-gif-frame{
   grid-column:1;grid-row:1;
-  height:260px;
+  width:200px;
+  aspect-ratio:5/6;
+  max-height:248px;
+  align-self:start;
   border:1px solid var(--border);
   border-radius:24px;
   overflow:hidden;
   background:#f0efed;
-  display:flex;align-items:center;justify-content:center;
 }
 .libro-gif-frame img{
   width:100%;height:100%;object-fit:cover;display:block;
 }
-/* LEFT: text below gif */
+/* LEFT: text fills remaining left column */
 .libro-text-left{
   grid-column:1;grid-row:2/4;
   display:flex;flex-direction:column;
@@ -735,19 +739,22 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   letter-spacing:3px;text-transform:uppercase;
   color:var(--muted);margin:0;line-height:1.8;
 }
-/* RIGHT: main carousel */
+/* RIGHT: carousel — square (aspect-ratio:1), sized by available height, right-aligned */
 .libro-carousel-wrap{
   grid-column:2;grid-row:1/3;
+  aspect-ratio:1;
+  align-self:stretch;
+  justify-self:end;
+  min-height:0;min-width:0;
+  max-height:100%;max-width:100%;
   border:1px solid var(--border);
   border-radius:24px;
   overflow:hidden;
   position:relative;
   background:#f0efed;
-  /* square-ish: let height be governed by available grid space */
-  min-height:0;
 }
 .libro-carousel-track{
-  display:flex;height:100%;
+  display:flex;width:100%;height:100%;
   transition:transform 0.45s cubic-bezier(.77,0,.18,1);
 }
 .libro-carousel-slide{
