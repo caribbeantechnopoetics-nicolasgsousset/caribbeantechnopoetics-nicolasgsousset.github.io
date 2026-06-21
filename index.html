@@ -617,6 +617,31 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   letter-spacing:1px;color:var(--muted);margin:0;
   text-transform:uppercase;
 }
+/* ── TECNOPOEMAS welcome slide ── */
+.tp-welcome-body{
+  display:flex;align-items:center;justify-content:center;
+  padding:40px 48px;background:#fff;
+}
+.tp-welcome-text{
+  font-family:var(--garamond);font-style:italic;
+  font-size:clamp(28px,4vw,56px);line-height:1.3;
+  color:var(--text);text-align:center;margin:0;font-weight:400;
+}
+
+/* ── EXPOSICIONES welcome item ── */
+.expo-welcome-item{
+  display:flex!important;flex-direction:column!important;
+  align-items:center;justify-content:center;
+}
+.expo-welcome-inner{
+  text-align:center;max-width:700px;padding:60px 40px;
+}
+.expo-welcome-title{
+  font-family:var(--garamond);font-style:italic;font-weight:400;
+  font-size:clamp(28px,4vw,56px);line-height:1.3;
+  color:var(--text);margin:0;letter-spacing:-0.5px;
+}
+
 /* caption row with download */
 .esc-caption-row{
   display:flex;align-items:center;
@@ -1210,7 +1235,27 @@ footer{
   <div class="tp-show">
     <div class="tp-track" id="tp-track">
 
-      <!-- ── SLIDE 1: El nombre y la frontera ── -->
+      <!-- ── SLIDE 0: Welcome ── -->
+      <div class="tp-slide">
+        <div class="tp-slide-header">
+          <h2 class="tp-title">Tecnopoemas</h2>
+          <span class="tp-slide-num"></span>
+        </div>
+        <div class="tp-welcome-body">
+          <p class="tp-welcome-text">Poemas en el lenguaje<br>de las máquinas</p>
+        </div>
+        <div class="tp-slide-footer">
+          <p class="tp-desc"></p>
+          <div></div>
+          <div class="tp-nav">
+            <button class="tp-btn" onclick="tpGo(-1)" disabled>←</button>
+            <span class="tp-counter"></span>
+            <button class="tp-btn" onclick="tpGo(1)">→</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SLIDE 1: Todo nombre también es una frontera ── -->
       <div class="tp-slide">
         <div class="tp-slide-header">
           <h2 class="tp-title">Tecnopoemas</h2>
@@ -1223,9 +1268,9 @@ footer{
           <button class="tp-exit-btn" aria-label="Salir del modo interactivo">✕ salir</button>
         </div>
         <div class="tp-slide-footer">
-          <p class="tp-desc">Poemas en el lenguaje de las máquinas y cercanos a las tecnologías digitales.</p>
+          <p class="tp-desc">Un poema para dibujar el borde de todos los nombres</p>
           <div class="tp-meta">
-            El nombre y la frontera<br>
+            Todo nombre también es una frontera<br>
             2025<br>
             Processing<br>
             <strong>Poema interactivo</strong><br>
@@ -1364,6 +1409,14 @@ footer{
 
   <!-- outer exhibition track -->
   <div class="expo-track" id="expo-track">
+
+    <!-- ── Welcome ── -->
+    <div class="expo-item expo-welcome-item">
+      <div class="expo-welcome-inner">
+        <p class="esc-welcome-label">Exposiciones</p>
+        <h2 class="expo-welcome-title">Poemas en el espacio<br>expositivo 2026</h2>
+      </div>
+    </div>
 
     <!-- ── EXPOSICIÓN 1: Desplazamiento Forzado ── -->
     <div class="expo-item">
@@ -1745,6 +1798,7 @@ footer{
 <div class="libros-header">
 <p class="section-label">Objetos editoriales</p>
 <h2 class="section-title">Libros de <em>Artista</em></h2>
+<p class="esc-welcome-title" style="margin-top:16px;text-align:left;">Libros y publicaciones hechas<br>con los dígitos de mis manos</p>
 </div>
 <div class="libros-grid">
 <div class="libro-card"><div class="libro-num">01</div><h3 class="libro-name">Razones Humanitarias</h3><p class="libro-year">2023</p><p class="libro-desc">Libro-objeto que trabaja el archivo y la memoria a través del diseño editorial experimental. Edición limitada.</p></div>
