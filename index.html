@@ -349,7 +349,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 /* ── CV ── */
 #cv{
   padding:120px 60px;
-  border-bottom:1px solid var(--border-light);
+  border-top:3px solid var(--border);
 }
 .cv-header{
   display:flex;
@@ -583,7 +583,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 .esc-nav{ display:flex; align-items:center; gap:12px; }
 .esc-nav-btn{
   background:#000;border:1px solid #000;
-  border-radius:50%;width:36px;height:36px;
+  width:36px;height:36px;
   font-size:16px;font-weight:700;cursor:pointer;color:#fff;
   display:flex;align-items:center;justify-content:center;
   transition:background 0.15s;
@@ -597,7 +597,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 }
 /* welcome slide */
 .esc-slide-welcome{
-  min-height:44vh;
+  min-height:calc(100vh - 130px);
   align-items:center;
   justify-content:center;
 }
@@ -634,7 +634,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 .expo-welcome-item{
   display:flex!important;flex-direction:column!important;
   align-items:center;justify-content:center;
-  min-height:42vh!important;
 }
 .expo-welcome-inner{
   text-align:center;max-width:700px;padding:48px 40px;
@@ -681,7 +680,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   box-sizing:border-box;
 }
 .libro-welcome-slide{
-  min-height:44vh;
+  min-height:calc(100vh - 160px);
   padding:60px 48px 40px;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
@@ -1264,7 +1263,7 @@ footer{
 
   /* ── ESCRITURAS slides ── */
   .esc-slide{ padding:20px 16px 16px; gap:14px; }
-  .esc-slide-welcome{ min-height:50vh; padding:32px 20px; }
+  .esc-slide-welcome{ min-height:calc(100vh - 130px); padding:32px 20px; }
   .esc-welcome-title{ font-size:clamp(20px,6vw,32px); }
 
   .esc-media-pdf{ height:55vh; }
