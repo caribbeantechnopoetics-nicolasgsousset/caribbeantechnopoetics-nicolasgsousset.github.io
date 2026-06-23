@@ -110,13 +110,24 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 }
 
 /* ── TECNOPOEMAS SLIDESHOW ── */
-#tecnopoemas{border-top:3px solid var(--border);position:relative;}
-
-/* outer viewport window — subtract sticky nav height */
-.tp-show{
-  width:100%;
+#tecnopoemas{
+  border-top:3px solid var(--border);
+  position:relative;
   height:calc(100vh - 56px);
   min-height:600px;
+  display:flex;
+  flex-direction:column;
+}
+.tp-header-bar{
+  padding:32px 48px 28px;
+  border-bottom:1px solid var(--border-light);
+  flex-shrink:0;
+}
+
+/* outer viewport window */
+.tp-show{
+  flex:1;
+  min-height:0;
   overflow:hidden;
   position:relative;
 }
@@ -137,10 +148,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   grid-template-rows:auto 1fr auto;
   overflow:hidden;
 }
+/* welcome slide has no per-slide header */
+.tp-slide-welcome{
+  grid-template-rows:1fr auto;
+}
 
-/* slide header row */
+/* slide header row — shows poem title + slide number */
 .tp-slide-header{
-  padding:32px 48px 0;
+  padding:20px 48px;
   display:flex;
   align-items:baseline;
   justify-content:space-between;
@@ -148,8 +163,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 }
 .tp-title{
   font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
-  font-weight:400;font-size:clamp(52px,7.9vw,114px);line-height:1.2;
-  letter-spacing:-3.42px;text-transform:uppercase;color:var(--text);
+  font-weight:800;font-size:clamp(28px,3vw,48px);line-height:1.1;
+  letter-spacing:-1px;color:var(--text);
   margin:0;
 }
 .tp-slide-num{
@@ -1404,16 +1419,16 @@ footer{
 
 <!-- ── TECNOPOEMAS ── -->
 <section id="tecnopoemas">
+  <div class="tp-header-bar">
+    <p class="section-label">Escritura interactiva</p>
+    <h2 class="section-title">Tecnopoemas:</h2>
+  </div>
   <!-- slideshow viewport -->
   <div class="tp-show">
     <div class="tp-track" id="tp-track">
 
       <!-- ── SLIDE 0: Welcome ── -->
-      <div class="tp-slide">
-        <div class="tp-slide-header">
-          <h2 class="tp-title">Tecnopoemas</h2>
-          <span class="tp-slide-num"></span>
-        </div>
+      <div class="tp-slide tp-slide-welcome">
         <div class="tp-welcome-body">
           <p class="tp-welcome-text">Poemas en el lenguaje<br>de las máquinas</p>
         </div>
@@ -1581,8 +1596,8 @@ footer{
 <section id="exposiciones">
 
   <div class="expo-header-bar">
-    <p class="section-label">Proyectos expositivos</p>
-    <h2 class="section-title">Exposiciones <em>2026</em></h2>
+    <p class="section-label">Grafías para caminantes</p>
+    <h2 class="section-title">Exposiciones:</h2>
   </div>
 
   <!-- outer exhibition track -->
@@ -1591,7 +1606,7 @@ footer{
     <!-- ── Welcome ── -->
     <div class="expo-item expo-welcome-item">
       <div class="expo-welcome-inner">
-        <h2 class="expo-welcome-title">Poemas en el espacio<br>expositivo 2026</h2>
+        <h2 class="expo-welcome-title">Poemas en el espacio.</h2>
       </div>
     </div>
 
@@ -1697,7 +1712,7 @@ footer{
 
   <!-- section footer -->
   <div class="expo-footer">
-    <p class="expo-section-label">Exposiciones · 3 proyectos</p>
+    <p class="expo-section-label">Grafías para caminantes · 3 proyectos</p>
     <div class="expo-nav">
       <button class="expo-nav-btn" id="expo-prev" disabled>←</button>
       <span class="expo-nav-counter" id="expo-counter">1 / 3</span>
@@ -1753,7 +1768,8 @@ footer{
 <!-- ── ESCRITURAS ── -->
 <section id="escrituras">
   <div class="escrituras-top">
-    <h2 class="escrituras-title">Escrituras</h2>
+    <p class="section-label">Experiencias lineales</p>
+    <h2 class="section-title">Escrituras</h2>
   </div>
 
   <div class="esc-viewport">
@@ -1762,9 +1778,7 @@ footer{
       <!-- 1 · Welcome -->
       <div class="esc-slide esc-slide-welcome">
         <div class="esc-welcome-inner">
-          <p class="esc-welcome-label">Escrituras · Archivo</p>
-          <h3 class="esc-welcome-title">Un cosmos de textos publicados,<br>experimentos y grafías</h3>
-          <p class="esc-welcome-sub">Nicolás Gerardi Rousset</p>
+          <h3 class="esc-welcome-title">Un cosmo de textos e ideas.</h3>
         </div>
       </div>
 
@@ -1973,8 +1987,8 @@ footer{
 <!-- ── LIBROS ── -->
 <section id="libros">
 <div class="libros-header-bar">
-  <p class="section-label">Objetos editoriales</p>
-  <h2 class="section-title">Libros de <em>Artista</em></h2>
+  <p class="section-label">Libros, zines e impresiones</p>
+  <h2 class="section-title">Libros de <em>Artistas</em></h2>
 </div>
 
 <div class="libros-slideshow">
@@ -1982,9 +1996,7 @@ footer{
 
   <!-- SLIDE 0: Welcome -->
   <div class="libro-slide libro-welcome-slide">
-    <p class="esc-welcome-label">Libros · Publicaciones · Fanzines</p>
-    <h2 class="libro-welcome-title">Libros y publicaciones hechas<br>con los dígitos de mis manos</h2>
-    <p class="libro-welcome-sub">Nicolás Gerardi Rousset · 9 publicaciones</p>
+    <h2 class="libro-welcome-title">publicaciones hechas<br>con los dígitos de mis manos.</h2>
   </div>
 
   <!-- SLIDE 1: El Nuevo Mundo Desconocido -->
