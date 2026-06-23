@@ -21,7 +21,8 @@
 --mono:'Space Mono',monospace;
 }
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflow-x:hidden;}
+body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflow-x:hidden;
+  font-variant-ligatures:common-ligatures discretionary-ligatures contextual;}
 
 /* ── SITE NAV (sticky, outside hero canvas) ── */
 .site-nav{
@@ -199,16 +200,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 .tp-nav{display:flex;align-items:center;gap:8px;flex-shrink:0;}
 .tp-btn{
   width:36px;height:36px;
-  border:1px solid #000;background:#fff;
-  font-family:var(--mono);font-size:14px;
+  border:1px solid #000;background:#000;color:#fff;
+  font-family:var(--mono);font-size:14px;font-weight:700;
   cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:background 0.15s,color 0.15s;
+  transition:background 0.15s;
 }
-.tp-btn:hover{background:#000;color:#fff;}
-.tp-btn:disabled{opacity:0.25;cursor:default;}
+.tp-btn:hover{background:#333;border-color:#333;}
+.tp-btn:disabled{background:var(--border-light);border-color:var(--border-light);color:var(--muted);cursor:default;opacity:1;}
 .tp-counter{
   font-family:var(--mono);font-size:10px;letter-spacing:2px;
-  text-transform:uppercase;color:var(--muted);min-width:32px;text-align:center;
+  text-transform:uppercase;color:var(--text-dark);font-weight:700;
+  min-width:32px;text-align:center;
 }
 
 /* overlay elements — hidden everywhere, JS never needed */
@@ -580,22 +582,22 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 }
 .esc-nav{ display:flex; align-items:center; gap:12px; }
 .esc-nav-btn{
-  background:none;border:1px solid var(--border-light);
+  background:#000;border:1px solid #000;
   border-radius:50%;width:36px;height:36px;
-  font-size:16px;cursor:pointer;
+  font-size:16px;font-weight:700;cursor:pointer;color:#fff;
   display:flex;align-items:center;justify-content:center;
-  color:var(--text);transition:border-color 0.15s;
+  transition:background 0.15s;
 }
-.esc-nav-btn:hover{border-color:#000;}
-.esc-nav-btn:disabled{opacity:0.3;cursor:default;}
+.esc-nav-btn:hover{background:#333;border-color:#333;}
+.esc-nav-btn:disabled{background:var(--border-light);border-color:var(--border-light);color:var(--muted);cursor:default;opacity:1;}
 .esc-nav-counter{
   font-family:var(--mono);font-size:10px;
-  letter-spacing:2px;color:var(--muted);
+  letter-spacing:2px;color:var(--text-dark);font-weight:700;
   min-width:40px;text-align:center;
 }
 /* welcome slide */
 .esc-slide-welcome{
-  min-height:60vh;
+  min-height:44vh;
   align-items:center;
   justify-content:center;
 }
@@ -632,9 +634,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 .expo-welcome-item{
   display:flex!important;flex-direction:column!important;
   align-items:center;justify-content:center;
+  min-height:42vh!important;
 }
 .expo-welcome-inner{
-  text-align:center;max-width:700px;padding:60px 40px;
+  text-align:center;max-width:700px;padding:48px 40px;
 }
 .expo-welcome-title{
   font-family:var(--garamond);font-style:italic;font-weight:400;
@@ -678,8 +681,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   box-sizing:border-box;
 }
 .libro-welcome-slide{
-  min-height:calc(100vh - 130px);
-  padding:40px 48px 32px;
+  min-height:44vh;
+  padding:60px 48px 40px;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
   gap:20px;text-align:center;
@@ -803,16 +806,16 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 }
 .libros-nav{display:flex;align-items:center;gap:10px;}
 .libros-nav-btn{
-  width:40px;height:40px;border:1px solid #000;background:#fff;
-  font-family:var(--mono);font-size:16px;cursor:pointer;
+  width:40px;height:40px;border:1px solid #000;background:#000;color:#fff;
+  font-family:var(--mono);font-size:16px;font-weight:700;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
-  transition:background 0.15s,color 0.15s;
+  transition:background 0.15s;
 }
-.libros-nav-btn:hover{background:#000;color:#fff;}
-.libros-nav-btn:disabled{opacity:0.25;cursor:default;}
+.libros-nav-btn:hover{background:#333;border-color:#333;}
+.libros-nav-btn:disabled{background:var(--border-light);border-color:var(--border-light);color:var(--muted);cursor:default;opacity:1;}
 .libros-nav-counter{
   font-family:var(--mono);font-size:10px;letter-spacing:2px;
-  text-transform:uppercase;color:var(--muted);
+  text-transform:uppercase;color:var(--text-dark);font-weight:700;
   min-width:36px;text-align:center;
 }
 /* Mobile */
@@ -918,12 +921,22 @@ footer{
 /* ── RESPONSIVE ── */
 
 /* tablet */
+@media(max-width:1200px){
+  /* laptop: tighten horizontal padding */
+  .libro-book-slide{ padding:32px 36px 24px; }
+  .libros-header-bar{ padding:28px 36px 24px; }
+  .libros-footer{ padding:16px 36px 20px; }
+}
 @media(max-width:1024px){
 .sketch-block{grid-template-columns:1fr 320px;}
 #bio{gap:48px;padding:100px 40px;}
-#cv,#escrituras,#libros{padding:80px 40px;}
+#cv,#escrituras{padding:80px 40px;}
 #contact{padding:100px 40px;}
 .sketches-header,footer{padding-left:40px;padding-right:40px;}
+  /* libros uses internal padding, no outer override needed */
+  .libro-book-slide{ padding:28px 32px 20px; }
+  .libros-header-bar{ padding:24px 32px 20px; }
+  .libros-footer{ padding:14px 32px 18px; }
 }
 
 /* ── HERO MOBILE ── */
@@ -1064,16 +1077,16 @@ footer{
 }
 .expo-nav-btn{
   width:40px;height:40px;
-  border:1px solid #000;background:#fff;
-  font-family:var(--mono);font-size:16px;
+  border:1px solid #000;background:#000;color:#fff;
+  font-family:var(--mono);font-size:16px;font-weight:700;
   cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:background 0.15s,color 0.15s;
+  transition:background 0.15s;
 }
-.expo-nav-btn:hover{background:#000;color:#fff;}
-.expo-nav-btn:disabled{opacity:0.25;cursor:default;}
+.expo-nav-btn:hover{background:#333;border-color:#333;}
+.expo-nav-btn:disabled{background:var(--border-light);border-color:var(--border-light);color:var(--muted);cursor:default;opacity:1;}
 .expo-nav-counter{
   font-family:var(--mono);font-size:10px;letter-spacing:2px;
-  text-transform:uppercase;color:var(--muted);min-width:36px;text-align:center;
+  text-transform:uppercase;color:var(--text-dark);font-weight:700;min-width:36px;text-align:center;
 }
 
 /* outer slide track — one per exhibition */
