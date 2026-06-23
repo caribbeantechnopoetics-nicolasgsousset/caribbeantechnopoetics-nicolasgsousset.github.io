@@ -425,10 +425,15 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   border-top:3px solid var(--border);
   position:relative;
   overflow:hidden;
+  height:calc(100vh - 56px);
+  min-height:600px;
+  display:flex;
+  flex-direction:column;
 }
 .escrituras-top{
   padding:40px 48px 32px;
   border-bottom:1px solid var(--border-light);
+  flex-shrink:0;
 }
 .escrituras-title{
   font-family:var(--bricolage);
@@ -450,17 +455,20 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 }
 /* slideshow viewport */
 .esc-viewport{
+  flex:1;
   overflow:hidden;
   position:relative;
 }
 .esc-track{
   display:flex;
+  height:100%;
   transition:transform 0.55s cubic-bezier(.77,0,.18,1);
   will-change:transform;
 }
 .esc-slide{
   flex:0 0 100%;
   width:100%;
+  height:100%;
   padding:40px 48px;
   box-sizing:border-box;
   display:flex;
@@ -570,6 +578,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   align-items:center;
   justify-content:space-between;
   border-top:1px solid var(--border-light);
+  flex-shrink:0;
 }
 .esc-section-label{
   font-family:var(--mono);
@@ -596,7 +605,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 }
 /* welcome slide */
 .esc-slide-welcome{
-  min-height:calc(100vh - 130px);
   align-items:center;
   justify-content:center;
 }
@@ -662,24 +670,29 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 /* ── LIBROS ── */
 #libros{
   border-top:3px solid var(--border);
-  border-bottom:1px solid var(--border-light);
   position:relative;overflow:hidden;padding:0;
+  height:calc(100vh - 56px);
+  min-height:600px;
+  display:flex;
+  flex-direction:column;
 }
 .libros-header-bar{
   padding:32px 48px 28px;
   border-bottom:1px solid var(--border-light);
+  flex-shrink:0;
 }
 .libros-header-bar .section-label{margin-bottom:8px;}
-.libros-slideshow{overflow:hidden;position:relative;}
-.libros-track{display:flex;transition:transform 0.6s cubic-bezier(.77,0,.18,1);}
+.libros-slideshow{flex:1;overflow:hidden;position:relative;}
+.libros-track{display:flex;height:100%;transition:transform 0.6s cubic-bezier(.77,0,.18,1);}
 
 /* Welcome slide */
 .libro-slide{
   flex:0 0 100%;width:100%;
+  height:100%;
   box-sizing:border-box;
 }
 .libro-welcome-slide{
-  min-height:calc(100vh - 160px);
+  height:100%;
   padding:60px 48px 40px;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
@@ -702,9 +715,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   grid-template-columns:200px 1fr;
   grid-template-rows:auto 1fr auto;
   gap:18px 24px;
-  height:calc(100vh - 130px);
-  max-height:840px;
-  min-height:520px;
+  height:100%;
   padding:40px 48px 28px;
   box-sizing:border-box;
 }
@@ -801,6 +812,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   padding:20px 48px 24px;display:flex;
   align-items:center;justify-content:space-between;
   border-top:1px solid var(--border-light);
+  flex-shrink:0;
 }
 .libros-nav{display:flex;align-items:center;gap:10px;}
 .libros-nav-btn{
@@ -1056,10 +1068,15 @@ footer{
   border-top:3px solid var(--border);
   position:relative;
   overflow:hidden;
+  height:calc(100vh - 56px);
+  min-height:600px;
+  display:flex;
+  flex-direction:column;
 }
 .expo-header-bar{
   padding:32px 48px 28px;
   border-bottom:1px solid var(--border-light);
+  flex-shrink:0;
 }
 
 /* section header bar */
@@ -1067,6 +1084,7 @@ footer{
   padding:20px 48px 24px;
   display:flex;align-items:center;justify-content:space-between;
   border-top:1px solid var(--border-light);
+  flex-shrink:0;
 }
 .expo-section-label{
   font-family:var(--mono);font-size:10px;letter-spacing:3px;
@@ -1093,18 +1111,21 @@ footer{
 
 /* outer slide track — one per exhibition */
 .expo-track{
+  flex:1;
   display:flex;
+  height:100%;
+  overflow:hidden;
   transition:transform 0.6s cubic-bezier(.77,0,.18,1);
 }
 
 /* each exhibition: title row full-width, then narrow-left + wide-right */
 .expo-item{
   flex:0 0 100%;width:100%;
+  height:100%;
   padding:0 48px 36px;
   display:flex;
   flex-direction:column;
   box-sizing:border-box;
-  min-height:calc(100vh - 260px);
 }
 
 /* big title row — Figma: 114px, spans ~7/12 cols */
