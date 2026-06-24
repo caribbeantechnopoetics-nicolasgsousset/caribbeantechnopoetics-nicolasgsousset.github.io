@@ -187,6 +187,31 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   pointer-events:none;transition:opacity 0.6s;white-space:nowrap;
 }
 .tp-hint.hidden{opacity:0;}
+/* instruction overlay — big centered box, disappears on first interaction */
+.tp-instruction{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;
+  transition:opacity 0.5s;
+  z-index:10;
+}
+.tp-instruction-box{
+  background:#fff;
+  border:1.5px solid #000;
+  padding:18px 28px;
+  text-align:center;
+  max-width:320px;
+}
+.tp-instruction-box p{
+  font-family:var(--garamond);font-style:italic;
+  font-size:clamp(15px,1.3vw,19px);line-height:1.45;
+  color:var(--text-dark);margin:0 0 6px;
+}
+.tp-instruction-box span{
+  font-family:var(--mono);font-size:9px;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--muted);
+}
+.tp-instruction.hidden{opacity:0;pointer-events:none;}
 
 /* slide footer row — grid: desc | meta | nav-buttons */
 .tp-slide-footer{
@@ -1461,6 +1486,12 @@ footer{
         <div class="tp-canvas-wrap" id="tp-canvas-wrap">
           <div id="tp-canvas-container"></div>
           <div class="tp-hint" id="tp-hint">Toca o arrastra para escribir</div>
+          <div class="tp-instruction" id="tp-instr-1">
+            <div class="tp-instruction-box">
+              <p>Toca para dibujar una frontera</p>
+              <span>Poema interactivo</span>
+            </div>
+          </div>
           <div class="tp-activate" aria-label="Activar poema interactivo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1.5"/><path d="M13 11l8 5-8 5V11z" fill="#000"/></svg><span>Tocar para interactuar</span></div>
           <button class="tp-exit-btn" aria-label="Salir del modo interactivo">✕ salir</button>
         </div>
@@ -1490,6 +1521,12 @@ footer{
         <div class="tp-canvas-wrap" id="tp-canvas-wrap-2">
           <div id="tp-canvas-container-2"></div>
           <div class="tp-hint">Mueve el dedo sobre el texto</div>
+          <div class="tp-instruction" id="tp-instr-2">
+            <div class="tp-instruction-box">
+              <p>Mueve el dedo sobre el texto</p>
+              <span>Poema interactivo</span>
+            </div>
+          </div>
           <div class="tp-activate" aria-label="Activar poema interactivo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1.5"/><path d="M13 11l8 5-8 5V11z" fill="#000"/></svg><span>Tocar para interactuar</span></div>
           <button class="tp-exit-btn" aria-label="Salir del modo interactivo">✕ salir</button>
         </div>
@@ -1519,6 +1556,12 @@ footer{
         <div class="tp-canvas-wrap" id="tp-canvas-wrap-3">
           <div id="tp-canvas-container-3"></div>
           <div class="tp-hint" id="tp-hint-3">Toca para escribir</div>
+          <div class="tp-instruction" id="tp-instr-3">
+            <div class="tp-instruction-box">
+              <p>Toca para escribir</p>
+              <span>Poema interactivo</span>
+            </div>
+          </div>
           <div class="tp-activate" aria-label="Activar poema interactivo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1.5"/><path d="M13 11l8 5-8 5V11z" fill="#000"/></svg><span>Tocar para interactuar</span></div>
           <button class="tp-exit-btn" aria-label="Salir del modo interactivo">✕ salir</button>
         </div>
@@ -1548,6 +1591,12 @@ footer{
         <div class="tp-canvas-wrap" id="tp-canvas-wrap-4">
           <div id="tp-canvas-container-4"></div>
           <div class="tp-hint" id="tp-hint-4">Toca para revelar</div>
+          <div class="tp-instruction" id="tp-instr-4">
+            <div class="tp-instruction-box">
+              <p>Toca para revelar</p>
+              <span>Poema interactivo</span>
+            </div>
+          </div>
           <div class="tp-activate" aria-label="Activar poema interactivo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1.5"/><path d="M13 11l8 5-8 5V11z" fill="#000"/></svg><span>Tocar para interactuar</span></div>
           <button class="tp-exit-btn" aria-label="Salir del modo interactivo">✕ salir</button>
         </div>
@@ -1577,6 +1626,12 @@ footer{
         <div class="tp-canvas-wrap" id="tp-canvas-wrap-5">
           <div id="tp-canvas-container-5"></div>
           <div class="tp-hint" id="tp-hint-5">Mueve el cursor · toca para cambiar el texto</div>
+          <div class="tp-instruction" id="tp-instr-5">
+            <div class="tp-instruction-box">
+              <p>Mueve el cursor · toca para cambiar el texto</p>
+              <span>Poema interactivo</span>
+            </div>
+          </div>
           <div class="tp-activate" aria-label="Activar poema interactivo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1.5"/><path d="M13 11l8 5-8 5V11z" fill="#000"/></svg><span>Tocar para interactuar</span></div>
           <button class="tp-exit-btn" aria-label="Salir del modo interactivo">✕ salir</button>
         </div>
@@ -2227,8 +2282,7 @@ footer{
     </div>
     <div class="libro-carousel-wrap">
       <div class="libro-carousel-track" id="lbt-7">
-        <div class="libro-carousel-slide"><img src="media/libros/Casi_Todo/carousel_01.jpg" alt="" loading="eager"></div>
-        <div class="libro-carousel-slide"><img src="media/libros/Casi_Todo/carousel_02.jpg" alt="" loading="lazy"></div>
+        <div class="libro-carousel-slide"><img src="media/libros/Casi_Todo/carousel_02.jpg" alt="" loading="eager"></div>
         <div class="libro-carousel-slide"><img src="media/libros/Casi_Todo/carousel_03.jpg" alt="" loading="lazy"></div>
         <div class="libro-carousel-slide"><img src="media/libros/Casi_Todo/carousel_04.jpg" alt="" loading="lazy"></div>
         <div class="libro-carousel-slide"><img src="media/libros/Casi_Todo/carousel_05.jpg" alt="" loading="lazy"></div>
@@ -3138,6 +3192,20 @@ var miRazaObs=new IntersectionObserver(function(entries){
   }
 },{threshold:0.1});
 miRazaObs.observe(document.getElementById('tp-canvas-wrap-5'));
+
+// ── Instruction overlays — hide on first interaction ──
+(function(){
+  for(var i=1;i<=5;i++){
+    (function(n){
+      var instr=document.getElementById('tp-instr-'+n);
+      var wrap=document.getElementById('tp-canvas-wrap'+(n===1?'':'-'+n));
+      if(!instr||!wrap) return;
+      function dismiss(){instr.classList.add('hidden');}
+      wrap.addEventListener('mousedown',dismiss,{once:true});
+      wrap.addEventListener('touchstart',dismiss,{once:true,passive:true});
+    })(i);
+  }
+})();
 </script>
 </body>
 </html>
