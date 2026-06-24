@@ -1083,30 +1083,24 @@ footer{
   border-top:3px solid var(--border);
   position:relative;
   overflow:hidden;
-  height:calc(100vh - 56px);
-  min-height:600px;
-  display:flex;
-  flex-direction:column;
 }
 .expo-header-bar{
   padding:32px 48px 28px;
   border-bottom:1px solid var(--border-light);
-  flex-shrink:0;
 }
 
-/* section header bar */
+/* section footer */
 .expo-footer{
   padding:20px 48px 24px;
   display:flex;align-items:center;justify-content:space-between;
   border-top:1px solid var(--border-light);
-  flex-shrink:0;
 }
 .expo-section-label{
   font-family:var(--mono);font-size:10px;letter-spacing:3px;
   text-transform:uppercase;color:var(--muted);margin:0;
 }
 
-/* exhibition-level navigation — bottom-right of section */
+/* exhibition-level navigation */
 .expo-nav{
   display:flex;align-items:center;gap:10px;
 }
@@ -1124,43 +1118,43 @@ footer{
   text-transform:uppercase;color:var(--text-dark);font-weight:700;min-width:36px;text-align:center;
 }
 
-/* outer slide track — one per exhibition */
+/* outer slide track */
 .expo-track{
-  flex:1;
-  height:100%;
   display:flex;
-  overflow:hidden;
   transition:transform 0.6s cubic-bezier(.77,0,.18,1);
 }
 
-/* each exhibition: 2-col grid — title+info left, carousel right spanning full height */
-/* each slide: flex row, left info col + right carousel col */
+/* each exhibition slide: column — title then grid */
 .expo-item{
-  flex:0 0 100%;width:100%;height:100%;
-  display:grid;
-  grid-template-columns:35% 1fr;
-  grid-template-rows:1fr;
-  gap:60px;padding:32px 48px;
-  box-sizing:border-box;overflow:hidden;
-}
-.expo-left{
+  flex:0 0 100%;width:100%;
+  padding:0 48px 36px;
   display:flex;flex-direction:column;
-  gap:20px;overflow:hidden;min-height:0;
+  box-sizing:border-box;
+  min-height:calc(100vh - 130px);
 }
+/* full-width title */
 .expo-title{
   font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
-  font-weight:400;font-size:clamp(28px,3.5vw,56px);line-height:1.1;
-  letter-spacing:-2px;text-transform:uppercase;color:var(--text);
-  margin:0;flex-shrink:0;
+  font-weight:400;font-size:clamp(52px,7.9vw,114px);line-height:1.1;
+  letter-spacing:-3.42px;text-transform:uppercase;color:var(--text);
+  margin:0;padding:32px 0 36px;max-width:58%;
+}
+/* content grid below title */
+.expo-content{
+  display:grid;grid-template-columns:32fr 68fr;
+  gap:0 60px;padding-top:40px;align-items:stretch;flex:1;
+}
+.expo-left{
+  display:flex;flex-direction:column;justify-content:flex-end;gap:20px;padding-bottom:4px;
 }
 .expo-desc{
   font-family:var(--garamond);font-size:clamp(13px,1.15vw,18px);
-  line-height:1.65;letter-spacing:-0.3px;color:var(--text);margin:0;flex-shrink:0;
+  line-height:1.65;letter-spacing:-0.3px;color:var(--text);margin:0;
 }
 .expo-meta{
   font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
   font-size:11.5px;line-height:16px;letter-spacing:-0.46px;
-  text-transform:uppercase;color:var(--text);margin-top:auto;
+  text-transform:uppercase;color:var(--text);
 }
 .expo-meta strong{font-weight:700;}
 .expo-pdf-btn{
@@ -1168,21 +1162,17 @@ footer{
   background:#000;color:#fff;
   font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
   font-weight:800;font-size:11.5px;letter-spacing:-0.46px;text-transform:uppercase;
-  text-decoration:none;
-  border-radius:40px;padding:13px 26px;width:fit-content;
+  text-decoration:none;border-radius:40px;padding:13px 26px;width:fit-content;
   transition:background 0.15s,color 0.15s;
 }
 .expo-pdf-btn:hover{background:#fff;color:#000;box-shadow:inset 0 0 0 1px #000;}
-/* carousel column: fills remaining width, full height */
 .expo-right{
-  display:flex;flex-direction:column;
-  gap:16px;overflow:hidden;min-height:0;
+  display:flex;flex-direction:column;align-items:flex-start;gap:16px;
 }
 .media-carousel{
   position:relative;width:100%;
-  aspect-ratio:778/658;
-  max-height:60vh;
   border:1px solid #000;border-radius:60px;overflow:hidden;
+  aspect-ratio:778/658;
   background:#0a0a0a;
 }
 .media-track{
@@ -1592,92 +1582,99 @@ footer{
 
     <!-- ── EXPOSICIÓN 1: Desplazamiento Forzado ── -->
     <div class="expo-item">
-      <div class="expo-left">
-        <h2 class="expo-title">Desplazamiento<br>forzado</h2>
-        <p class="expo-desc">Desplazamiento Forzado es un proyecto expositivo sobre la migración venezolana que explora la fractura familiar como consecuencia de los procesos migratorios. A través de poemas interactivos, material de archivo y videoensayos, la exposición recrea el reencuentro entre los hermanos gemelos Nicolás Gerardi Rousset y Augusto Gerardi Rousset tras cinco años de separación física.</p>
-        <div class="expo-meta">
-          <span style="text-decoration:underline">Inauguración</span><br>
-          11 de abril · 2026<br>
-          ID Art Lab<br>
-          <strong>676 NW Miami, FL</strong><br>
-          33127
-        </div>
-      </div>
-      <div class="expo-right">
-        <div class="media-carousel" id="mc-1">
-          <div class="media-track" id="mt-1">
-            <div class="media-slide"><img src="desplazamientoforzado/df_01.jpg" alt="" loading="eager"></div>
-            <div class="media-slide"><img src="desplazamientoforzado/df_02.jpg" alt="" loading="eager"></div>
-            <div class="media-slide"><img src="desplazamientoforzado/df_03.jpg" alt="" loading="eager"></div>
-            <div class="media-slide media-fit-white"><img src="desplazamientoforzado/df_04.jpg" alt="" loading="eager"></div>
-            <div class="media-slide"><img src="desplazamientoforzado/df_06.jpg" alt="" loading="eager"></div>
-            <div class="media-slide"><img src="desplazamientoforzado/df_07.jpg" alt="" loading="eager"></div>
-            <div class="media-slide"><img src="desplazamientoforzado/df_08.jpg" alt="" loading="eager"></div>
-            <div class="media-slide"><img src="desplazamientoforzado/df_09.jpg" alt="" loading="eager"></div>
-            <div class="media-slide"><img src="desplazamientoforzado/df_10.jpg" alt="" loading="eager"></div>
-            <div class="media-slide"><img src="desplazamientoforzado/df_11.jpg" alt="" loading="eager"></div>
-            <div class="media-slide"><video src="desplazamientoforzado/df_v07.mp4" muted playsinline loop controls preload="metadata"></video></div>
-            <div class="media-slide"><img src="desplazamientoforzado/df_12.jpg" alt="" loading="eager"></div>
-            <div class="media-slide"><video src="desplazamientoforzado/df_v08.mp4" muted playsinline loop controls preload="metadata"></video></div>
-          </div>
-          <div class="media-controls">
-            <button class="media-btn" data-mc="1" data-dir="-1" disabled>←</button>
-            <span class="media-counter" id="mc-counter-1">1 / 13</span>
-            <button class="media-btn" data-mc="1" data-dir="1">→</button>
+      <h2 class="expo-title">Desplazamiento<br>forzado</h2>
+      <div class="expo-content">
+        <div class="expo-left">
+          <p class="expo-desc">Desplazamiento Forzado es un proyecto expositivo sobre la migración venezolana que explora la fractura familiar como consecuencia de los procesos migratorios. A través de poemas interactivos, material de archivo y videoensayos, la exposición recrea el reencuentro entre los hermanos gemelos Nicolás Gerardi Rousset y Augusto Gerardi Rousset tras cinco años de separación física.</p>
+          <div class="expo-meta">
+            <span style="text-decoration:underline">Inauguración</span><br>
+            11 de abril · 2026<br>
+            ID Art Lab<br>
+            <strong>676 NW Miami, FL</strong><br>
+            33127
           </div>
         </div>
-        <a class="expo-pdf-btn" href="desplazamientoforzado/catalogo.pdf" target="_blank" rel="noopener">PDF — Catálogo</a>
+        <div class="expo-right">
+          <div class="media-carousel" id="mc-1">
+            <div class="media-track" id="mt-1">
+              <div class="media-slide"><img src="desplazamientoforzado/df_01.jpg" alt="" loading="eager"></div>
+              <div class="media-slide"><img src="desplazamientoforzado/df_02.jpg" alt="" loading="eager"></div>
+              <div class="media-slide"><img src="desplazamientoforzado/df_03.jpg" alt="" loading="eager"></div>
+              <div class="media-slide media-fit-white"><img src="desplazamientoforzado/df_04.jpg" alt="" loading="eager"></div>
+              <div class="media-slide"><img src="desplazamientoforzado/df_06.jpg" alt="" loading="eager"></div>
+              <div class="media-slide"><img src="desplazamientoforzado/df_07.jpg" alt="" loading="eager"></div>
+              <div class="media-slide"><img src="desplazamientoforzado/df_08.jpg" alt="" loading="eager"></div>
+              <div class="media-slide"><img src="desplazamientoforzado/df_09.jpg" alt="" loading="eager"></div>
+              <div class="media-slide"><img src="desplazamientoforzado/df_10.jpg" alt="" loading="eager"></div>
+              <div class="media-slide"><img src="desplazamientoforzado/df_11.jpg" alt="" loading="eager"></div>
+              <div class="media-slide"><video src="desplazamientoforzado/df_v07.mp4" muted playsinline loop controls preload="metadata"></video></div>
+              <div class="media-slide"><img src="desplazamientoforzado/df_12.jpg" alt="" loading="eager"></div>
+              <div class="media-slide"><video src="desplazamientoforzado/df_v08.mp4" muted playsinline loop controls preload="metadata"></video></div>
+            </div>
+            <div class="media-controls">
+              <button class="media-btn" data-mc="1" data-dir="-1" disabled>←</button>
+              <span class="media-counter" id="mc-counter-1">1 / 13</span>
+              <button class="media-btn" data-mc="1" data-dir="1">→</button>
+            </div>
+          </div>
+          <a class="expo-pdf-btn" href="desplazamientoforzado/catalogo.pdf" target="_blank" rel="noopener">PDF — Catálogo</a>
+        </div>
       </div>
     </div>
 
     <!-- ── EXPOSICIÓN 2: Río Menor ── -->
     <div class="expo-item">
-      <div class="expo-left">
-        <h2 class="expo-title">Río<br>Menor</h2>
-        <p class="expo-desc">Los nombres de los menores de edad que murieron intentando cruzar a los Estados Unidos los primeros 4 meses de 2023. El poema inmersivo reacciona al público en la sala a través de un sensor, cuando el espectador entra a la sala el sonido del agua se detiene y hace los nombres legibles, al abandonar el cuarto, los nombres se desvanecen y el sonido del río retorna. Una reflexión sobre la memoria, la migración y la postpoesía.</p>
-        <div class="expo-meta">
-          Río Menor<br>
-          Public Space One<br>
-          <strong>Iowa City</strong>
-        </div>
-      </div>
-      <div class="expo-right">
-        <div class="media-carousel" id="mc-2">
-          <div class="media-track" id="mt-2">
-            <div class="media-slide"><img src="riomenor/rm_01.jpg" alt="" loading="eager"></div>
-            <div class="media-slide"><video src="riomenor/rm_v01.mp4" muted playsinline loop controls preload="metadata"></video></div>
-          </div>
-          <div class="media-controls">
-            <button class="media-btn" data-mc="2" data-dir="-1" disabled>←</button>
-            <span class="media-counter" id="mc-counter-2">1 / 2</span>
-            <button class="media-btn" data-mc="2" data-dir="1">→</button>
+      <h2 class="expo-title">Río<br>Menor</h2>
+      <div class="expo-content">
+        <div class="expo-left">
+          <p class="expo-desc">Los nombres de los menores de edad que murieron intentando cruzar a los Estados Unidos los primeros 4 meses de 2023. El poema inmersivo reacciona al público en la sala a través de un sensor, cuando el espectador entra a la sala el sonido del agua se detiene y hace los nombres legibles, al abandonar el cuarto, los nombres se desvanecen y el sonido del río retorna. Una reflexión sobre la memoria, la migración y la postpoesía.</p>
+          <div class="expo-meta">
+            Río Menor<br>
+            Public Space One<br>
+            <strong>Iowa City</strong>
           </div>
         </div>
-        <a class="expo-pdf-btn" href="riomenor/catalogo.pdf" target="_blank" rel="noopener">PDF — Catálogo</a>
+        <div class="expo-right">
+          <div class="media-carousel" id="mc-2">
+            <div class="media-track" id="mt-2">
+              <div class="media-slide"><img src="riomenor/rm_01.jpg" alt="" loading="eager"></div>
+              <div class="media-slide"><img src="riomenor/rm_02.jpg" alt="" loading="eager"></div>
+              <div class="media-slide"><video src="riomenor/rm_v01.mp4" muted playsinline loop controls preload="metadata"></video></div>
+            </div>
+            <div class="media-controls">
+              <button class="media-btn" data-mc="2" data-dir="-1" disabled>←</button>
+              <span class="media-counter" id="mc-counter-2">1 / 3</span>
+              <button class="media-btn" data-mc="2" data-dir="1">→</button>
+            </div>
+          </div>
+          <a class="expo-pdf-btn" href="riomenor/catalogo.pdf" target="_blank" rel="noopener">PDF — Catálogo</a>
+        </div>
       </div>
     </div>
 
     <!-- ── EXPOSICIÓN 3: Hydra ── -->
     <div class="expo-item">
-      <div class="expo-left">
-        <h2 class="expo-title">Interactive<br>Media Hydra</h2>
-        <p class="expo-desc">Diez días en la residencia de arte Art Pace para realizar el video mapping e interacción de la pieza Hydra de la artista Violette Bule. La pieza aborda el tema del lucro a través de los sistemas de cárceles privadas en Estados Unidos.</p>
-        <div class="expo-meta">
-          Hydra<br>
-          19 de marzo · 2026<br>
-          Art Pace<br>
-          <strong>San Antonio, Texas</strong>
-        </div>
-      </div>
-      <div class="expo-right">
-        <div class="media-carousel" id="mc-3">
-          <div class="media-track" id="mt-3">
-            <div class="media-slide media-iframe">
-              <iframe src="https://player.vimeo.com/video/1187372380?badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-            </div>
+      <h2 class="expo-title">Interactive<br>Media Hydra</h2>
+      <div class="expo-content">
+        <div class="expo-left">
+          <p class="expo-desc">Diez días en la residencia de arte Art Pace para realizar el video mapping e interacción de la pieza Hydra de la artista Violette Bule. La pieza aborda el tema del lucro a través de los sistemas de cárceles privadas en Estados Unidos.</p>
+          <div class="expo-meta">
+            Hydra<br>
+            19 de marzo · 2026<br>
+            Art Pace<br>
+            <strong>San Antonio, Texas</strong>
           </div>
         </div>
-        <a class="expo-pdf-btn" href="hydra/catalogo.pdf" target="_blank" rel="noopener">PDF — Catálogo</a>
+        <div class="expo-right">
+          <div class="media-carousel" id="mc-3">
+            <div class="media-track" id="mt-3">
+              <div class="media-slide media-iframe">
+                <iframe src="https://player.vimeo.com/video/1187372380?badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+          <a class="expo-pdf-btn" href="hydra/catalogo.pdf" target="_blank" rel="noopener">PDF — Catálogo</a>
+        </div>
       </div>
     </div>
 
@@ -2288,23 +2285,6 @@ footer{
 <script>
 // ── EXPOSICIONES 2026 — two-level navigation ──
 try{(function(){
-
-  // ── fix expo layout height explicitly so carousel fills correctly ──
-  function fixExpoHeight(){
-    var section = document.getElementById('exposiciones');
-    var track   = document.getElementById('expo-track');
-    if(!section||!track) return;
-    var header = section.querySelector('.expo-header-bar');
-    var footer = section.querySelector('.expo-footer');
-    var h = section.offsetHeight - (header?header.offsetHeight:0) - (footer?footer.offsetHeight:0);
-    if(h<=0) return;
-    track.style.height = h+'px';
-    document.querySelectorAll('.expo-item').forEach(function(item){
-      item.style.height = h+'px';
-    });
-  }
-  fixExpoHeight();
-  window.addEventListener('resize', fixExpoHeight);
 
   // ── outer: exhibition slides ──
   var expoTrack = document.getElementById('expo-track');
