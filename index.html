@@ -471,6 +471,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 /* slideshow viewport */
 .esc-viewport{
   flex:1;
+  min-height:0;
   overflow:hidden;
   position:relative;
 }
@@ -953,7 +954,7 @@ footer{
 @media(max-width:1024px){
 .sketch-block{grid-template-columns:1fr 320px;}
 #bio{gap:48px;padding:100px 40px;}
-#cv,#escrituras{padding:80px 40px;}
+#cv{padding:80px 40px;}
 #contact{padding:100px 40px;}
 .sketches-header,footer{padding-left:40px;padding-right:40px;}
   /* libros uses internal padding, no outer override needed */
@@ -1045,7 +1046,7 @@ footer{
 .cv-note{font-size:13px;}
 
 /* escrituras */
-#escrituras{padding:64px 20px;}
+#escrituras{padding:0;}
 .escrituras-header{flex-direction:column;gap:12px;margin-bottom:40px;}
 .escrituras-grid{grid-template-columns:1fr;}
 .escritura-card{padding:28px 20px;}
