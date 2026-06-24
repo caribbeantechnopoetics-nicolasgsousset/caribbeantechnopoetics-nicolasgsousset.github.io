@@ -1180,7 +1180,8 @@ footer{
 }
 .media-carousel{
   position:relative;width:100%;
-  flex:1;min-height:0;
+  aspect-ratio:778/658;
+  max-height:60vh;
   border:1px solid #000;border-radius:60px;overflow:hidden;
   background:#0a0a0a;
 }
@@ -2300,10 +2301,6 @@ try{(function(){
     track.style.height = h+'px';
     document.querySelectorAll('.expo-item').forEach(function(item){
       item.style.height = h+'px';
-      var cs = getComputedStyle(item);
-      var padV = parseFloat(cs.paddingTop)+parseFloat(cs.paddingBottom);
-      var right = item.querySelector('.expo-right');
-      if(right) right.style.height = (h - padV)+'px';
     });
   }
   fixExpoHeight();
