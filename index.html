@@ -493,6 +493,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 /* media frame */
 .esc-media{
   width:100%;
+  flex:1;min-height:0;
   background:#f0efed;
   border-radius:12px;
   overflow:hidden;
@@ -512,23 +513,20 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   border:0;
   display:block;
 }
-/* media that is pdf gets taller frame */
-.esc-media-pdf{ height:75vh; }
-/* media that is an image */
-.esc-media-img{ max-height:80vh; }
 /* two-up image grid */
 .esc-media-duo{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
   width:100%;
+  flex:1;min-height:0;
 }
 .esc-media-duo .esc-media{
-  height:65vh;
+  flex:none;height:100%;
 }
 /* inner photo carousel */
-.esc-inner-carousel{ position:relative; width:100%; }
-.esc-inner-track-wrap{ overflow:hidden; border-radius:12px; background:#f0efed; height:70vh; }
+.esc-inner-carousel{ position:relative; width:100%; flex:1; min-height:0; display:flex; flex-direction:column; }
+.esc-inner-track-wrap{ overflow:hidden; border-radius:12px; background:#f0efed; flex:1; min-height:0; }
 .esc-inner-track{
   display:flex;
   height:100%;
@@ -1891,12 +1889,12 @@ footer{
         <div class="esc-inner-carousel" id="esc-ic-1">
           <div class="esc-inner-track-wrap">
             <div class="esc-inner-track" id="esc-it-1">
-              <div class="esc-inner-slide"><img src="media/propaganda_anticomunista_new_1.png" alt="Propaganda anticomunista 1"></div>
-              <div class="esc-inner-slide"><img src="media/propaganda_anticomunista_new_2.png" alt="Propaganda anticomunista 2"></div>
-              <div class="esc-inner-slide"><img src="media/propaganda_anticomunista_new_3.jpg" alt="Propaganda anticomunista 3"></div>
-              <div class="esc-inner-slide"><img src="media/propaganda_anticomunista_new_4.jpg" alt="Propaganda anticomunista 4"></div>
-              <div class="esc-inner-slide"><img src="media/propaganda_anticomunista_new_5.jpg" alt="Propaganda anticomunista 5"></div>
-              <div class="esc-inner-slide"><img src="media/propaganda_anticomunista_new_6.jpg" alt="Propaganda anticomunista 6"></div>
+              <div class="esc-inner-slide"><img src="propagandaanticomunista/pa_01.png" alt="Propaganda anticomunista 1" loading="eager"></div>
+              <div class="esc-inner-slide"><img src="propagandaanticomunista/pa_02.png" alt="Propaganda anticomunista 2" loading="eager"></div>
+              <div class="esc-inner-slide"><img src="propagandaanticomunista/pa_03.jpg" alt="Propaganda anticomunista 3" loading="eager"></div>
+              <div class="esc-inner-slide"><img src="propagandaanticomunista/pa_04.jpg" alt="Propaganda anticomunista 4" loading="eager"></div>
+              <div class="esc-inner-slide"><img src="propagandaanticomunista/pa_05.jpg" alt="Propaganda anticomunista 5" loading="eager"></div>
+              <div class="esc-inner-slide"><img src="propagandaanticomunista/pa_06.jpg" alt="Propaganda anticomunista 6" loading="eager"></div>
             </div>
           </div>
           <div class="esc-inner-nav">
