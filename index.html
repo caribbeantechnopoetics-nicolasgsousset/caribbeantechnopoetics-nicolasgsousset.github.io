@@ -750,7 +750,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 }
 /* LEFT: text fills remaining left column */
 .libro-text-left{
-  grid-column:1;grid-row:2/4;
+  grid-column:1;grid-row:2;
   display:flex;flex-direction:column;
   justify-content:flex-end;gap:16px;
   padding-bottom:4px;
@@ -765,9 +765,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   letter-spacing:3px;text-transform:uppercase;
   color:var(--muted);margin:0;line-height:1.8;
 }
-/* RIGHT: carousel — landscape 4:3, spans rows 1+2 */
+/* RIGHT: carousel — spans all 3 rows */
 .libro-carousel-wrap{
-  grid-column:2;grid-row:1/3;
+  grid-column:2;grid-row:1/4;
   align-self:stretch;
   min-height:0;min-width:0;
   border:1px solid var(--border);
@@ -790,33 +790,23 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   object-fit:contain;display:block;
 }
 /* RIGHT bottom: thumbnails + title + download */
+/* título + descarga van en la columna izquierda, fila 3 */
 .libro-bottom-right{
-  grid-column:2;grid-row:3;
-  display:flex;align-items:flex-end;
-  justify-content:space-between;gap:24px;
+  grid-column:1;grid-row:3;
+  display:flex;flex-direction:column;align-items:flex-start;
+  justify-content:flex-end;gap:10px;
 }
 .libro-left-bottom{
   display:flex;flex-direction:column;gap:10px;
-  flex:1;
+  width:100%;
 }
-.libro-thumbs{
-  display:flex;gap:6px;flex-wrap:wrap;
-}
-.libro-thumb{
-  width:52px;height:52px;
-  border-radius:8px;overflow:hidden;
-  border:2px solid var(--border-light);
-  cursor:pointer;transition:border-color 0.2s;
-  background:#f0efed;flex-shrink:0;
-}
-.libro-thumb.lb-active{ border-color:#000; }
-.libro-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.libro-thumbs{ display:none; }
 .libro-title-big{
   font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
-  font-weight:800;font-size:clamp(32px,5.5vw,72px);
-  text-transform:uppercase;letter-spacing:-2.5px;
-  color:var(--text);line-height:0.9;margin:0;
-  flex-shrink:0;text-align:right;
+  font-weight:800;font-size:clamp(22px,3.5vw,48px);
+  text-transform:uppercase;letter-spacing:-1.5px;
+  color:var(--text);line-height:0.95;margin:0;
+  flex-shrink:0;text-align:left;
 }
 /* Nav footer */
 .libros-footer{
