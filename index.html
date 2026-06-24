@@ -748,11 +748,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 }
 /* GIF frame */
 .libro-gif-frame{
-  width:115px;
-  height:138px;
+  width:100%;
+  aspect-ratio:5/6;
+  max-height:200px;
   flex-shrink:0;
   border:1px solid var(--border);
-  border-radius:16px;
+  border-radius:20px;
   overflow:hidden;
   background:#f0efed;
 }
@@ -821,6 +822,19 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   width:100%;height:100%;
   object-fit:cover;display:block;
 }
+/* Carousel prev/next buttons */
+.lbc-btn{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(255,255,255,0.85);border:1px solid var(--border);
+  border-radius:50%;width:32px;height:32px;
+  font-size:13px;cursor:pointer;z-index:10;
+  display:flex;align-items:center;justify-content:center;
+  transition:background 0.2s;
+}
+.lbc-btn:hover{background:#fff;}
+.lbc-prev{left:10px;}
+.lbc-next{right:10px;}
+
 /* Nav footer */
 .libros-footer{
   padding:12px 48px 14px;display:flex;
@@ -2455,14 +2469,29 @@ try{(function(){
     var slides = track.querySelectorAll('.libro-carousel-slide');
     var total = slides.length;
     var cur = 0;
+    var wrap = track.parentElement;
 
     function goTo(n){
-      cur = Math.max(0,Math.min(total-1,n));
+      cur = ((n % total) + total) % total;
       track.style.transform = 'translateX(-'+cur*100+'%)';
-      // update thumbs
       document.querySelectorAll('.libro-thumb[data-lb="'+id+'"]').forEach(function(th,i){
         th.classList.toggle('lb-active', i===cur);
       });
+      if(btnP) btnP.style.opacity = total > 1 ? '1' : '0';
+      if(btnN) btnN.style.opacity = total > 1 ? '1' : '0';
+    }
+
+    // Auto-generate prev/next buttons if more than 1 slide
+    var btnP = null, btnN = null;
+    if(total > 1){
+      btnP = document.createElement('button');
+      btnN = document.createElement('button');
+      btnP.className = 'lbc-btn lbc-prev'; btnP.innerHTML = '←';
+      btnN.className = 'lbc-btn lbc-next'; btnN.innerHTML = '→';
+      btnP.addEventListener('click', function(){ goTo(cur-1); });
+      btnN.addEventListener('click', function(){ goTo(cur+1); });
+      wrap.appendChild(btnP);
+      wrap.appendChild(btnN);
     }
 
     // Thumb clicks
