@@ -691,12 +691,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   flex-direction:column;
 }
 .libros-header-bar{
-  padding:32px 48px 28px;
+  padding:18px 48px 16px;
   border-bottom:1px solid var(--border-light);
   flex-shrink:0;
 }
 .libros-header-bar .section-label{margin-bottom:8px;}
-.libros-slideshow{flex:1;overflow:hidden;position:relative;}
+.libros-slideshow{flex:1;min-height:0;overflow:hidden;position:relative;}
 .libros-track{display:flex;height:100%;transition:transform 0.6s cubic-bezier(.77,0,.18,1);}
 
 /* Welcome slide */
@@ -728,9 +728,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   display:grid;
   grid-template-columns:200px 1fr;
   grid-template-rows:auto 1fr auto;
-  gap:18px 24px;
+  gap:14px 28px;
   height:100%;
-  padding:40px 48px 28px;
+  padding:20px 48px 16px;
   box-sizing:border-box;
 }
 /* LEFT: GIF frame — portrait 5:6 ratio */
@@ -765,14 +765,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   letter-spacing:3px;text-transform:uppercase;
   color:var(--muted);margin:0;line-height:1.8;
 }
-/* RIGHT: carousel — square (aspect-ratio:1), sized by available height, right-aligned */
+/* RIGHT: carousel — landscape 4:3, spans rows 1+2 */
 .libro-carousel-wrap{
   grid-column:2;grid-row:1/3;
-  aspect-ratio:1;
   align-self:stretch;
-  justify-self:end;
   min-height:0;min-width:0;
-  max-height:100%;max-width:100%;
   border:1px solid var(--border);
   border-radius:24px;
   overflow:hidden;
@@ -823,7 +820,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 }
 /* Nav footer */
 .libros-footer{
-  padding:20px 48px 24px;display:flex;
+  padding:12px 48px 14px;display:flex;
   align-items:center;justify-content:space-between;
   border-top:1px solid var(--border-light);
   flex-shrink:0;
@@ -1052,7 +1049,7 @@ footer{
 .escritura-card{padding:28px 20px;}
 
 /* libros */
-#libros{padding:64px 20px;}
+#libros{padding:0;}
 .libros-header{margin-bottom:40px;}
 .libros-grid{grid-template-columns:1fr;}
 .libro-card{padding:36px 24px;}
