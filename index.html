@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en" data-lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,10 +19,15 @@
 --bricolage:'Bricolage Grotesque',sans-serif;
 --garamond:'EB Garamond',serif;
 --mono:'Space Mono',monospace;
+--grotheske:'Helvetica Neue',Helvetica,Arial,sans-serif;
 }
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflow-x:hidden;
   font-variant-ligatures:common-ligatures discretionary-ligatures contextual;}
+
+/* ── I18N (EN default, ES optional) ── */
+html:not([data-lang="es"]) .t-es{display:none;}
+html[data-lang="es"] .t-en{display:none;}
 
 /* ── SITE NAV (sticky, outside hero canvas) ── */
 .site-nav{
@@ -30,6 +35,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   background:#fff;border-bottom:3px solid #000;
   display:flex;align-items:center;justify-content:center;
   height:56px;
+  gap:24px;
 }
 .site-nav-inner{
   font-family:var(--bricolage);font-variation-settings:"opsz" 14,"wdth" 100;
@@ -39,6 +45,20 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
 }
 .site-nav-inner a{color:inherit;text-decoration:none;transition:color 0.2s;}
 .site-nav-inner a:hover{color:#000;}
+.lang-switch{
+  font-family:var(--mono);font-size:11px;letter-spacing:1px;
+  color:#999;display:flex;align-items:center;gap:6px;flex-shrink:0;
+  padding-right:16px;
+}
+.lang-switch button{
+  font-family:inherit;font-size:inherit;letter-spacing:inherit;
+  background:none;border:none;cursor:pointer;color:#999;padding:2px 3px;
+  transition:color 0.2s;
+}
+.lang-switch button.active{color:#000;font-weight:700;}
+.lang-switch button:hover{color:#000;}
+.lang-switch .lang-sep{color:#d8d8d8;}
+@media(max-width:700px){.lang-switch{padding-right:10px;}}
 
 /* ── HERO (Figma grid) ── */
 #hero{width:100vw;position:relative;overflow:hidden;background:#fff;}
@@ -914,6 +934,61 @@ body{background:var(--bg);color:var(--text);font-family:var(--bricolage);overflo
   .libro-title-big{font-size:clamp(20px,7vw,32px);}
 }
 
+/* ── PODCAST TEASER ── */
+#podcast{
+  background:#0a0a0a;
+  color:#f2f2f0;
+  border-top:3px solid var(--border);
+  padding:96px 48px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:20px;
+  position:relative;
+  overflow:hidden;
+}
+.podcast-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:4px;
+  text-transform:uppercase;color:#8a8a86;
+}
+.podcast-teaser-title{
+  font-family:var(--grotheske);
+  font-weight:600;
+  font-size:clamp(34px,6vw,88px);
+  letter-spacing:-2px;
+  line-height:1;
+  color:#f2f2f0;
+}
+.podcast-teaser-sub{
+  font-family:var(--garamond);
+  font-style:italic;
+  font-size:clamp(16px,2vw,22px);
+  color:#c9c9c4;
+  max-width:640px;
+  line-height:1.4;
+}
+.podcast-teaser-link{
+  margin-top:12px;
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--grotheske);font-weight:600;
+  font-size:15px;letter-spacing:0.5px;text-transform:uppercase;
+  color:#0a0a0a;background:#f2f2f0;
+  padding:14px 26px;border-radius:999px;
+  text-decoration:none;
+  transition:transform 0.2s, background 0.2s;
+}
+.podcast-teaser-link:hover{background:#fff;transform:translateX(4px);}
+.podcast-teaser-bg{
+  position:absolute;right:-40px;bottom:-40px;
+  font-family:var(--grotheske);font-weight:700;
+  font-size:260px;line-height:1;color:#141412;
+  pointer-events:none;user-select:none;z-index:0;
+}
+@media(max-width:700px){
+  #podcast{padding:64px 20px;}
+  .podcast-teaser-bg{display:none;}
+}
+
 /* ── CONTACT ── */
 #contact{
   padding:160px 60px;
@@ -1398,11 +1473,15 @@ footer{
 <!-- ── SITE NAV ── -->
 <nav class="site-nav">
 <span class="site-nav-inner">
-<a href="#tecnopoemas">tecnopoemas</a><span class="sep"> / </span>
-<a href="#exposiciones">exposiciones</a><span class="sep"> / </span>
+<a href="#tecnopoemas"><span class="t-en">technopoems</span><span class="t-es">tecnopoemas</span></a><span class="sep"> / </span>
+<a href="#exposiciones"><span class="t-en">exhibitions</span><span class="t-es">exposiciones</span></a><span class="sep"> / </span>
 <a href="#cv">cv</a><span class="sep"> / </span>
-<a href="#escrituras">escrituras</a><span class="sep"> / </span>
-<a href="#libros">libros de artista</a>
+<a href="#escrituras"><span class="t-en">writings</span><span class="t-es">escrituras</span></a><span class="sep"> / </span>
+<a href="#libros"><span class="t-en">artist books</span><span class="t-es">libros de artista</span></a><span class="sep"> / </span>
+<a href="#podcast">podcast</a>
+</span>
+<span class="lang-switch">
+<button type="button" id="lang-en-btn" onclick="setLang('en')">EN</button><span class="lang-sep">/</span><button type="button" id="lang-es-btn" onclick="setLang('es')">ES</button>
 </span>
 </nav>
 
@@ -1411,51 +1490,51 @@ footer{
 
 <!-- mobile layout -->
 <div class="hero-mobile">
-  <div class="hm-line"> — ¡Hola! Soy <span class="gm-italic">Nicolás</span></div>
-  <div class="hm-line"><span class="gm-italic">Gerardi Rousset.</span> Investigo la</div>
-  <div class="hm-line">relación <div class="hm-pill hm-pill-inmanente"><img src="inmanente.gif" alt=""></div> entre:</div>
-  <div class="hm-line">escritura <div class="hm-pill hm-pill-razon"><img src="razoneshumanitarias_final.gif" alt=""></div></div>
-  <div class="hm-line">creativa, tecnología y</div>
-  <div class="hm-line">diseño <div class="hm-pill hm-pill-pulso"><img src="pulso.gif" alt=""></div> en <div class="hm-pill hm-pill-caribe"><img src="caribe.gif" alt=""></div> el</div>
-  <div class="hm-line hm-bold">Caribe.</div>
+  <div class="hm-line"> <span class="t-en">— Hi! I'm</span><span class="t-es">— ¡Hola! Soy</span> <span class="gm-italic">Nicolás</span></div>
+  <div class="hm-line"><span class="gm-italic">Gerardi Rousset.</span> <span class="t-en">I link</span><span class="t-es">Investigo la</span></div>
+  <div class="hm-line"><span class="t-en">writing</span><span class="t-es">relación</span> <div class="hm-pill hm-pill-inmanente"><img src="inmanente.gif" alt=""></div> <span class="t-en">to:</span><span class="t-es">entre:</span></div>
+  <div class="hm-line"><span class="t-en">technology</span><span class="t-es">escritura</span> <div class="hm-pill hm-pill-razon"><img src="razoneshumanitarias_final.gif" alt=""></div></div>
+  <div class="hm-line"><span class="t-en">and</span><span class="t-es">creativa, tecnología y</span></div>
+  <div class="hm-line"><span class="t-en">design</span><span class="t-es">diseño</span> <div class="hm-pill hm-pill-pulso"><img src="pulso.gif" alt=""></div> <span class="t-en">in</span><span class="t-es">en</span> <div class="hm-pill hm-pill-caribe"><img src="caribe.gif" alt=""></div> <span class="t-en">the</span><span class="t-es">el</span></div>
+  <div class="hm-line hm-bold"><span class="t-en">Caribbean.</span><span class="t-es">Caribe.</span></div>
 </div>
 
 <div class="hero-canvas">
 <!-- L1: — ¡Hola! Soy | Nicolás -->
-<div class="hl hl-1"><span> — ¡Hola! Soy</span><span class="gm-italic">Nicolás</span></div>
+<div class="hl hl-1"><span><span class="t-en"> — Hi! I'm</span><span class="t-es"> — ¡Hola! Soy</span></span><span class="gm-italic">Nicolás</span></div>
 <!-- L2: Gerardi Rousset. | Investigo la -->
-<div class="hl hl-2"><span class="gm-italic">Gerardi Rousset.</span><span>Investigo la</span></div>
+<div class="hl hl-2"><span class="gm-italic">Gerardi Rousset.</span><span><span class="t-en">I link</span><span class="t-es">Investigo la</span></span></div>
 <!-- L3: relación | [pill] | entre: -->
 <div class="hl hl-3">
-  <span>relación</span>
+  <span><span class="t-en">writing</span><span class="t-es">relación</span></span>
   <div class="hero-pill pill-inmanente"><img src="inmanente.gif" alt="" /></div>
-  <span>entre:</span>
+  <span><span class="t-en">to:</span><span class="t-es">entre:</span></span>
 </div>
 <!-- L4: escritura | [pill] -->
 <div class="hl hl-4">
-  <span>escritura</span>
+  <span><span class="t-en">technology</span><span class="t-es">escritura</span></span>
   <div class="hero-pill pill-razon"><img src="razoneshumanitarias_final.gif" alt="" /></div>
 </div>
 <!-- L5: creativa,tecnología | y -->
-<div class="hl hl-5"><span>creativa,tecnología</span><span>y</span></div>
+<div class="hl hl-5"><span><span class="t-en">and</span><span class="t-es">creativa,tecnología</span></span><span><span class="t-en"></span><span class="t-es">y</span></span></div>
 <!-- L6: diseño | [pill] | en | [pill] | el -->
 <div class="hl hl-6">
-  <span>diseño</span>
+  <span><span class="t-en">design</span><span class="t-es">diseño</span></span>
   <div class="hero-pill pill-pulso"><img src="pulso.gif" alt="" loading="lazy" /></div>
-  <span>en</span>
+  <span><span class="t-en">in</span><span class="t-es">en</span></span>
   <div class="hero-pill pill-caribe"><img src="caribe.gif" alt="" loading="lazy" /></div>
-  <span>el</span>
+  <span><span class="t-en">the</span><span class="t-es">el</span></span>
 </div>
 <!-- L7: Caribe. -->
-<div class="hl hl-7">Caribe.</div>
+<div class="hl hl-7"><span class="t-en">Caribbean.</span><span class="t-es">Caribe.</span></div>
 </div>
 </div>
 
 <!-- ── TECNOPOEMAS ── -->
 <section id="tecnopoemas">
   <div class="tp-header-bar">
-    <p class="section-label">Escritura interactiva</p>
-    <h2 class="section-title">Tecnopoemas:</h2>
+    <p class="section-label"><span class="t-en">Interactive writing</span><span class="t-es">Escritura interactiva</span></p>
+    <h2 class="section-title"><span class="t-en">Technopoems:</span><span class="t-es">Tecnopoemas:</span></h2>
   </div>
   <!-- slideshow viewport -->
   <div class="tp-show">
@@ -1464,7 +1543,7 @@ footer{
       <!-- ── SLIDE 0: Welcome ── -->
       <div class="tp-slide tp-slide-welcome">
         <div class="tp-welcome-body">
-          <p class="tp-welcome-text">Poemas en el lenguaje<br>de las máquinas.</p>
+          <p class="tp-welcome-text"><span class="t-en">Poems in the language<br>of machines.</span><span class="t-es">Poemas en el lenguaje<br>de las máquinas.</span></p>
         </div>
         <div class="tp-slide-footer">
           <p class="tp-desc"></p>
@@ -1485,24 +1564,24 @@ footer{
         </div>
         <div class="tp-canvas-wrap" id="tp-canvas-wrap">
           <div id="tp-canvas-container"></div>
-          <div class="tp-hint" id="tp-hint">Toca o arrastra para escribir</div>
+          <div class="tp-hint" id="tp-hint"><span class="t-en">Tap or drag to write</span><span class="t-es">Toca o arrastra para escribir</span></div>
           <div class="tp-instruction" id="tp-instr-1">
             <div class="tp-instruction-box">
-              <p>Toca para dibujar una frontera</p>
-              <span>Poema interactivo</span>
+              <p><span class="t-en">Tap to draw a border</span><span class="t-es">Toca para dibujar una frontera</span></p>
+              <span><span class="t-en">Interactive poem</span><span class="t-es">Poema interactivo</span></span>
             </div>
           </div>
-          <div class="tp-activate" aria-label="Activar poema interactivo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1.5"/><path d="M13 11l8 5-8 5V11z" fill="#000"/></svg><span>Tocar para interactuar</span></div>
-          <button class="tp-exit-btn" aria-label="Salir del modo interactivo">✕ salir</button>
+          <div class="tp-activate" aria-label="Activate interactive poem"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1.5"/><path d="M13 11l8 5-8 5V11z" fill="#000"/></svg><span><span class="t-en">Tap to interact</span><span class="t-es">Tocar para interactuar</span></span></div>
+          <button class="tp-exit-btn" aria-label="Exit interactive mode"><span class="t-en">✕ exit</span><span class="t-es">✕ salir</span></button>
         </div>
         <div class="tp-slide-footer">
-          <p class="tp-desc">Un poema para dibujar el borde de todos los nombres</p>
+          <p class="tp-desc"><span class="t-en">A poem for drawing the border of every name</span><span class="t-es">Un poema para dibujar el borde de todos los nombres</span></p>
           <div class="tp-meta">
             El nombre y la frontera<br>
             2025<br>
             Processing<br>
-            <strong>Poema interactivo</strong><br>
-            Dimensiones variables
+            <strong><span class="t-en">Interactive poem</span><span class="t-es">Poema interactivo</span></strong><br>
+            <span class="t-en">Variable dimensions</span><span class="t-es">Dimensiones variables</span>
           </div>
           <div class="tp-nav">
             <button class="tp-btn" id="tp-prev" data-dir="-1" onclick="tpGo(-1)" disabled>←</button>
@@ -1520,24 +1599,24 @@ footer{
         </div>
         <div class="tp-canvas-wrap" id="tp-canvas-wrap-2">
           <div id="tp-canvas-container-2"></div>
-          <div class="tp-hint">Mueve el dedo sobre el texto</div>
+          <div class="tp-hint"><span class="t-en">Move your finger over the text</span><span class="t-es">Mueve el dedo sobre el texto</span></div>
           <div class="tp-instruction" id="tp-instr-2">
             <div class="tp-instruction-box">
-              <p>Mueve el dedo sobre el texto</p>
-              <span>Poema interactivo</span>
+              <p><span class="t-en">Move your finger over the text</span><span class="t-es">Mueve el dedo sobre el texto</span></p>
+              <span><span class="t-en">Interactive poem</span><span class="t-es">Poema interactivo</span></span>
             </div>
           </div>
-          <div class="tp-activate" aria-label="Activar poema interactivo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1.5"/><path d="M13 11l8 5-8 5V11z" fill="#000"/></svg><span>Tocar para interactuar</span></div>
-          <button class="tp-exit-btn" aria-label="Salir del modo interactivo">✕ salir</button>
+          <div class="tp-activate" aria-label="Activate interactive poem"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1.5"/><path d="M13 11l8 5-8 5V11z" fill="#000"/></svg><span><span class="t-en">Tap to interact</span><span class="t-es">Tocar para interactuar</span></span></div>
+          <button class="tp-exit-btn" aria-label="Exit interactive mode"><span class="t-en">✕ exit</span><span class="t-es">✕ salir</span></button>
         </div>
         <div class="tp-slide-footer">
-          <p class="tp-desc">Este poema es parte de una serie dedicada a visualizar conceptos.</p>
+          <p class="tp-desc"><span class="t-en">This poem is part of a series dedicated to visualizing concepts.</span><span class="t-es">Este poema es parte de una serie dedicada a visualizar conceptos.</span></p>
           <div class="tp-meta">
             Inmanente<br>
             2022<br>
             Processing<br>
-            <strong>Poema interactivo</strong><br>
-            Dimensiones variables
+            <strong><span class="t-en">Interactive poem</span><span class="t-es">Poema interactivo</span></strong><br>
+            <span class="t-en">Variable dimensions</span><span class="t-es">Dimensiones variables</span>
           </div>
           <div class="tp-nav">
             <button class="tp-btn" data-dir="-1" onclick="tpGo(-1)">←</button>
@@ -1555,24 +1634,24 @@ footer{
         </div>
         <div class="tp-canvas-wrap" id="tp-canvas-wrap-3">
           <div id="tp-canvas-container-3"></div>
-          <div class="tp-hint" id="tp-hint-3">Toca para escribir</div>
+          <div class="tp-hint" id="tp-hint-3"><span class="t-en">Tap to write</span><span class="t-es">Toca para escribir</span></div>
           <div class="tp-instruction" id="tp-instr-3">
             <div class="tp-instruction-box">
-              <p>Toca para escribir</p>
-              <span>Poema interactivo</span>
+              <p><span class="t-en">Tap to write</span><span class="t-es">Toca para escribir</span></p>
+              <span><span class="t-en">Interactive poem</span><span class="t-es">Poema interactivo</span></span>
             </div>
           </div>
-          <div class="tp-activate" aria-label="Activar poema interactivo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1.5"/><path d="M13 11l8 5-8 5V11z" fill="#000"/></svg><span>Tocar para interactuar</span></div>
-          <button class="tp-exit-btn" aria-label="Salir del modo interactivo">✕ salir</button>
+          <div class="tp-activate" aria-label="Activate interactive poem"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1.5"/><path d="M13 11l8 5-8 5V11z" fill="#000"/></svg><span><span class="t-en">Tap to interact</span><span class="t-es">Tocar para interactuar</span></span></div>
+          <button class="tp-exit-btn" aria-label="Exit interactive mode"><span class="t-en">✕ exit</span><span class="t-es">✕ salir</span></button>
         </div>
         <div class="tp-slide-footer">
-          <p class="tp-desc">Un poema sobre la resonancia del agua</p>
+          <p class="tp-desc"><span class="t-en">A poem about the resonance of water</span><span class="t-es">Un poema sobre la resonancia del agua</span></p>
           <div class="tp-meta">
             Resuena conmigo<br>
             2023<br>
             Processing<br>
-            <strong>Poema interactivo</strong><br>
-            Dimensiones variables
+            <strong><span class="t-en">Interactive poem</span><span class="t-es">Poema interactivo</span></strong><br>
+            <span class="t-en">Variable dimensions</span><span class="t-es">Dimensiones variables</span>
           </div>
           <div class="tp-nav">
             <button class="tp-btn" data-dir="-1" onclick="tpGo(-1)">←</button>
@@ -1590,24 +1669,24 @@ footer{
         </div>
         <div class="tp-canvas-wrap" id="tp-canvas-wrap-4">
           <div id="tp-canvas-container-4"></div>
-          <div class="tp-hint" id="tp-hint-4">Toca para revelar</div>
+          <div class="tp-hint" id="tp-hint-4"><span class="t-en">Tap to reveal</span><span class="t-es">Toca para revelar</span></div>
           <div class="tp-instruction" id="tp-instr-4">
             <div class="tp-instruction-box">
-              <p>Toca para revelar</p>
-              <span>Poema interactivo</span>
+              <p><span class="t-en">Tap to reveal</span><span class="t-es">Toca para revelar</span></p>
+              <span><span class="t-en">Interactive poem</span><span class="t-es">Poema interactivo</span></span>
             </div>
           </div>
-          <div class="tp-activate" aria-label="Activar poema interactivo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1.5"/><path d="M13 11l8 5-8 5V11z" fill="#000"/></svg><span>Tocar para interactuar</span></div>
-          <button class="tp-exit-btn" aria-label="Salir del modo interactivo">✕ salir</button>
+          <div class="tp-activate" aria-label="Activate interactive poem"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1.5"/><path d="M13 11l8 5-8 5V11z" fill="#000"/></svg><span><span class="t-en">Tap to interact</span><span class="t-es">Tocar para interactuar</span></span></div>
+          <button class="tp-exit-btn" aria-label="Exit interactive mode"><span class="t-en">✕ exit</span><span class="t-es">✕ salir</span></button>
         </div>
         <div class="tp-slide-footer">
-          <p class="tp-desc">El retrato de mi residencia mexicana dibujado por mis escritos como indocumentado en Mexico.</p>
+          <p class="tp-desc"><span class="t-en">A portrait of my Mexican residency, drawn from my writings as an undocumented immigrant in Mexico.</span><span class="t-es">El retrato de mi residencia mexicana dibujado por mis escritos como indocumentado en Mexico.</span></p>
           <div class="tp-meta">
             Razones Humanitarias<br>
             2024<br>
             Processing<br>
-            <strong>Poema interactivo</strong><br>
-            Dimensiones variables
+            <strong><span class="t-en">Interactive poem</span><span class="t-es">Poema interactivo</span></strong><br>
+            <span class="t-en">Variable dimensions</span><span class="t-es">Dimensiones variables</span>
           </div>
           <div class="tp-nav">
             <button class="tp-btn" data-dir="-1" onclick="tpGo(-1)">←</button>
@@ -1625,24 +1704,24 @@ footer{
         </div>
         <div class="tp-canvas-wrap" id="tp-canvas-wrap-5">
           <div id="tp-canvas-container-5"></div>
-          <div class="tp-hint" id="tp-hint-5">Mueve el cursor · toca para cambiar el texto</div>
+          <div class="tp-hint" id="tp-hint-5"><span class="t-en">Move the cursor · tap to change the text</span><span class="t-es">Mueve el cursor · toca para cambiar el texto</span></div>
           <div class="tp-instruction" id="tp-instr-5">
             <div class="tp-instruction-box">
-              <p>Mueve el cursor · toca para cambiar el texto</p>
-              <span>Poema interactivo</span>
+              <p><span class="t-en">Move the cursor · tap to change the text</span><span class="t-es">Mueve el cursor · toca para cambiar el texto</span></p>
+              <span><span class="t-en">Interactive poem</span><span class="t-es">Poema interactivo</span></span>
             </div>
           </div>
-          <div class="tp-activate" aria-label="Activar poema interactivo"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1.5"/><path d="M13 11l8 5-8 5V11z" fill="#000"/></svg><span>Tocar para interactuar</span></div>
-          <button class="tp-exit-btn" aria-label="Salir del modo interactivo">✕ salir</button>
+          <div class="tp-activate" aria-label="Activate interactive poem"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="14" stroke="#000" stroke-width="1.5"/><path d="M13 11l8 5-8 5V11z" fill="#000"/></svg><span><span class="t-en">Tap to interact</span><span class="t-es">Tocar para interactuar</span></span></div>
+          <button class="tp-exit-btn" aria-label="Exit interactive mode"><span class="t-en">✕ exit</span><span class="t-es">✕ salir</span></button>
         </div>
         <div class="tp-slide-footer">
-          <p class="tp-desc">Un poema sobre mi raza, la raza de los desplazados.</p>
+          <p class="tp-desc"><span class="t-en">A poem about my race — the race of the displaced.</span><span class="t-es">Un poema sobre mi raza, la raza de los desplazados.</span></p>
           <div class="tp-meta">
             Mi raza<br>
             2025<br>
             Processing<br>
-            <strong>Poema interactivo</strong><br>
-            Dimensiones variables
+            <strong><span class="t-en">Interactive poem</span><span class="t-es">Poema interactivo</span></strong><br>
+            <span class="t-en">Variable dimensions</span><span class="t-es">Dimensiones variables</span>
           </div>
           <div class="tp-nav">
             <button class="tp-btn" data-dir="-1" onclick="tpGo(-1)">←</button>
@@ -1660,8 +1739,8 @@ footer{
 <section id="exposiciones">
 
   <div class="expo-header-bar">
-    <p class="section-label">Grafías para caminantes</p>
-    <h2 class="section-title">Exposiciones:</h2>
+    <p class="section-label"><span class="t-en">Inscriptions for wanderers</span><span class="t-es">Grafías para caminantes</span></p>
+    <h2 class="section-title"><span class="t-en">Exhibitions:</span><span class="t-es">Exposiciones:</span></h2>
   </div>
 
   <!-- intermediate viewport wrapper — gives track a definite height -->
@@ -1672,19 +1751,19 @@ footer{
     <!-- ── Welcome ── -->
     <div class="expo-item expo-welcome-item">
       <div class="expo-welcome-inner">
-        <h2 class="expo-welcome-title">Poemas en el espacio.</h2>
+        <h2 class="expo-welcome-title"><span class="t-en">Poems in space.</span><span class="t-es">Poemas en el espacio.</span></h2>
       </div>
     </div>
 
     <!-- ── EXPOSICIÓN 1: Desplazamiento Forzado ── -->
     <div class="expo-item">
-      <h2 class="expo-title">Desplazamiento<br>forzado</h2>
+      <h2 class="expo-title"><span class="t-en">Forced<br>Displacement</span><span class="t-es">Desplazamiento<br>forzado</span></h2>
       <div class="expo-content">
         <div class="expo-left">
-          <p class="expo-desc">Desplazamiento Forzado es un proyecto expositivo sobre la migración venezolana que explora la fractura familiar como consecuencia de los procesos migratorios. A través de poemas interactivos, material de archivo y videoensayos, la exposición recrea el reencuentro entre los hermanos gemelos Nicolás Gerardi Rousset y Augusto Gerardi Rousset tras cinco años de separación física.</p>
+          <p class="expo-desc"><span class="t-en">Forced Displacement is an exhibition project on Venezuelan migration that explores family fracture as a consequence of migratory processes. Through interactive poems, archival material, and video essays, the exhibition recreates the reunion between twin brothers Nicolás Gerardi Rousset and Augusto Gerardi Rousset after five years of physical separation.</span><span class="t-es">Desplazamiento Forzado es un proyecto expositivo sobre la migración venezolana que explora la fractura familiar como consecuencia de los procesos migratorios. A través de poemas interactivos, material de archivo y videoensayos, la exposición recrea el reencuentro entre los hermanos gemelos Nicolás Gerardi Rousset y Augusto Gerardi Rousset tras cinco años de separación física.</span></p>
           <div class="expo-meta">
-            <span style="text-decoration:underline">Inauguración</span><br>
-            11 de abril · 2026<br>
+            <span style="text-decoration:underline"><span class="t-en">Opening</span><span class="t-es">Inauguración</span></span><br>
+            <span class="t-en">April 11 · 2026</span><span class="t-es">11 de abril · 2026</span><br>
             ID Art Lab<br>
             <strong>676 NW Miami, FL</strong><br>
             33127
@@ -1713,7 +1792,7 @@ footer{
               <button class="media-btn" data-mc="1" data-dir="1">→</button>
             </div>
           </div>
-          <a class="expo-pdf-btn" href="desplazamientoforzado/catalogo.pdf" target="_blank" rel="noopener">PDF — Catálogo</a>
+          <a class="expo-pdf-btn" href="desplazamientoforzado/catalogo.pdf" target="_blank" rel="noopener"><span class="t-en">PDF — Catalog</span><span class="t-es">PDF — Catálogo</span></a>
         </div>
       </div>
     </div>
@@ -1723,7 +1802,7 @@ footer{
       <h2 class="expo-title">Río<br>Menor</h2>
       <div class="expo-content">
         <div class="expo-left">
-          <p class="expo-desc">Los nombres de los menores de edad que murieron intentando cruzar a los Estados Unidos los primeros 4 meses de 2023. El poema inmersivo reacciona al público en la sala a través de un sensor, cuando el espectador entra a la sala el sonido del agua se detiene y hace los nombres legibles, al abandonar el cuarto, los nombres se desvanecen y el sonido del río retorna. Una reflexión sobre la memoria, la migración y la postpoesía.</p>
+          <p class="expo-desc"><span class="t-en">The names of the minors who died attempting to cross into the United States during the first four months of 2023. The immersive poem reacts to the audience in the room through a sensor: when a viewer enters, the sound of water stops and the names become legible; when they leave, the names fade and the river's sound returns. A reflection on memory, migration, and post-poetry.</span><span class="t-es">Los nombres de los menores de edad que murieron intentando cruzar a los Estados Unidos los primeros 4 meses de 2023. El poema inmersivo reacciona al público en la sala a través de un sensor, cuando el espectador entra a la sala el sonido del agua se detiene y hace los nombres legibles, al abandonar el cuarto, los nombres se desvanecen y el sonido del río retorna. Una reflexión sobre la memoria, la migración y la postpoesía.</span></p>
           <div class="expo-meta">
             Río Menor<br>
             Public Space One<br>
@@ -1743,7 +1822,7 @@ footer{
               <button class="media-btn" data-mc="2" data-dir="1">→</button>
             </div>
           </div>
-          <a class="expo-pdf-btn" href="riomenor/catalogo.pdf" target="_blank" rel="noopener">PDF — Catálogo</a>
+          <a class="expo-pdf-btn" href="riomenor/catalogo.pdf" target="_blank" rel="noopener"><span class="t-en">PDF — Catalog</span><span class="t-es">PDF — Catálogo</span></a>
         </div>
       </div>
     </div>
@@ -1753,10 +1832,10 @@ footer{
       <h2 class="expo-title">Interactive<br>Media Hydra</h2>
       <div class="expo-content">
         <div class="expo-left">
-          <p class="expo-desc">Diez días en la residencia de arte Art Pace para realizar el video mapping e interacción de la pieza Hydra de la artista Violette Bule. La pieza aborda el tema del lucro a través de los sistemas de cárceles privadas en Estados Unidos.</p>
+          <p class="expo-desc"><span class="t-en">Ten days at the Artpace artist residency to create the video mapping and interaction design for Hydra, a piece by artist Violette Bule. The work addresses profit through the private prison systems of the United States.</span><span class="t-es">Diez días en la residencia de arte Art Pace para realizar el video mapping e interacción de la pieza Hydra de la artista Violette Bule. La pieza aborda el tema del lucro a través de los sistemas de cárceles privadas en Estados Unidos.</span></p>
           <div class="expo-meta">
             Hydra<br>
-            19 de marzo · 2026<br>
+            <span class="t-en">March 19 · 2026</span><span class="t-es">19 de marzo · 2026</span><br>
             Art Pace<br>
             <strong>San Antonio, Texas</strong>
           </div>
@@ -1769,7 +1848,7 @@ footer{
               </div>
             </div>
           </div>
-          <a class="expo-pdf-btn" href="hydra/catalogo.pdf" target="_blank" rel="noopener">PDF — Catálogo</a>
+          <a class="expo-pdf-btn" href="hydra/catalogo.pdf" target="_blank" rel="noopener"><span class="t-en">PDF — Catalog</span><span class="t-es">PDF — Catálogo</span></a>
         </div>
       </div>
     </div>
@@ -1780,7 +1859,7 @@ footer{
 
   <!-- section footer -->
   <div class="expo-footer">
-    <p class="expo-section-label">Grafías para caminantes · 3 proyectos</p>
+    <p class="expo-section-label"><span class="t-en">Inscriptions for wanderers · 3 projects</span><span class="t-es">Grafías para caminantes · 3 proyectos</span></p>
     <div class="expo-nav">
       <button class="expo-nav-btn" id="expo-prev" disabled>←</button>
       <span class="expo-nav-counter" id="expo-counter">1 / 3</span>
@@ -1793,23 +1872,23 @@ footer{
 <!-- ── CV ── -->
 <section id="cv">
 <div class="cv-header">
-<div><p class="section-label">Trayectoria</p><h2 class="section-title">Curriculum <em>Vitae</em></h2></div>
-<a href="cv/gerardi_rousset_cv.pdf" target="_blank" rel="noopener" class="cv-download">Descargar PDF ↓</a>
+<div><p class="section-label"><span class="t-en">Career</span><span class="t-es">Trayectoria</span></p><h2 class="section-title">Curriculum <em>Vitae</em></h2></div>
+<a href="cv/gerardi_rousset_cv.pdf" target="_blank" rel="noopener" class="cv-download"><span class="t-en">Download PDF ↓</span><span class="t-es"><span class="t-en">Download PDF ↓</span><span class="t-es"><span class="t-en">Download PDF ↓</span><span class="t-es">Descargar PDF ↓</span></span></span></a>
 </div>
 
 <div class="cv-accordion">
 
 <details class="cv-details">
-<summary class="cv-summary">Formación</summary>
+<summary class="cv-summary"><span class="t-en">Education</span><span class="t-es">Formación</span></summary>
 <div class="cv-grid">
 <div class="cv-entry"><div class="cv-year">2024 —<br>2029</div><div class="cv-detail"><p class="cv-role">PhD Student</p><p class="cv-org">University of Miami — Miami, Florida</p></div></div>
 <div class="cv-entry"><div class="cv-year">2022 —<br>2024</div><div class="cv-detail"><p class="cv-role">Master of Fine Arts in Spanish Creative Writing</p><p class="cv-org">University of Iowa — Iowa City, Iowa</p><p class="cv-note">GPA: 4.00</p></div></div>
-<div class="cv-entry"><div class="cv-year">2007 —<br>2013</div><div class="cv-detail"><p class="cv-role">Licenciatura en Literatura Latinoamericana, mención Lingüística</p><p class="cv-org">Universidad Católica Andrés Bello — Caracas, Venezuela</p></div></div>
+<div class="cv-entry"><div class="cv-year">2007 —<br>2013</div><div class="cv-detail"><p class="cv-role"><span class="t-en">BA in Latin American Literature, Linguistics concentration</span><span class="t-es">Licenciatura en Literatura Latinoamericana, mención Lingüística</span></p><p class="cv-org">Universidad Católica Andrés Bello — Caracas, Venezuela</p></div></div>
 </div>
 </details>
 
 <details class="cv-details">
-<summary class="cv-summary">Empleo</summary>
+<summary class="cv-summary"><span class="t-en">Employment</span><span class="t-es">Empleo</span></summary>
 <div class="cv-grid">
 <div class="cv-entry"><div class="cv-year">2024 —<br>2029</div><div class="cv-detail"><p class="cv-role">Teaching Assistant</p><p class="cv-org">University of Miami — Miami, Florida</p></div></div>
 <div class="cv-entry"><div class="cv-year">2023 —<br>2024</div><div class="cv-detail"><p class="cv-role">Research Assistant &amp; Social Media Manager</p><p class="cv-org">University of Iowa — Iowa City, Iowa</p></div></div>
@@ -1819,23 +1898,23 @@ footer{
 </details>
 
 <details class="cv-details">
-<summary class="cv-summary">Becas y Premios</summary>
+<summary class="cv-summary"><span class="t-en">Grants &amp; Awards</span><span class="t-es">Becas y Premios</span></summary>
 <div class="cv-grid">
-<div class="cv-entry"><div class="cv-year">2026</div><div class="cv-detail"><p class="cv-role">Digital Humanities Summer Scholarship</p><p class="cv-org">University of Miami</p><p class="cv-note">Desarrollo del primer podcast sobre Tecnopoética en el Caribe.</p></div></div>
-<div class="cv-entry"><div class="cv-year">2025</div><div class="cv-detail"><p class="cv-role">Artpace Residency Grant</p><p class="cv-org">Artpace — San Antonio, Texas</p><p class="cv-note">Comisión de medios interactivos para la instalación Hydra de Violette Bule.</p></div></div>
+<div class="cv-entry"><div class="cv-year">2026</div><div class="cv-detail"><p class="cv-role">Digital Humanities Summer Scholarship</p><p class="cv-org">University of Miami</p><p class="cv-note"><span class="t-en">Developed the first podcast on Techno-Poetics in the Caribbean.</span><span class="t-es">Desarrollo del primer podcast sobre Tecnopoética en el Caribe.</span></p></div></div>
+<div class="cv-entry"><div class="cv-year">2025</div><div class="cv-detail"><p class="cv-role">Artpace Residency Grant</p><p class="cv-org">Artpace — San Antonio, Texas</p><p class="cv-note"><span class="t-en">Commissioned interactive media for Violette Bule&#39;s installation Hydra.</span><span class="t-es">Comisión de medios interactivos para la instalación Hydra de Violette Bule.</span></p></div></div>
 <div class="cv-entry"><div class="cv-year">2025</div><div class="cv-detail"><p class="cv-role">Best Graduate Student Data Visualization — C.O.M.A.R.</p><p class="cv-org">Annual Interactive Media Showcase, University of Miami</p></div></div>
-<div class="cv-entry"><div class="cv-year">2023</div><div class="cv-detail"><p class="cv-role">Ruth Davis Summer Fellowship</p><p class="cv-org">University of Iowa — Iowa City</p><p class="cv-note">Para el proyecto Prácticas Migratorias, obra multimedia interactiva.</p></div></div>
-<div class="cv-entry"><div class="cv-year">2022</div><div class="cv-detail"><p class="cv-role">Letterpress Scholarship</p><p class="cv-org">La Ceiba Gráfica — Veracruz, México</p><p class="cv-note">Residencia intensiva de dos semanas en artes gráficas e impresión artesanal.</p></div></div>
+<div class="cv-entry"><div class="cv-year">2023</div><div class="cv-detail"><p class="cv-role">Ruth Davis Summer Fellowship</p><p class="cv-org">University of Iowa — Iowa City</p><p class="cv-note"><span class="t-en">For the project Prácticas Migratorias, an interactive multimedia work.</span><span class="t-es">Para el proyecto Prácticas Migratorias, obra multimedia interactiva.</span></p></div></div>
+<div class="cv-entry"><div class="cv-year">2022</div><div class="cv-detail"><p class="cv-role">Letterpress Scholarship</p><p class="cv-org">La Ceiba Gráfica — Veracruz, México</p><p class="cv-note"><span class="t-en">Two-week intensive residency in graphic arts and handmade printing.</span><span class="t-es">Residencia intensiva de dos semanas en artes gráficas e impresión artesanal.</span></p></div></div>
 </div>
 </details>
 
 <details class="cv-details">
-<summary class="cv-summary">Conferencias</summary>
+<summary class="cv-summary"><span class="t-en">Talks</span><span class="t-es">Conferencias</span></summary>
 <div class="cv-grid">
-<div class="cv-entry"><div class="cv-year">2025</div><div class="cv-detail"><p class="cv-role">Caribbean Techno-Poetics in the 1990s: Kamau Brathwaite, Yucef Merhi, and Eduardo Kac</p><p class="cv-org">The Caribbean Digital XII — Northeastern University, Diciembre</p></div></div>
-<div class="cv-entry"><div class="cv-year">2025</div><div class="cv-detail"><p class="cv-role">Techno-Poetics in the Caribbean: The Sycorax Community</p><p class="cv-org">43rd Annual West Indian Literature Conference — University of Miami, Agosto</p></div></div>
-<div class="cv-entry"><div class="cv-year">2025</div><div class="cv-detail"><p class="cv-role">Hostile Technologies: Digital Authoritarianism and the Disabling of Identity</p><p class="cv-org">Dept. of Modern Languages and Literatures — University of Miami, Febrero</p></div></div>
-<div class="cv-entry"><div class="cv-year">2022</div><div class="cv-detail"><p class="cv-role">CaribePop Manifest</p><p class="cv-org">Fotofocus Biennial — University of Cincinnati &amp; Northern Kentucky University, Octubre</p></div></div>
+<div class="cv-entry"><div class="cv-year">2025</div><div class="cv-detail"><p class="cv-role">Caribbean Techno-Poetics in the 1990s: Kamau Brathwaite, Yucef Merhi, and Eduardo Kac</p><p class="cv-org">The Caribbean Digital XII — Northeastern University, <span class="t-en">December</span><span class="t-es">Diciembre</span></p></div></div>
+<div class="cv-entry"><div class="cv-year">2025</div><div class="cv-detail"><p class="cv-role">Techno-Poetics in the Caribbean: The Sycorax Community</p><p class="cv-org">43rd Annual West Indian Literature Conference — University of Miami, <span class="t-en">August</span><span class="t-es">Agosto</span></p></div></div>
+<div class="cv-entry"><div class="cv-year">2025</div><div class="cv-detail"><p class="cv-role">Hostile Technologies: Digital Authoritarianism and the Disabling of Identity</p><p class="cv-org">Dept. of Modern Languages and Literatures — University of Miami, <span class="t-en">February</span><span class="t-es">Febrero</span></p></div></div>
+<div class="cv-entry"><div class="cv-year">2022</div><div class="cv-detail"><p class="cv-role">CaribePop Manifest</p><p class="cv-org">Fotofocus Biennial — University of Cincinnati &amp; Northern Kentucky University, <span class="t-en">October</span><span class="t-es">Octubre</span></p></div></div>
 </div>
 </details>
 
@@ -1845,8 +1924,8 @@ footer{
 <!-- ── ESCRITURAS ── -->
 <section id="escrituras">
   <div class="escrituras-top">
-    <p class="section-label">Experiencias lineales</p>
-    <h2 class="section-title">Escrituras</h2>
+    <p class="section-label"><span class="t-en">Linear experiences</span><span class="t-es">Experiencias lineales</span></p>
+    <h2 class="section-title"><span class="t-en">Writings</span><span class="t-es">Escrituras</span></h2>
   </div>
 
   <div class="esc-viewport">
@@ -1855,7 +1934,7 @@ footer{
       <!-- 1 · Welcome -->
       <div class="esc-slide esc-slide-welcome">
         <div class="esc-welcome-inner">
-          <h3 class="esc-welcome-title">Un cosmos de textos e ideas.</h3>
+          <h3 class="esc-welcome-title"><span class="t-en">A cosmos of texts and ideas.</span><span class="t-es">Un cosmos de textos e ideas.</span></h3>
         </div>
       </div>
 
@@ -1867,9 +1946,9 @@ footer{
         <div class="esc-caption-row">
           <p class="esc-caption">
             <strong>PDF Papel Literario</strong> · El Nacional ·
-            Diciembre 21, 2025 · pp. 4–5 · Caracas, Venezuela
+            <span class="t-en">December 21, 2025 · pp. 4–5 · Caracas, Venezuela</span><span class="t-es">Diciembre 21, 2025 · pp. 4–5 · Caracas, Venezuela</span>
           </p>
-          <a class="esc-download-btn" href="media/papel_literario_full.pdf" download>Descargar PDF ↓</a>
+          <a class="esc-download-btn" href="media/papel_literario_full.pdf" download><span class="t-en">Download PDF ↓</span><span class="t-es"><span class="t-en">Download PDF ↓</span><span class="t-es">Descargar PDF ↓</span></span></a>
         </div>
       </div>
 
@@ -1880,12 +1959,12 @@ footer{
         </div>
         <div class="esc-caption-row">
           <p class="esc-caption">
-            <strong>Mauricio Ceppi: Pionero del Videomapping en Venezuela</strong> ·
-            Backroom Caracas · Escritura Expandida · backroomcaracas.com
+            <strong><span class="t-en">Mauricio Ceppi: Pioneer of Video Mapping in Venezuela</span><span class="t-es">Mauricio Ceppi: Pionero del Videomapping en Venezuela</span></strong> ·
+            Backroom Caracas · <span class="t-en">Expanded Writing</span><span class="t-es">Escritura Expandida</span> · backroomcaracas.com
           </p>
           <div style="display:flex;gap:10px;flex-shrink:0;">
-            <a class="esc-download-btn" href="http://backroomcaracas.com/escritura-expandida/mauricio-ceppi-pionero-del-videomapping-en-venezuela/" target="_blank" rel="noopener">Ver artículo ↗</a>
-            <a class="esc-download-btn" href="media/mauricio_ceppi.pdf" download style="background:#fff;color:#000;box-shadow:inset 0 0 0 1px #000;">Descargar PDF ↓</a>
+            <a class="esc-download-btn" href="http://backroomcaracas.com/escritura-expandida/mauricio-ceppi-pionero-del-videomapping-en-venezuela/" target="_blank" rel="noopener"><span class="t-en">View article ↗</span><span class="t-es">Ver artículo ↗</span></a>
+            <a class="esc-download-btn" href="media/mauricio_ceppi.pdf" download style="background:#fff;color:#000;box-shadow:inset 0 0 0 1px #000;"><span class="t-en">Download PDF ↓</span><span class="t-es"><span class="t-en">Download PDF ↓</span><span class="t-es">Descargar PDF ↓</span></span></a>
           </div>
         </div>
       </div>
@@ -1898,11 +1977,11 @@ footer{
         <div class="esc-caption-row">
           <p class="esc-caption">
             <strong>Táctica de Acceso</strong> ·
-            Backroom Caracas · Escritura Expandida · backroomcaracas.com
+            Backroom Caracas · <span class="t-en">Expanded Writing</span><span class="t-es">Escritura Expandida</span> · backroomcaracas.com
           </p>
           <div style="display:flex;gap:10px;flex-shrink:0;">
-            <a class="esc-download-btn" href="http://backroomcaracas.com/escritura-expandida/tactica-de-acceso/" target="_blank" rel="noopener">Ver artículo ↗</a>
-            <a class="esc-download-btn" href="media/tacticas_acceso.pdf" download style="background:#fff;color:#000;box-shadow:inset 0 0 0 1px #000;">Descargar PDF ↓</a>
+            <a class="esc-download-btn" href="http://backroomcaracas.com/escritura-expandida/tactica-de-acceso/" target="_blank" rel="noopener"><span class="t-en">View article ↗</span><span class="t-es">Ver artículo ↗</span></a>
+            <a class="esc-download-btn" href="media/tacticas_acceso.pdf" download style="background:#fff;color:#000;box-shadow:inset 0 0 0 1px #000;"><span class="t-en">Download PDF ↓</span><span class="t-es"><span class="t-en">Download PDF ↓</span><span class="t-es">Descargar PDF ↓</span></span></a>
           </div>
         </div>
       </div>
@@ -1914,10 +1993,10 @@ footer{
         </div>
         <div class="esc-caption-row">
           <p class="esc-caption">
-            <strong>Ojo</strong> · Número 19 · pp. 22–23 ·
-            Revista de crítica e investigación artística · Caracas, Venezuela
+            <strong>Ojo</strong> · <span class="t-en">Issue 19</span><span class="t-es">Número 19</span> · pp. 22–23 ·
+            <span class="t-en">Journal of Art Criticism and Research</span><span class="t-es">Revista de crítica e investigación artística</span> · Caracas, Venezuela
           </p>
-          <a class="esc-download-btn" href="media/ojo19_real.pdf" download>Descargar PDF ↓</a>
+          <a class="esc-download-btn" href="media/ojo19_real.pdf" download><span class="t-en">Download PDF ↓</span><span class="t-es"><span class="t-en">Download PDF ↓</span><span class="t-es">Descargar PDF ↓</span></span></a>
         </div>
       </div>
 
@@ -1928,10 +2007,10 @@ footer{
         </div>
         <div class="esc-caption-row">
           <p class="esc-caption">
-            <strong>Ojo</strong> · Número 17 · p. 16 ·
-            Revista de crítica e investigación artística · Caracas, Venezuela
+            <strong>Ojo</strong> · <span class="t-en">Issue 17</span><span class="t-es">Número 17</span> · p. 16 ·
+            <span class="t-en">Journal of Art Criticism and Research</span><span class="t-es">Revista de crítica e investigación artística</span> · Caracas, Venezuela
           </p>
-          <a class="esc-download-btn" href="media/ojo17.pdf" download>Descargar PDF ↓</a>
+          <a class="esc-download-btn" href="media/ojo17.pdf" download><span class="t-en">Download PDF ↓</span><span class="t-es"><span class="t-en">Download PDF ↓</span><span class="t-es">Descargar PDF ↓</span></span></a>
         </div>
       </div>
 
@@ -1941,7 +2020,7 @@ footer{
           <img src="media/portadapsd.jpg" alt="Portada PSD">
         </div>
         <p class="esc-caption">
-          <strong>Portada PSD</strong> · Diseño editorial · Archivo de trabajo
+          <strong><span class="t-en">Cover PSD</span><span class="t-es">Portada PSD</span></strong> · <span class="t-en">Editorial design</span><span class="t-es">Diseño editorial</span> · <span class="t-en">Working archive</span><span class="t-es">Archivo de trabajo</span>
         </p>
       </div>
 
@@ -1951,7 +2030,7 @@ footer{
           <img src="media/penetra_en_la_cascara3.jpg" alt="Penetra en la cáscara I">
         </div>
         <p class="esc-caption">
-          <strong>Penetra en la cáscara</strong> · I · Poema visual · 1275 × 1650 px
+          <strong>Penetra en la cáscara</strong> · I · <span class="t-en">Visual poem</span><span class="t-es">Poema visual</span> · 1275 × 1650 px
         </p>
       </div>
 
@@ -1961,7 +2040,7 @@ footer{
           <img src="media/penetra_en_la_cascara4.jpg" alt="Penetra en la cáscara II">
         </div>
         <p class="esc-caption">
-          <strong>Penetra en la cáscara</strong> · II · Poema visual
+          <strong>Penetra en la cáscara</strong> · II · <span class="t-en">Visual poem</span><span class="t-es">Poema visual</span>
         </p>
       </div>
 
@@ -1985,7 +2064,7 @@ footer{
           </div>
         </div>
         <p class="esc-caption">
-          <strong>Propaganda Anticomunista</strong> · Serie fotográfica · 6 imágenes · Archivo visual
+          <strong><span class="t-en">Anti-Communist Propaganda</span><span class="t-es">Propaganda Anticomunista</span></strong> · <span class="t-en">Photo series</span><span class="t-es">Serie fotográfica</span> · <span class="t-en">6 images</span><span class="t-es">6 imágenes</span> · <span class="t-en">Visual archive</span><span class="t-es">Archivo visual</span>
         </p>
       </div>
 
@@ -2001,7 +2080,7 @@ footer{
         </div>
         <p class="esc-caption">
           <strong>Post Media Communication</strong> · <strong>Cognitive Affective</strong> ·
-          Impresión CMYK · 1275 × 1650 px · Archivo de trabajo
+          <span class="t-en">CMYK print</span><span class="t-es">Impresión CMYK</span> · 1275 × 1650 px · <span class="t-en">Working archive</span><span class="t-es">Archivo de trabajo</span>
         </p>
       </div>
 
@@ -2017,7 +2096,7 @@ footer{
         </div>
         <p class="esc-caption">
           <strong>Neotropical Realm</strong> · <strong>Gabriel García Jones</strong> ·
-          Impresión CMYK · 1157 × 1476 px · Archivo de trabajo
+          <span class="t-en">CMYK print</span><span class="t-es">Impresión CMYK</span> · 1157 × 1476 px · <span class="t-en">Working archive</span><span class="t-es">Archivo de trabajo</span>
         </p>
       </div>
 
@@ -2043,8 +2122,8 @@ footer{
           </div>
         </div>
         <p class="esc-caption">
-          <strong>Descargas</strong> · Playas venezolanas en 2035, imaginadas a través de Cabre y Midjourney ·
-          Serie generativa · 8 imágenes · 2024
+          <strong><span class="t-en">Downloads</span><span class="t-es">Descargas</span></strong> · <span class="t-en">Venezuelan beaches in 2035, imagined through Cabre and Midjourney</span><span class="t-es">Playas venezolanas en 2035, imaginadas a través de Cabre y Midjourney</span> ·
+          <span class="t-en">Generative series</span><span class="t-es">Serie generativa</span> · <span class="t-en">8 images</span><span class="t-es">8 imágenes</span> · 2024
         </p>
       </div>
 
@@ -2052,7 +2131,7 @@ footer{
   </div><!-- /esc-viewport -->
 
   <div class="esc-footer">
-    <p class="esc-section-label">Escrituras</p>
+    <p class="esc-section-label"><span class="t-en">Writings</span><span class="t-es">Escrituras</span></p>
     <div class="esc-nav">
       <button class="esc-nav-btn" id="esc-prev" disabled>←</button>
       <span class="esc-nav-counter" id="esc-counter">1 / 13</span>
@@ -2064,8 +2143,8 @@ footer{
 <!-- ── LIBROS ── -->
 <section id="libros">
 <div class="libros-header-bar">
-  <p class="section-label">Libros, zines e impresiones</p>
-  <h2 class="section-title">Libros de <em>Artistas</em></h2>
+  <p class="section-label"><span class="t-en">Books, zines &amp; prints</span><span class="t-es">Libros, zines e impresiones</span></p>
+  <h2 class="section-title"><span class="t-en">Artist <em>Books</em></span><span class="t-es">Libros de <em>Artistas</em></span></h2>
 </div>
 
 <div class="libros-slideshow">
@@ -2073,7 +2152,7 @@ footer{
 
   <!-- SLIDE 0: Welcome -->
   <div class="libro-slide libro-welcome-slide">
-    <h2 class="libro-welcome-title">Publicaciones tejidas<br>con los dígitos de mis manos.</h2>
+    <h2 class="libro-welcome-title"><span class="t-en">Publications woven<br>with the digits of my hands.</span><span class="t-es">Publicaciones tejidas<br>con los dígitos de mis manos.</span></h2>
   </div>
 
   <!-- SLIDE 1: El Nuevo Mundo Desconocido -->
@@ -2083,13 +2162,13 @@ footer{
         <img src="media/libros/el_nuevo_mundo/archive_pdf.gif" alt="El Nuevo Mundo Desconocido — páginas PDF">
       </div>
       <div class="libro-text-left">
-        <p class="libro-desc-left">Reimpresión del libro de Jacob Van Meurs del mismo título, tras remover todos los textos. Una historia gráfica de la conquista.</p>
-        <p class="libro-meta-left">80 copias<br>2019<br>Tulum · México</p>
+        <p class="libro-desc-left"><span class="t-en">A reprint of Jacob Van Meurs's book of the same title, with all text removed. A graphic history of the conquest.</span><span class="t-es">Reimpresión del libro de Jacob Van Meurs del mismo título, tras remover todos los textos. Una historia gráfica de la conquista.</span></p>
+        <p class="libro-meta-left"><span class="t-en">80 copies</span><span class="t-es">80 copias</span><br>2019<br>Tulum · <span class="t-en">Mexico</span><span class="t-es">México</span></p>
       </div>
       <div class="libro-bottom-right">
         <div class="libro-left-bottom">
           <div class="libro-thumbs" id="lbthumbs-1"></div>
-          <a class="esc-download-btn" href="https://drive.google.com/file/d/1IgLK9zCP8CEG0a7U6aY3hAeeRpq-1VSn/view" target="_blank" rel="noopener">Ver PDF ↗</a>
+          <a class="esc-download-btn" href="https://drive.google.com/file/d/1IgLK9zCP8CEG0a7U6aY3hAeeRpq-1VSn/view" target="_blank" rel="noopener"><span class="t-en">View PDF ↗</span><span class="t-es"><span class="t-en">View PDF ↗</span><span class="t-es">Ver PDF ↗</span></span></a>
         </div>
         <h2 class="libro-title-big">El Nuevo<br>Mundo<br>Desconocido</h2>
       </div>
@@ -2115,13 +2194,13 @@ footer{
         <img src="media/libros/viaggio_a_tulum/archive_pdf.gif" alt="Viaggio a Tulum — páginas PDF">
       </div>
       <div class="libro-text-left">
-        <p class="libro-desc-left">Reimpresión crítica de la novela gráfica de Federico Fellini, ilustrada por Milo Manara, con un enfoque sobre el turismo y la colonización.</p>
-        <p class="libro-meta-left">80 copias<br>2019<br>Tulum · México</p>
+        <p class="libro-desc-left"><span class="t-en">A critical reprint of Federico Fellini's graphic novel, illustrated by Milo Manara, focused on tourism and colonization.</span><span class="t-es">Reimpresión crítica de la novela gráfica de Federico Fellini, ilustrada por Milo Manara, con un enfoque sobre el turismo y la colonización.</span></p>
+        <p class="libro-meta-left"><span class="t-en">80 copies</span><span class="t-es">80 copias</span><br>2019<br>Tulum · <span class="t-en">Mexico</span><span class="t-es">México</span></p>
       </div>
       <div class="libro-bottom-right">
         <div class="libro-left-bottom">
           <div class="libro-thumbs" id="lbthumbs-2"></div>
-          <a class="esc-download-btn" href="https://drive.google.com/file/d/1V54NLdt-EOjKZsUugQ2Sn7TCZ87Ns9lT/view" target="_blank" rel="noopener">Ver PDF ↗</a>
+          <a class="esc-download-btn" href="https://drive.google.com/file/d/1V54NLdt-EOjKZsUugQ2Sn7TCZ87Ns9lT/view" target="_blank" rel="noopener"><span class="t-en">View PDF ↗</span><span class="t-es"><span class="t-en">View PDF ↗</span><span class="t-es">Ver PDF ↗</span></span></a>
         </div>
         <h2 class="libro-title-big">Viaggio<br>a Tulum</h2>
       </div>
@@ -2147,13 +2226,13 @@ footer{
         <img src="media/libros/Le_Kino_Tooj/archive_pdf.gif" alt="Le Kino Tooj — páginas PDF">
       </div>
       <div class="libro-text-left">
-        <p class="libro-desc-left">Poemario trilingüe en maya yucateco, español e inglés de David Balam, con ilustraciones de Linda Schele.</p>
-        <p class="libro-meta-left">120 copias<br>2019<br>Tulum · México</p>
+        <p class="libro-desc-left"><span class="t-en">A trilingual poetry collection in Yucatec Maya, Spanish, and English by David Balam, illustrated by Linda Schele.</span><span class="t-es">Poemario trilingüe en maya yucateco, español e inglés de David Balam, con ilustraciones de Linda Schele.</span></p>
+        <p class="libro-meta-left"><span class="t-en">120 copies</span><span class="t-es">120 copias</span><br>2019<br>Tulum · <span class="t-en">Mexico</span><span class="t-es">México</span></p>
       </div>
       <div class="libro-bottom-right">
         <div class="libro-left-bottom">
           <div class="libro-thumbs" id="lbthumbs-3"></div>
-          <a class="esc-download-btn" href="media/libros/Le_Kino_Tooj/Fili_Tah_Balam.pdf" download>Descargar PDF ↓</a>
+          <a class="esc-download-btn" href="media/libros/Le_Kino_Tooj/Fili_Tah_Balam.pdf" download><span class="t-en">Download PDF ↓</span><span class="t-es"><span class="t-en">Download PDF ↓</span><span class="t-es">Descargar PDF ↓</span></span></a>
         </div>
         <h2 class="libro-title-big">Le Kino<br>Tooj</h2>
       </div>
@@ -2179,13 +2258,13 @@ footer{
         <img src="media/libros/uy_ur/archive.gif" alt="Uy Ur — fotos">
       </div>
       <div class="libro-text-left">
-        <p class="libro-desc-left">Fotopoemario sobre los desplazamientos humanos: de Baruta a Tulum, de Tulum a Guadalajara.</p>
-        <p class="libro-meta-left">40 copias<br>2020<br>Tulum · México</p>
+        <p class="libro-desc-left"><span class="t-en">A photo-poetry collection on human displacement: from Baruta to Tulum, from Tulum to Guadalajara.</span><span class="t-es">Fotopoemario sobre los desplazamientos humanos: de Baruta a Tulum, de Tulum a Guadalajara.</span></p>
+        <p class="libro-meta-left"><span class="t-en">40 copies</span><span class="t-es">40 copias</span><br>2020<br>Tulum · <span class="t-en">Mexico</span><span class="t-es">México</span></p>
       </div>
       <div class="libro-bottom-right">
         <div class="libro-left-bottom">
           <div class="libro-thumbs" id="lbthumbs-4"></div>
-          <a class="esc-download-btn" href="media/libros/uy_ur/UyUyUy_UrUrUr.pdf" download>Descargar PDF ↓</a>
+          <a class="esc-download-btn" href="media/libros/uy_ur/UyUyUy_UrUrUr.pdf" download><span class="t-en">Download PDF ↓</span><span class="t-es"><span class="t-en">Download PDF ↓</span><span class="t-es">Descargar PDF ↓</span></span></a>
         </div>
         <h2 class="libro-title-big">Uy,Uy,Uy,<br>Ur,Ur,Ur</h2>
       </div>
@@ -2211,8 +2290,8 @@ footer{
         <img src="media/libros/Panopticon_Flower/archive.gif" alt="Panopticon Flower — fotos">
       </div>
       <div class="libro-text-left">
-        <p class="libro-desc-left">Poema-escultura en formato carrusel que adopta simultáneamente la forma de un panóptico y de una flor.</p>
-        <p class="libro-meta-left">48 copias<br>2023<br>Iowa · Miami, EUA</p>
+        <p class="libro-desc-left"><span class="t-en">A poem-sculpture in carousel format that simultaneously takes the shape of a panopticon and a flower.</span><span class="t-es">Poema-escultura en formato carrusel que adopta simultáneamente la forma de un panóptico y de una flor.</span></p>
+        <p class="libro-meta-left"><span class="t-en">48 copies</span><span class="t-es">48 copias</span><br>2023<br>Iowa · Miami, <span class="t-en">USA</span><span class="t-es">EUA</span></p>
       </div>
       <div class="libro-bottom-right">
         <div class="libro-left-bottom">
@@ -2242,13 +2321,13 @@ footer{
         <img src="media/libros/poema_processo/archive_pdf.gif" alt="Poema Processo — páginas">
       </div>
       <div class="libro-text-left">
-        <p class="libro-desc-left">Impresión facsimilar del libro Poema Processo de Wlademir Dias-Pino, acompañada de un estudio introductorio.</p>
-        <p class="libro-meta-left">20 copias<br>2024<br>Iowa · Miami, EUA</p>
+        <p class="libro-desc-left"><span class="t-en">A facsimile print of Wlademir Dias-Pino's book Poema Processo, accompanied by an introductory study.</span><span class="t-es">Impresión facsimilar del libro Poema Processo de Wlademir Dias-Pino, acompañada de un estudio introductorio.</span></p>
+        <p class="libro-meta-left"><span class="t-en">20 copies</span><span class="t-es">20 copias</span><br>2024<br>Iowa · Miami, <span class="t-en">USA</span><span class="t-es">EUA</span></p>
       </div>
       <div class="libro-bottom-right">
         <div class="libro-left-bottom">
           <div class="libro-thumbs" id="lbthumbs-6"></div>
-          <a class="esc-download-btn" href="media/libros/poema_processo/Poema_Proceso_Proemio.pdf" download>Proemio PDF ↓</a>
+          <a class="esc-download-btn" href="media/libros/poema_processo/Poema_Proceso_Proemio.pdf" download><span class="t-en">Preface PDF ↓</span><span class="t-es">Proemio PDF ↓</span></a>
         </div>
         <h2 class="libro-title-big">Poema<br>Processo</h2>
       </div>
@@ -2276,13 +2355,13 @@ footer{
       <img src="media/libros/Casi_Todo/archive_pdf.gif" alt="">
     </div>
       <div class="libro-text-left">
-      <p class="libro-desc-left">Compilación de fragmentos de los trabajos finales de la Maestría en Escritura Creativa, promoción 2022–2024.</p>
-      <p class="libro-meta-left">40 copias<br>2024<br>Iowa, EUA</p>
+      <p class="libro-desc-left"><span class="t-en">A compilation of excerpts from the final projects of the MFA in Creative Writing, class of 2022–2024.</span><span class="t-es">Compilación de fragmentos de los trabajos finales de la Maestría en Escritura Creativa, promoción 2022–2024.</span></p>
+      <p class="libro-meta-left"><span class="t-en">40 copies</span><span class="t-es">40 copias</span><br>2024<br>Iowa, <span class="t-en">USA</span><span class="t-es">EUA</span></p>
     </div>
       <div class="libro-bottom-right">
         <div class="libro-left-bottom">
           <div class="libro-thumbs" id="lbthumbs-7"></div>
-          <a class="esc-download-btn" href="media/libros/Casi_Todo/Casi_todo_Final.pdf" download>Descargar PDF ↓</a>
+          <a class="esc-download-btn" href="media/libros/Casi_Todo/Casi_todo_Final.pdf" download><span class="t-en">Download PDF ↓</span><span class="t-es"><span class="t-en">Download PDF ↓</span><span class="t-es">Descargar PDF ↓</span></span></a>
         </div>
         <h2 class="libro-title-big">Casi<br>Todo</h2>
       </div>
@@ -2309,13 +2388,13 @@ footer{
         <img src="media/libros/practicas_migratorias/archive_pdf.gif" alt="Prácticas Migratorias — PDF">
       </div>
       <div class="libro-text-left">
-        <p class="libro-desc-left">Libro de actividades que narra la migración de Pablo desde Coro, Venezuela, hasta Texas, EUA.</p>
-        <p class="libro-meta-left">40 copias<br>2026<br>Miami, EUA</p>
+        <p class="libro-desc-left"><span class="t-en">An activity book that narrates Pablo's migration from Coro, Venezuela, to Texas, USA.</span><span class="t-es">Libro de actividades que narra la migración de Pablo desde Coro, Venezuela, hasta Texas, EUA.</span></p>
+        <p class="libro-meta-left"><span class="t-en">40 copies</span><span class="t-es">40 copias</span><br>2026<br>Miami, <span class="t-en">USA</span><span class="t-es">EUA</span></p>
       </div>
       <div class="libro-bottom-right">
         <div class="libro-left-bottom">
           <div class="libro-thumbs" id="lbthumbs-8"></div>
-          <a class="esc-download-btn" href="media/libros/practicas_migratorias/Practicas_migratorias.pdf" download>Descargar PDF ↓</a>
+          <a class="esc-download-btn" href="media/libros/practicas_migratorias/Practicas_migratorias.pdf" download><span class="t-en">Download PDF ↓</span><span class="t-es"><span class="t-en">Download PDF ↓</span><span class="t-es">Descargar PDF ↓</span></span></a>
         </div>
         <h2 class="libro-title-big">Prácticas<br>Migratorias</h2>
       </div>
@@ -2343,8 +2422,8 @@ footer{
         <img src="media/libros/adverso_zine/archive_pdf.gif" alt="Adverso Zine — páginas">
       </div>
       <div class="libro-text-left">
-        <p class="libro-desc-left">Zine bilingüe sobre realidades adversas: la conexión entre Bad Bunny, la corrupción y el narcopetróleo venezolano.</p>
-        <p class="libro-meta-left">100 copias<br>2026<br>Miami, EUA</p>
+        <p class="libro-desc-left"><span class="t-en">A bilingual zine on adverse realities: the connection between Bad Bunny, corruption, and Venezuelan narco-oil.</span><span class="t-es">Zine bilingüe sobre realidades adversas: la conexión entre Bad Bunny, la corrupción y el narcopetróleo venezolano.</span></p>
+        <p class="libro-meta-left"><span class="t-en">100 copies</span><span class="t-es">100 copias</span><br>2026<br>Miami, <span class="t-en">USA</span><span class="t-es">EUA</span></p>
       </div>
       <div class="libro-bottom-right">
         <div class="libro-left-bottom">
@@ -2383,7 +2462,7 @@ footer{
 </div><!-- /libros-slideshow -->
 
 <div class="libros-footer">
-  <p class="expo-section-label">Libros de Artista · 9 publicaciones</p>
+  <p class="expo-section-label"><span class="t-en">Artist Books · 9 publications</span><span class="t-es">Libros de Artista · 9 publicaciones</span></p>
   <div class="libros-nav">
     <button class="libros-nav-btn" id="libros-prev" disabled>←</button>
     <span class="libros-nav-counter" id="libros-counter">1 / 10</span>
@@ -2393,12 +2472,24 @@ footer{
 
 </section>
 
+<!-- ── PODCAST TEASER ── -->
+<section id="podcast">
+<span class="podcast-teaser-bg" aria-hidden="true">)))</span>
+<p class="podcast-label">Podcast</p>
+<h2 class="podcast-teaser-title">Caribbean<br>Techno Poetics</h2>
+<p class="podcast-teaser-sub">
+<span class="t-en">Interviews with the writers working the liminal space between code, poetry, and the Caribbean.</span>
+<span class="t-es">Entrevistas con los escritores que trabajan el espacio liminal entre el código, la poesía y el Caribe.</span>
+</p>
+<a class="podcast-teaser-link" href="podcast.html"><span class="t-en">Listen to the episodes</span><span class="t-es">Escuchar los episodios</span> ↗</a>
+</section>
+
 <!-- ── CONTACT ── -->
 <section id="contact">
-<div class="contact-bg">hola</div>
-<p class="section-label">Contacto</p>
-<h2 class="contact-title">Hagamos algo<br><em>extraño.</em></h2>
-<p class="contact-sub">Abierto a colaboraciones, comisiones y conversaciones.</p>
+<div class="contact-bg"><span class="t-en">hi</span><span class="t-es">hola</span></div>
+<p class="section-label"><span class="t-en">Contact</span><span class="t-es">Contacto</span></p>
+<h2 class="contact-title"><span class="t-en">Let’s make something<br><em>strange.</em></span><span class="t-es">Hagamos algo<br><em>extraño.</em></span></h2>
+<p class="contact-sub"><span class="t-en">Open to collaborations, commissions, and conversations.</span><span class="t-es">Abierto a colaboraciones, comisiones y conversaciones.</span></p>
 <div class="contact-links">
 <a href="mailto:gerardinicols@gmail.com" class="contact-link primary">gerardinicols@gmail.com</a>
 <a href="https://instagram.com" class="contact-link secondary">Instagram</a>
@@ -2408,10 +2499,28 @@ footer{
 
 <footer>
 <span>© 2026 Nicolás Gerardi Rousset</span>
-<span>Escritura · Tecnología · Diseño — Caribe</span>
+<span><span class="t-en">Writing · Technology · Design — Caribbean</span><span class="t-es">Escritura · Tecnología · Diseño — Caribe</span></span>
 </footer>
 
 <script>
+// ── I18N: language toggle (EN default, ES optional) ──
+(function(){
+  function applyLang(lang){
+    document.documentElement.setAttribute('data-lang', lang);
+    document.documentElement.setAttribute('lang', lang);
+    var enBtn=document.getElementById('lang-en-btn'), esBtn=document.getElementById('lang-es-btn');
+    if(enBtn) enBtn.classList.toggle('active', lang==='en');
+    if(esBtn) esBtn.classList.toggle('active', lang==='es');
+  }
+  window.setLang = function(lang){
+    try{ localStorage.setItem('lang', lang); }catch(e){}
+    applyLang(lang);
+  };
+  var saved = 'en';
+  try{ saved = localStorage.getItem('lang') || 'en'; }catch(e){}
+  applyLang(saved);
+})();
+
 // ── EXPOSICIONES 2026 — two-level navigation ──
 try{(function(){
 
