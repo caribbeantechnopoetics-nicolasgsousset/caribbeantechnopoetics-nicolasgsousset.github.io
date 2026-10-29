@@ -347,6 +347,27 @@ html[data-lang="es"] .t-en{display:none;}
   }
   .tp-btn{ width:44px; height:44px; font-size:16px; }
   .tp-counter{ min-width:28px; font-size:9px; }
+
+  /* poems are locked until the reader taps "interact": until then the
+     page scrolls normally over them and nothing reacts to touches */
+  .tp-canvas-wrap{ touch-action:pan-y; }
+  .tp-canvas-wrap.tp-live{ touch-action:none; }
+  .tp-activate{
+    display:flex; align-items:center; gap:8px;
+    position:absolute; left:50%; bottom:30px; transform:translateX(-50%);
+    z-index:12; background:#fff; border:1.5px solid #000;
+    padding:10px 16px; cursor:pointer; white-space:nowrap;
+    font-family:var(--mono); font-size:10px; letter-spacing:2px; text-transform:uppercase;
+    color:var(--text-dark);
+  }
+  .tp-activate svg{ width:18px; height:18px; flex-shrink:0; }
+  .tp-canvas-wrap.tp-live .tp-activate{ display:none; }
+  .tp-exit-btn{
+    display:none; position:absolute; top:8px; right:8px; z-index:12;
+    background:#000; color:#fff; border:0; padding:9px 12px; cursor:pointer;
+    font-family:var(--mono); font-size:10px; letter-spacing:2px; text-transform:uppercase;
+  }
+  .tp-canvas-wrap.tp-live .tp-exit-btn{ display:block; }
 }
 
 /* ── BIO ── */
@@ -2807,10 +2828,36 @@ function tpGo(dir){
     var d=parseInt(btn.getAttribute('data-dir'),10);
     btn.disabled=(d===-1)?(tpCurrent===0):(tpCurrent===n-1);
   });
+  tpSetLive(null,false);
   // trigger lazy init for the slide now entering view
   tpMaybeInit(tpCurrent);
 }
 tpGo(0);
+
+// ── input gating: a poem only reacts when its slide is showing, the touch/click
+//    is inside its canvas and (on phones) the reader has tapped "interact" ──
+var tpMobileMQ=window.matchMedia('(max-width:700px)');
+function tpWrap(k){ return document.getElementById(k===0?'tp-canvas-wrap':'tp-canvas-wrap-'+(k+1)); }
+function tpLive(k){
+  if(!tpMobileMQ.matches) return true;
+  var w=tpWrap(k); return !!(w&&w.classList.contains('tp-live'));
+}
+function tpActive(k,p){
+  return tpCurrent===k+1 && tpLive(k) &&
+         p.mouseX>=0&&p.mouseX<=p.width&&p.mouseY>=0&&p.mouseY<=p.height;
+}
+function tpSetLive(wrap,on){
+  document.querySelectorAll('.tp-canvas-wrap.tp-live').forEach(function(w){ if(w!==wrap) w.classList.remove('tp-live'); });
+  if(wrap){
+    wrap.classList.toggle('tp-live',on);
+    if(on){ var ins=wrap.querySelector('.tp-instruction'); if(ins) ins.classList.add('hidden'); }
+  }
+}
+document.querySelectorAll('.tp-canvas-wrap').forEach(function(w){
+  var a=w.querySelector('.tp-activate'), x=w.querySelector('.tp-exit-btn');
+  if(a) a.addEventListener('click',function(e){ e.stopPropagation(); tpSetLive(w,true); });
+  if(x) x.addEventListener('click',function(e){ e.stopPropagation(); tpSetLive(w,false); });
+});
 
 // called when navigating to a slide — inits sketch if p5 is ready and not yet inited
 function tpMaybeInit(idx){
@@ -2833,12 +2880,14 @@ window.addEventListener('orientationchange',function(){setTimeout(setVH,300);});
 // ── SWIPE NAVIGATION (horizontal only, vertical scroll stays with browser) ──
 (function(){
   var el=document.querySelector('.tp-show');
-  var startX=0,startY=0;
+  var startX=0,startY=0,onLive=false;
   el.addEventListener('touchstart',function(e){
     startX=e.touches[0].clientX;
     startY=e.touches[0].clientY;
+    onLive=!!(e.target.closest&&e.target.closest('.tp-canvas-wrap.tp-live'));
   },{passive:true});
   el.addEventListener('touchend',function(e){
+    if(onLive) return;
     var dx=e.changedTouches[0].clientX-startX;
     var dy=e.changedTouches[0].clientY-startY;
     // only fire on clear horizontal swipe (>50px, more horizontal than vertical)
@@ -2880,7 +2929,7 @@ function initTpSketch(){
   };
 
   p.draw=function(){
-    if(p.mouseIsPressed){
+    if(p.mouseIsPressed&&tpActive(0,p)){
       if(!hintHidden){
         document.getElementById('tp-hint').classList.add('hidden');
         hintHidden=true;
@@ -2903,8 +2952,8 @@ function initTpSketch(){
     }
   };
 
-    p.mousePressed=function(){x=p.mouseX;y=p.mouseY;};
-    p.touchStarted=function(){x=p.mouseX;y=p.mouseY;};
+    p.mousePressed=function(){ if(tpActive(0,p)){x=p.mouseX;y=p.mouseY;} };
+    p.touchStarted=function(){ if(tpActive(0,p)){x=p.mouseX;y=p.mouseY;} };
     p.touchMoved=function(){};  // allow vertical scroll during drag
   },'tp-canvas-container');
 }
@@ -2970,12 +3019,14 @@ function initInmanente(){
       p.background(255);
       p.fill(0);
       p.noStroke();
+      var mx=-9999,my=-9999;
+      if(tpActive(1,p)){ mx=p.mouseX; my=p.mouseY; }
       for(var i=0;i<particles.length;i++){
         var pt=particles[i];
-        var dm=p.dist(pt.x,pt.y,p.mouseX,p.mouseY);
+        var dm=p.dist(pt.x,pt.y,mx,my);
         var do_=p.dist(pt.ox,pt.oy,pt.x,pt.y);
         if(dm<impactRange){
-          var ang=p.atan2(pt.y-p.mouseY,pt.x-p.mouseX);
+          var ang=p.atan2(pt.y-my,pt.x-mx);
           var force=(impactRange-dm)/impactRange*particleDensity;
           pt.x+=p.cos(ang)*force;
           pt.y+=p.sin(ang)*force;
@@ -3081,10 +3132,8 @@ function initResuena(){
       clickCount++;
     }
 
-    p.mousePressed=function(){
-      if(p.mouseX>=0&&p.mouseX<=p.width&&p.mouseY>=0&&p.mouseY<=p.height) burst();
-    };
-    p.touchStarted=function(){ burst(); };
+    p.mousePressed=function(){ if(tpActive(2,p)) burst(); };
+    p.touchStarted=function(){ if(tpActive(2,p)) burst(); };
 
     p.draw=function(){
       p.background(255);
@@ -3140,8 +3189,10 @@ function initResuena(){
       }
 
       /* cursor dot */
-      p.fill(0); p.noStroke();
-      p.ellipse(p.mouseX,p.mouseY,14,14);
+      if(tpActive(2,p)){
+        p.fill(0); p.noStroke();
+        p.ellipse(p.mouseX,p.mouseY,14,14);
+      }
     };
     p.touchMoved=function(){};
   },'tp-canvas-container-3');
@@ -3249,16 +3300,9 @@ function initRazones(){
       }
     };
 
-    p.mousePressed=function(){
-      if(p.mouseX>=0&&p.mouseX<=p.width&&p.mouseY>=0&&p.mouseY<=p.height)
-        showNextWords();
-    };
-    p.keyPressed=function(){ showNextWords(); };
-    p.touchStarted=function(){
-      if(p.mouseX>=0&&p.mouseX<=p.width&&p.mouseY>=0&&p.mouseY<=p.height){
-        showNextWords();
-      }
-    };
+    p.mousePressed=function(){ if(tpActive(3,p)) showNextWords(); };
+    p.keyPressed=function(){ if(tpCurrent===4&&tpLive(3)) showNextWords(); };
+    p.touchStarted=function(){ if(tpActive(3,p)) showNextWords(); };
     p.touchMoved=function(){};
   },'tp-canvas-container-4');
 }
@@ -3296,7 +3340,7 @@ function initMiRaza(){
       p.fill(0);
       p.noStroke();
       p.translate(0, p.height/2);
-      var tsz=p.map(p.mouseY,0,p.height,15,50);
+      var tsz=p.map(tpActive(4,p)?p.mouseY:p.height/2,0,p.height,15,50);
       p.textSize(tsz);
       p.textFont('Bricolage Grotesque, Arial, sans-serif');
       for(var x=0;x<p.width;x+=4){
@@ -3305,15 +3349,12 @@ function initMiRaza(){
       }
     };
 
-    p.mousePressed=function(){
-      if(p.mouseX<0||p.mouseX>p.width||p.mouseY<0||p.mouseY>p.height) return;
+    function nextPhrase(){
       displayText=phrases[clickCount%phrases.length];
       clickCount++;
-    };
-    p.touchStarted=function(){
-      displayText=phrases[clickCount%phrases.length];
-      clickCount++;
-    };
+    }
+    p.mousePressed=function(){ if(tpActive(4,p)) nextPhrase(); };
+    p.touchStarted=function(){ if(tpActive(4,p)) nextPhrase(); };
     p.touchMoved=function(){};
   },'tp-canvas-container-5');
 }
