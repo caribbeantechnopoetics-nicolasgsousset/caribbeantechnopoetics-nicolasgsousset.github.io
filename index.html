@@ -82,6 +82,10 @@ html[data-lang="es"] .t-en{display:none;}
 .hl-5{top:596px; justify-content:space-between;}
 .hl-6{top:733px; justify-content:space-between;}
 .hl-7{top:870px; font-weight:800;}
+/* English hero: longer sentence, so slightly smaller type and a gap in the last row */
+.hero-canvas.t-en .hl{font-size:86px;letter-spacing:-4.3px;}
+.hero-canvas.t-en .hl .gm-italic{font-size:72px;}
+.hero-canvas.t-en .hl-7{gap:34px;}
 
 /* pill images — flow inside flex rows */
 .hero-pill{
@@ -1511,45 +1515,68 @@ footer{
 <!-- ── HERO ── -->
 <div id="hero">
 
-<!-- mobile layout -->
-<div class="hero-mobile">
-  <div class="hm-line"> <span class="t-en">— Hi! I'm</span><span class="t-es">— ¡Hola! Soy</span> <span class="gm-italic">Nicolás</span></div>
-  <div class="hm-line"><span class="gm-italic">Gerardi Rousset.</span> <span class="t-en">I link</span><span class="t-es">Investigo la</span></div>
-  <div class="hm-line"><span class="t-en">writing</span><span class="t-es">relación</span> <div class="hm-pill hm-pill-inmanente"><img src="inmanente.gif" alt=""></div> <span class="t-en">to:</span><span class="t-es">entre:</span></div>
-  <div class="hm-line"><span class="t-en">technology</span><span class="t-es">escritura</span> <div class="hm-pill hm-pill-razon"><img src="razoneshumanitarias_final.gif" alt=""></div></div>
-  <div class="hm-line"><span class="t-en">and</span><span class="t-es">creativa, tecnología y</span></div>
-  <div class="hm-line"><span class="t-en">design</span><span class="t-es">diseño</span> <div class="hm-pill hm-pill-pulso"><img src="pulso.gif" alt=""></div> <span class="t-en">in</span><span class="t-es">en</span> <div class="hm-pill hm-pill-caribe"><img src="caribe.gif" alt=""></div> <span class="t-en">the</span><span class="t-es">el</span></div>
-  <div class="hm-line hm-bold"><span class="t-en">Caribbean.</span><span class="t-es">Caribe.</span></div>
+<!-- mobile layout — EN -->
+<div class="hero-mobile t-en">
+  <div class="hm-line">Hi, I'm <span class="gm-italic">Nicolás</span></div>
+  <div class="hm-line"><span class="gm-italic">Gerardi Rousset.</span> My research</div>
+  <div class="hm-line">explores <div class="hm-pill hm-pill-inmanente"><img src="inmanente.gif" alt=""></div> the</div>
+  <div class="hm-line">intersections <div class="hm-pill hm-pill-razon"><img src="razoneshumanitarias_final.gif" alt=""></div> of</div>
+  <div class="hm-line">creative writing, <div class="hm-pill hm-pill-pulso"><img src="pulso.gif" alt=""></div></div>
+  <div class="hm-line">technology, and design</div>
+  <div class="hm-line hm-bold">in the <div class="hm-pill hm-pill-caribe"><img src="caribe.gif" alt=""></div> Caribbean.</div>
+</div>
+<!-- mobile layout — ES -->
+<div class="hero-mobile t-es">
+  <div class="hm-line"> — ¡Hola! Soy <span class="gm-italic">Nicolás</span></div>
+  <div class="hm-line"><span class="gm-italic">Gerardi Rousset.</span> Investigo la</div>
+  <div class="hm-line">relación <div class="hm-pill hm-pill-inmanente"><img src="inmanente.gif" alt=""></div> entre:</div>
+  <div class="hm-line">escritura <div class="hm-pill hm-pill-razon"><img src="razoneshumanitarias_final.gif" alt=""></div></div>
+  <div class="hm-line">creativa, tecnología y</div>
+  <div class="hm-line">diseño <div class="hm-pill hm-pill-pulso"><img src="pulso.gif" alt=""></div> en <div class="hm-pill hm-pill-caribe"><img src="caribe.gif" alt=""></div> el</div>
+  <div class="hm-line hm-bold">Caribe.</div>
 </div>
 
-<div class="hero-canvas">
-<!-- L1: — ¡Hola! Soy | Nicolás -->
-<div class="hl hl-1"><span><span class="t-en"> — Hi! I'm</span><span class="t-es"> — ¡Hola! Soy</span></span><span class="gm-italic">Nicolás</span></div>
-<!-- L2: Gerardi Rousset. | Investigo la -->
-<div class="hl hl-2"><span class="gm-italic">Gerardi Rousset.</span><span><span class="t-en">I link</span><span class="t-es">Investigo la</span></span></div>
-<!-- L3: relación | [pill] | entre: -->
+<!-- desktop canvas — EN -->
+<div class="hero-canvas t-en">
+<div class="hl hl-1"><span>Hi, I'm</span><span class="gm-italic">Nicolás</span></div>
+<div class="hl hl-2"><span class="gm-italic">Gerardi Rousset.</span><span>My research</span></div>
 <div class="hl hl-3">
-  <span><span class="t-en">writing</span><span class="t-es">relación</span></span>
+  <span>explores</span>
   <div class="hero-pill pill-inmanente"><img src="inmanente.gif" alt="" /></div>
-  <span><span class="t-en">to:</span><span class="t-es">entre:</span></span>
+  <span>the</span>
 </div>
-<!-- L4: escritura | [pill] -->
 <div class="hl hl-4">
-  <span><span class="t-en">technology</span><span class="t-es">escritura</span></span>
+  <span>intersections</span>
+  <div class="hero-pill pill-razon"><img src="razoneshumanitarias_final.gif" alt="" /></div>
+  <span>of</span>
+</div>
+<div class="hl hl-5"><span>creative writing,</span><div class="hero-pill pill-pulso"><img src="pulso.gif" alt="" loading="lazy" /></div></div>
+<div class="hl hl-6"><span>technology, and design</span></div>
+<div class="hl hl-7"><span>in the</span><div class="hero-pill pill-caribe"><img src="caribe.gif" alt="" loading="lazy" /></div><span>Caribbean.</span></div>
+</div>
+
+<!-- desktop canvas — ES -->
+<div class="hero-canvas t-es">
+<div class="hl hl-1"><span> — ¡Hola! Soy</span><span class="gm-italic">Nicolás</span></div>
+<div class="hl hl-2"><span class="gm-italic">Gerardi Rousset.</span><span>Investigo la</span></div>
+<div class="hl hl-3">
+  <span>relación</span>
+  <div class="hero-pill pill-inmanente"><img src="inmanente.gif" alt="" /></div>
+  <span>entre:</span>
+</div>
+<div class="hl hl-4">
+  <span>escritura</span>
   <div class="hero-pill pill-razon"><img src="razoneshumanitarias_final.gif" alt="" /></div>
 </div>
-<!-- L5: creativa,tecnología | y -->
-<div class="hl hl-5"><span><span class="t-en">and</span><span class="t-es">creativa,tecnología</span></span><span><span class="t-en"></span><span class="t-es">y</span></span></div>
-<!-- L6: diseño | [pill] | en | [pill] | el -->
+<div class="hl hl-5"><span>creativa,tecnología</span><span>y</span></div>
 <div class="hl hl-6">
-  <span><span class="t-en">design</span><span class="t-es">diseño</span></span>
+  <span>diseño</span>
   <div class="hero-pill pill-pulso"><img src="pulso.gif" alt="" loading="lazy" /></div>
-  <span><span class="t-en">in</span><span class="t-es">en</span></span>
+  <span>en</span>
   <div class="hero-pill pill-caribe"><img src="caribe.gif" alt="" loading="lazy" /></div>
-  <span><span class="t-en">the</span><span class="t-es">el</span></span>
+  <span>el</span>
 </div>
-<!-- L7: Caribe. -->
-<div class="hl hl-7"><span class="t-en">Caribbean.</span><span class="t-es">Caribe.</span></div>
+<div class="hl hl-7">Caribe.</div>
 </div>
 </div>
 
@@ -2806,7 +2833,7 @@ if(isMobile){
   return;
 }
 var s=window.innerWidth/1440;
-document.querySelector('.hero-canvas').style.transform='scale('+s+')';
+document.querySelectorAll('.hero-canvas').forEach(function(c){c.style.transform='scale('+s+')';});
 document.getElementById('hero').style.height=(1024*s)+'px';
 }
 scaleHero();
