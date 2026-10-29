@@ -85,7 +85,11 @@ html[data-lang="es"] .t-en{display:none;}
 /* English hero: longer sentence, so slightly smaller type and a gap in the last row */
 .hero-canvas.t-en .hl{font-size:86px;letter-spacing:-4.3px;}
 .hero-canvas.t-en .hl .gm-italic{font-size:72px;}
-.hero-canvas.t-en .hl-7{gap:34px;}
+.hero-canvas.t-en .hl-3,
+.hero-canvas.t-en .hl-4,
+.hero-canvas.t-en .hl-5,
+.hero-canvas.t-en .hl-6,
+.hero-canvas.t-en .hl-7{justify-content:flex-start;gap:30px;}
 
 /* pill images — flow inside flex rows */
 .hero-pill{
@@ -1519,7 +1523,7 @@ footer{
 <div class="hero-mobile t-en">
   <div class="hm-line">Hi, I'm <span class="gm-italic">Nicolás</span></div>
   <div class="hm-line"><span class="gm-italic">Gerardi Rousset.</span> My research</div>
-  <div class="hm-line">explores <div class="hm-pill hm-pill-inmanente"><img src="inmanente.gif" alt=""></div> the</div>
+  <div class="hm-line">explores the <div class="hm-pill hm-pill-inmanente"><img src="inmanente.gif" alt=""></div></div>
   <div class="hm-line">intersections <div class="hm-pill hm-pill-razon"><img src="razoneshumanitarias_final.gif" alt=""></div> of</div>
   <div class="hm-line">creative writing, <div class="hm-pill hm-pill-pulso"><img src="pulso.gif" alt=""></div></div>
   <div class="hm-line">technology, and design</div>
@@ -1541,9 +1545,8 @@ footer{
 <div class="hl hl-1"><span>Hi, I'm</span><span class="gm-italic">Nicolás</span></div>
 <div class="hl hl-2"><span class="gm-italic">Gerardi Rousset.</span><span>My research</span></div>
 <div class="hl hl-3">
-  <span>explores</span>
+  <span>explores the</span>
   <div class="hero-pill pill-inmanente"><img src="inmanente.gif" alt="" /></div>
-  <span>the</span>
 </div>
 <div class="hl hl-4">
   <span>intersections</span>
